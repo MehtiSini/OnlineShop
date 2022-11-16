@@ -22,8 +22,11 @@ namespace Sm.Application.ProductCategory
             {
                 return operation.Failed("این نام قبلا ثبت شده است");
             }
-            var category = new ShopManagement.Domain.ProductCategoryAgg.ProductCategory (cmd.PictureAlt, cmd.Name, cmd.PictureTitle, cmd.PicturePath,
-                cmd.Description, cmd.KeyWords, cmd.MetaDescription, cmd.Slug);
+
+            var slug = cmd.Slug.ToSlug;
+
+            var category = new ShopManagement.Domain.ProductCategoryAgg.ProductCategory(cmd.PictureAlt, cmd.Name, cmd.PictureTitle, cmd.PicturePath,
+                cmd.Description, cmd.KeyWords, cmd.MetaDescription, slug.ToString());
 
             _repository.Create(category);
             _repository.SaveChanges();
@@ -46,9 +49,11 @@ namespace Sm.Application.ProductCategory
                 operation.Failed("عملیات ویرایش انجام نشد");
             }
 
+            var slug = cmd.Slug.ToSlug;
+
             ProductCategory.Edit(cmd.PictureAlt, cmd.Name,
                 cmd.PictureTitle, cmd.PicturePath,
-                cmd.Description, cmd.KeyWords, cmd.MetaDescription, cmd.Slug);
+                cmd.Description, cmd.KeyWords, cmd.MetaDescription, slug.ToString());
 
             _repository.SaveChanges();
             return operation.Succeed();
@@ -56,13 +61,12 @@ namespace Sm.Application.ProductCategory
 
         public EditProductCategory GetDetails(long Id)
         {
-           return  _repository.GetDetails(Id);
-
+            return _repository.GetDetails(Id);
         }
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel cmd)
         {
-          return   _repository.Search(cmd);
+            return _repository.Search(cmd);
         }
     }
 }
