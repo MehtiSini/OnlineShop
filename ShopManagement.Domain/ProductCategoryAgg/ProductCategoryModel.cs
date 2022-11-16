@@ -2,7 +2,7 @@
 
 namespace ShopManagement.Domain.ProductCategoryAgg
 {
-    public class ProductCategory : EntityBase
+    public class ProductCategoryModel : EntityBase
     {
         public string? Name { get; private set; }
         public string? Description { get; private set; }
@@ -11,10 +11,11 @@ namespace ShopManagement.Domain.ProductCategoryAgg
         public string? PictureTitle { get; private set; }
         public string? KeyWords { get; private set; }
         public string? MetaDescription { get; private set; }
+        public long ProductsCount { get; private set; }
         public string? Slug { get; private set; }
 
         //Cunstructor
-        public ProductCategory(string? name, string? description, string? picturePath, string? pictureAlt, string? pictureTitle, string? keyWords, string? metaDescription, string? slug)
+        public ProductCategoryModel(string? name, string? description, string? picturePath, string? pictureAlt, string? pictureTitle, string? keyWords, string? metaDescription, string? slug)
         {
             Name = name;
             Description = description;

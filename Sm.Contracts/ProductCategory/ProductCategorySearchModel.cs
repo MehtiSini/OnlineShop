@@ -2,6 +2,6 @@
 {
     public class ProductCategorySearchModel
     {
-        public long Name { get; set; }
+        public string? Name { get; set; }
     }
 }
