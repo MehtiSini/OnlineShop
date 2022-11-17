@@ -10,9 +10,9 @@ using Sm.Contracts.ProductCategory;
 
 namespace ShopManagement.Configuration
 {
-    public class ShopConfig
+    public class ShopBootStrapper
     {
-        public void Config(IServiceCollection service , string ConnString)
+        public void ConfigService(IServiceCollection service , string ConnString)
         {
             service.AddTransient<IProductCategoryRepository , ProductCategoryRepository>();
             service.AddTransient<IProductCategoryApplication, ProductCategoryApplication>();
@@ -20,6 +20,5 @@ namespace ShopManagement.Configuration
             service.AddDbContext<ProductCategoryContext>(x => x.UseSqlServer(ConnString));
 
         }
-
     }
 }
