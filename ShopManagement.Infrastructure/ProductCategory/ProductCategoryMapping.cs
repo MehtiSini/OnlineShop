@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShopManagement.Domain.ProductCategoryAgg;
 
-namespace ShopManagement.Infrastructure.ProductCategory.Mapping
+namespace ShopManagement.Infrastructure.EfCore.ProductCategory
 {
     public class ProductCategoryMapping : IEntityTypeConfiguration<ProductCategoryModel>
     {
@@ -18,6 +18,9 @@ namespace ShopManagement.Infrastructure.ProductCategory.Mapping
             builder.Property(x => x.KeyWords).HasMaxLength(80).IsRequired();
             builder.Property(x => x.MetaDescription).HasMaxLength(150).IsRequired();
             builder.Property(x => x.Slug).HasMaxLength(300).IsRequired();
+
+            builder.HasMany(x => x.Products).WithOne(x => x.Category).HasForeignKey(x=>x.CategoryId);
+
         }
     }
 }

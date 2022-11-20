@@ -5,13 +5,13 @@ using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 using Sm.Contracts.ProductCategory;
 using System.Linq.Expressions;
 
-namespace ShopManagement.Infrastructure.ProductCategory.Repository
+namespace ShopManagement.Infrastructure.EfCore.ProductCategory
 {
-    public class ProductCategoryRepository :  RepositoryBase<long,ProductCategoryModel> , IProductCategoryRepository
+    public class ProductCategoryRepository : RepositoryBase<long, ProductCategoryModel>, IProductCategoryRepository
     {
-        private readonly ProductCategoryContext _context;
+        private readonly ShopContext _context;
 
-        public ProductCategoryRepository(ProductCategoryContext context) : base(context)
+        public ProductCategoryRepository(ShopContext context) : base(context)
         {
             _context = context;
         }
@@ -32,7 +32,7 @@ namespace ShopManagement.Infrastructure.ProductCategory.Repository
             }).FirstOrDefault(x => x.Id == id);
         }
 
-     
+
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
         {
             var query = _context.productCategories.Select(x => new ProductCategoryViewModel
@@ -44,7 +44,7 @@ namespace ShopManagement.Infrastructure.ProductCategory.Repository
                 ProductsCount = x.ProductsCount,
             });
 
-            if(!string.IsNullOrWhiteSpace(searchModel.Name))
+            if (!string.IsNullOrWhiteSpace(searchModel.Name))
             {
                 query = query.Where(x => x.Name.Contains(searchModel.Name));
             }

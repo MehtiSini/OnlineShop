@@ -8,6 +8,7 @@ SinglePage.LoadModal = function () {
     url = url.split("showmodal=")[1];
     $.get(url,
         null,
+        //This part help us to imlepent our validation In Client Side
         function (htmlPage) {
             $("#ModalContent").html(htmlPage);
             const container = document.getElementById("ModalContent");

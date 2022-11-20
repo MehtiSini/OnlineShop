@@ -1,4 +1,5 @@
 ﻿using MyFramework.Domain;
+using ShopManagement.Domain.ProductAgg;
 
 namespace ShopManagement.Domain.ProductCategoryAgg
 {
@@ -13,6 +14,9 @@ namespace ShopManagement.Domain.ProductCategoryAgg
         public string? MetaDescription { get; private set; }
         public long ProductsCount { get; private set; }
         public string? Slug { get; private set; }
+
+        public ICollection<ProductModel> Products { get; private set; }
+
 
         //Cunstructor
         public ProductCategoryModel(string? name, string? description, string? picturePath, string? pictureAlt, string? pictureTitle, string? keyWords, string? metaDescription, string? slug)
@@ -43,4 +47,6 @@ namespace ShopManagement.Domain.ProductCategoryAgg
         }
 
     }
+
+  
 }

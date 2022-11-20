@@ -20,7 +20,7 @@ namespace Sm.Application.ProductCategory
 
             if (_repository.Exist(x => x.Name == cmd.Name))
             {
-                return operation.Failed("این نام قبلا ثبت شده است");
+                return operation.Failed(OperationMessage.DuplicateName);
             }
 
             var slug = cmd.Slug.ToSlug;
@@ -41,12 +41,12 @@ namespace Sm.Application.ProductCategory
 
             if (ProductCategory == null)
             {
-                operation.Failed("عملیات ویرایش انجام نشد");
+                operation.Failed(OperationMessage.NotFound);
             }
 
             if (_repository.Exist(x => x.Name == cmd.Name && x.Id != cmd.Id))
             {
-                operation.Failed("عملیات ویرایش انجام نشد");
+                operation.Failed(OperationMessage.NotFound);
             }
 
             var slug = cmd.Slug.ToSlug;
