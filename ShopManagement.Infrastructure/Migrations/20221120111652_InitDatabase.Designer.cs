@@ -12,8 +12,8 @@ using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 namespace ShopManagement.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(ProductCategoryContext))]
-    [Migration("20221119153430_InitDataBase")]
-    partial class InitDataBase
+    [Migration("20221120111652_InitDatabase")]
+    partial class InitDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

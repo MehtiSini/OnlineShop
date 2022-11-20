@@ -25,7 +25,7 @@ namespace Sm.Application.ProductCategory
 
             var slug = cmd.Slug.ToSlug;
 
-            var category = new ShopManagement.Domain.ProductCategoryAgg.ProductCategoryModel(cmd.PictureAlt, cmd.Name, cmd.PictureTitle, cmd.PicturePath,
+            var category = new ProductCategoryModel(cmd.PictureAlt, cmd.Name, cmd.PictureTitle, cmd.PicturePath,
                 cmd.Description, cmd.KeyWords, cmd.MetaDescription, slug.ToString());
 
             _repository.Create(category);
@@ -51,9 +51,8 @@ namespace Sm.Application.ProductCategory
 
             var slug = cmd.Slug.ToSlug;
 
-            ProductCategory.Edit(cmd.PictureAlt, cmd.Name,
-                cmd.PictureTitle, cmd.PicturePath,
-                cmd.Description, cmd.KeyWords, cmd.MetaDescription, slug.ToString());
+            ProductCategory.Edit(cmd.Name, cmd.Description, cmd.PicturePath, cmd.PictureAlt,
+         cmd.PictureTitle, cmd.KeyWords, cmd.MetaDescription, slug.ToString());
 
             _repository.Save();
             return operation.Succeed();

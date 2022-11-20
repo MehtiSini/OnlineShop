@@ -28,13 +28,26 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategory
             return Partial("./Create", new CreateProductCategory());
         }
 
-        public JsonResult OnPost(CreateProductCategory create)
+        public JsonResult OnPostCreate(CreateProductCategory create)
         {
             var result = _application.Create(create);
 
             return new JsonResult(result);
         }
 
+        public IActionResult OnGetEdit(long id)
+        {
+            var productcategory = _application.GetDetails(id);
+
+            return Partial("./Edit", productcategory);
+        }
+
+        public JsonResult OnPostEdit(EditProductCategory cmd)
+        {
+            var result = _application.Edit(cmd);
+
+            return new JsonResult(result);
+        }
 
     }
 }
