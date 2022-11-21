@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.Tools;
+using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
 using ShopManagement.Contracts.Product;
 using ShopManagement.Domain.ProductAgg;
@@ -6,7 +7,7 @@ using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace ShopManagement.Infrastructure.EfCore.Product
 {
-    public class ProductRepository : RepositoryBase<long,ProductModel>, IProductRepository
+    public class ProductRepository : RepositoryBase<long, ProductModel>, IProductRepository
     {
         private readonly ShopContext _context;
 
@@ -33,20 +34,23 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 UnitPrice = x.UnitPrice,
 
             }).FirstOrDefault(x => x.Id == id);
-                
+
         }
 
         public List<ProductViewModel> Search(ProductSearchModel searchModel)
         {
-            var query = _context.products.Select(x => new ProductViewModel
+            var query = _context.products.Include(x => x.Category).Select(x => new ProductViewModel
             {
                 Name = x.Name,
                 Code = x.Code,
                 Id = x.Id,
+
                 CreationDate = x.CreationDate.ToShamsi(),
                 PicturePath = x.PicturePath,
                 UnitPrice = x.UnitPrice,
-                CategoryName = x.Category.Name
+                CategoryName = x.Category.Name,
+                CategoryId = x.CategoryId
+
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
@@ -54,19 +58,18 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 query = query.Where(x => x.Name.Contains(searchModel.Name));
             }
 
-
-            if (!string.IsNullOrWhiteSpace(searchModel.CategoryName))
-            {
-                query = query.Where(x => x.Name.Contains(searchModel.CategoryName));
-            }
-
-
-            if (!string.IsNullOrWhiteSpace(searchModel.Code.ToString()))
+            if (!string.IsNullOrWhiteSpace(searchModel.Code))
             {
                 query = query.Where(x => x.Name.Contains(searchModel.Code.ToString()));
             }
 
-            return query.OrderByDescending(x => x.Id).ToList();
+            if (searchModel.CategoryId != 0)
+            {
+
+                query = query.Where(x => x.CategoryId == searchModel.CategoryId);
+            }
+
+                return query.OrderByDescending(x => x.Id).ToList();
 
         }
     }

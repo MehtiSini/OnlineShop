@@ -3,8 +3,8 @@
     public class ProductSearchModel
     {
         public string? Name { get; set; }
-        public long Code { get; set; }
-        public string? CategoryName { get; set; }
+        public string? Code { get; set; }
+        public long CategoryId { get; set; }
 
     }
 
