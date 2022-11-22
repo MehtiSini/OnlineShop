@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.Tools;
+using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
@@ -45,13 +46,13 @@ namespace ShopManagement.Infrastructure.EfCore.ProductCategory
 
         public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
         {
-            var query = _context.productCategories.Select(x => new ProductCategoryViewModel
+            var query = _context.productCategories.Include(x=>x.Products).Select(x => new ProductCategoryViewModel
             {
                 CreationDate = x.CreationDate.ToShamsi(),
                 Id = x.Id,
                 Name = x.Name,
                 PicturePath = x.PicturePath,
-                ProductsCount = x.ProductsCount,
+                ProductsCount = x.Products.Count,
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))

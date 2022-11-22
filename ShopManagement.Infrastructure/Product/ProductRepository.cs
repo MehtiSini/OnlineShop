@@ -32,7 +32,7 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 PicturePath = x.PicturePath,
                 PictureTitle = x.PictureTitle,
                 UnitPrice = x.UnitPrice,
-
+                Slug=x.Slug
             }).FirstOrDefault(x => x.Id == id);
 
         }
@@ -42,15 +42,14 @@ namespace ShopManagement.Infrastructure.EfCore.Product
             var query = _context.products.Include(x => x.Category).Select(x => new ProductViewModel
             {
                 Name = x.Name,
-                Code = x.Code,
+                Code = x.Code.ToString(),
                 Id = x.Id,
-
+                InStock=x.IsInStock,
                 CreationDate = x.CreationDate.ToShamsi(),
                 PicturePath = x.PicturePath,
                 UnitPrice = x.UnitPrice,
                 CategoryName = x.Category.Name,
                 CategoryId = x.CategoryId
-
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
@@ -60,7 +59,7 @@ namespace ShopManagement.Infrastructure.EfCore.Product
 
             if (!string.IsNullOrWhiteSpace(searchModel.Code))
             {
-                query = query.Where(x => x.Name.Contains(searchModel.Code.ToString()));
+                query = query.Where(x => x.Code.Contains(searchModel.Code.ToString()));
             }
 
             if (searchModel.CategoryId != 0)

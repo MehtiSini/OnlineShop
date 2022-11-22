@@ -2,82 +2,66 @@
 using MyFramework.Tools;
 using ShopManagement.Contracts.Product;
 using ShopManagement.Contracts.ProductPicture;
-using ShopManagement.Domain.ProductAgg;
+using ShopManagement.Domain.ProductPictureAgg;
 
-namespace ShopManagement.Application.Product
+namespace ShopManagement.Application.ProductPicture
 {
-    public class ProductApplicaiton : IProductApplication
+    public class ProductPictureApplication : IProductPictureApplication
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductPictureRepository _repository;
 
-        public ProductApplicaiton(IProductRepository repository)
+        public ProductPictureApplication(IProductPictureRepository repository)
         {
             _repository = repository;
         }
 
-        public OperationResult Create(CreateProduct cmd)
+        public OperationResult Create(CreateProductPicture cmd)
         {
             var operation = new OperationResult();
 
-            if (_repository.Exist(x => x.Name == cmd.Name))
+            if (_repository.Exist(x => x.PicturePath == cmd.PicturePath))
             {
                 return operation.Failed(OperationMessage.DuplicateRecord);
             }
 
-            var slug = cmd.Slug.ToSlug();
-
-            var product = new ProductModel(cmd.Name, cmd.Code, cmd.UnitPrice, cmd.PicturePath
-                , cmd.PictureAlt, cmd.PictureTitle, cmd.Description, cmd.ShortDescription, cmd.MetaDescription, slug, cmd.Keywords, cmd.CategoryId);
+            var product = new ProductPictureModel(cmd.PictureID, cmd.PicturePath, cmd.PictureAlt, cmd.PictureTitle);
 
             _repository.Create(product);
 
             _repository.Save();
 
             return operation.Succeed();
-
-        }
-
-      
-
-        public OperationResult Edit(EditProduct cmd)
-        {
-            var operation = new OperationResult();
-
-            var Product = _repository.GetById(cmd.Id);
-
-            if (Product == null)
-            {
-                return operation.Failed(OperationMessage.NotFound);
-            }
-
-            if (_repository.Exist(x => x.Name == cmd.Name && x.Id != cmd.Id))
-            {
-                return operation.Failed(OperationMessage.DuplicateRecord);
-            }
-
-            var slug = cmd.Slug.ToSlug();
-
-            Product.Edit(cmd.Name, cmd.Code, cmd.UnitPrice, cmd.PicturePath
-                , cmd.PictureAlt, cmd.PictureTitle, cmd.Description, cmd.ShortDescription, cmd.MetaDescription, cmd.Keywords, cmd.CategoryId,slug);
-
-            _repository.Save();
-
-            return operation.Succeed();
-
         }
 
         public OperationResult Edit(EditProductPicture cmd)
         {
-            throw new NotImplementedException();
+            var operation = new OperationResult();
+
+            var ProductPicture = _repository.GetById(cmd.Id);
+
+            if (ProductPicture == null)
+            {
+                return operation.Failed(OperationMessage.NotFound);
+            }
+
+            if (_repository.Exist(x => x.PicturePath == cmd.PicturePath && x.Id != cmd.Id && x.ProductId == cmd.PictureID))
+            {
+                return operation.Failed(OperationMessage.DuplicateRecord);
+            }
+
+            ProductPicture.Edit(cmd.PictureID, cmd.PicturePath, cmd.PictureAlt, cmd.PictureTitle);
+
+            _repository.Save();
+
+            return operation.Succeed();
         }
 
-        public EditProduct GetDetails(long Id)
+        public EditProductPicture GetDetails(long Id)
         {
             return _repository.GetDetails(Id);
-
         }
 
-        public OperationResult InStock(long Id)
+        public OperationResult Remove(long Id)
         {
             var operation = new OperationResult();
 
@@ -88,14 +72,13 @@ namespace ShopManagement.Application.Product
                 return operation.Failed(OperationMessage.NotFound);
             }
 
-            Product.InStock();
+            Product.Remove();
             _repository.Save();
 
             return operation.Succeed();
-
         }
 
-        public OperationResult OutOfStock(long Id)
+        public OperationResult Activate(long Id)
         {
             var operation = new OperationResult();
 
@@ -106,13 +89,13 @@ namespace ShopManagement.Application.Product
                 return operation.Failed(OperationMessage.NotFound);
             }
 
-            Product.OutOfStock();
+            Product.Activate();
             _repository.Save();
 
             return operation.Succeed();
         }
 
-        public List<ProductViewModel> Search(ProductSearchModel searchModel)
+        public List<ProductPictureViewModel> Search(ProducPictureSearchModel searchModel)
         {
             return _repository.Search(searchModel);
         }

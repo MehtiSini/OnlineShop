@@ -1,6 +1,7 @@
 ﻿using MyFramework.Domain;
 using MyFramework.Tools;
 using ShopManagement.Domain.ProductCategoryAgg;
+using ShopManagement.Domain.ProductPictureAgg;
 
 namespace ShopManagement.Domain.ProductAgg
 {
@@ -18,6 +19,9 @@ namespace ShopManagement.Domain.ProductAgg
         public string? MetaDescription { get; private set; }
         public string? Slug { get; private set; }
         public string? Keywords { get; private set; }
+
+        public ICollection<ProductPictureModel> Pictures { get; private set; }
+
 
         public long CategoryId { get; private set; }
         public ProductCategoryModel? Category { get; private set; }
@@ -49,7 +53,7 @@ namespace ShopManagement.Domain.ProductAgg
             string? pictureAlt, string? pictureTitle,
             string? shortDescription, string? description, 
             string? metaDescription,
-            string? keywords, long categoryId)
+            string? keywords, long categoryId, string? slug)
         {
             Name = name;
             Code = code;
@@ -63,12 +67,12 @@ namespace ShopManagement.Domain.ProductAgg
             Keywords = keywords;
             CategoryId = categoryId;
             IsInStock = IsInStockStatus.InStock;
+            Slug = slug;
         }
       
         public void InStock()
         {
             IsInStock = IsInStockStatus.InStock;
-
         }
 
         public void OutOfStock()

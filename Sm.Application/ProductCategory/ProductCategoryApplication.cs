@@ -20,7 +20,7 @@ namespace Sm.Application.ProductCategory
 
             if (_repository.Exist(x => x.Name == cmd.Name))
             {
-                return operation.Failed(OperationMessage.DuplicateName);
+                return operation.Failed(OperationMessage.DuplicateRecord);
             }
 
             var slug = cmd.Slug.ToSlug;
@@ -46,13 +46,13 @@ namespace Sm.Application.ProductCategory
 
             if (_repository.Exist(x => x.Name == cmd.Name && x.Id != cmd.Id))
             {
-                operation.Failed(OperationMessage.NotFound);
+                operation.Failed(OperationMessage.DuplicateRecord);
             }
 
-            var slug = cmd.Slug.ToSlug;
+            var slug = cmd.Slug.ToSlug();
 
             ProductCategory.Edit(cmd.Name, cmd.Description, cmd.PicturePath, cmd.PictureAlt,
-         cmd.PictureTitle, cmd.KeyWords, cmd.MetaDescription, slug.ToString());
+         cmd.PictureTitle, cmd.KeyWords, cmd.MetaDescription, slug);
 
             _repository.Save();
             return operation.Succeed();

@@ -1,4 +1,5 @@
 ﻿using MyFramework.Tools;
+using ShopManagement.Contracts.ProductPicture;
 
 namespace ShopManagement.Contracts.Product
 {

@@ -27,14 +27,18 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
 
         public void OnGet(ProductSearchModel searchModel)
         {
-            ProductCategories =   new SelectList(_applicationCategory.GetProductCategories(), "Id", "Name");
+            ProductCategories = new SelectList(_applicationCategory.GetProductCategories(), "Id", "Name");
 
             Products = _application.Search(searchModel);
         }
 
         public IActionResult OnGetCreate()
         {
-            return Partial("./Create", new CreateProduct());
+            var command = new CreateProduct
+            {
+                Categories = _applicationCategory.GetProductCategories()
+            };
+            return Partial("./Create", command);
         }
 
         public JsonResult OnPostCreate(CreateProduct create)
@@ -47,8 +51,8 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
         public IActionResult OnGetEdit(long id)
         {
             var product = _application.GetDetails(id);
-
-            return Partial("./Edit", product);
+            product.Categories = _applicationCategory.GetProductCategories();
+            return Partial("Edit", product);
         }
 
         public JsonResult OnPostEdit(EditProduct cmd)
@@ -58,5 +62,16 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
             return new JsonResult(result);
         }
 
+        public IActionResult OnGetInStock(long Id)
+        {
+            _application.InStock(Id);
+            return RedirectToPage("./Index");
+        }
+
+        public IActionResult OnGetOutOfStock(long Id)
+        {
+            _application.OutOfStock(Id);
+            return RedirectToPage("./Index");
+        }
     }
 }
