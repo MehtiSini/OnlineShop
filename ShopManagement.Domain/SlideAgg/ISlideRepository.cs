@@ -5,7 +5,7 @@ namespace ShopManagement.Domain.SlideAgg
 {
     public interface ISlideRepository : IRepository<long,SlideModel>
     {
-        EditSlide GetDetails(long Id);
+        EditSlide GetDetails(long id);
         List<SlideViewModel> GetList();
     }
 }

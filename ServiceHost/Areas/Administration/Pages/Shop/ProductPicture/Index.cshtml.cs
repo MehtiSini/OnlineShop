@@ -59,18 +59,6 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPicture
             return new JsonResult(result);
         }
 
-        public IActionResult OnGetInStock(long Id)
-        {
-            _applicationProductPicture.Activate(Id);
-            return RedirectToPage("./Index");
-        }
-
-        public IActionResult OnGetOutOfStock(long Id)
-        {
-            _applicationProductPicture.Remove(Id);
-            return RedirectToPage("./Index");
-        }
-
         public IActionResult OnGetRemove(long Id)
         {
             _applicationProductPicture.Remove(Id);

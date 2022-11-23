@@ -1,4 +1,5 @@
-﻿using MyFramework.Infrastructure;
+﻿using Blog.Domain.Tools;
+using MyFramework.Infrastructure;
 using ShopManagement.Contracts.Slide;
 using ShopManagement.Domain.SlideAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
@@ -14,10 +15,11 @@ namespace ShopManagement.Infrastructure.EfCore.Slide
             _context = context;
         }
 
-        public EditSlide GetDetails(long Id)
+        public EditSlide GetDetails(long id)
         {
             return _context.slides.Select(x => new EditSlide
             {
+                Id = x.Id,
                 BtnText = x.BtnText,
                 PictureAlt = x.PictureAlt,
                 PicturePath = x.PicturePath,
@@ -26,7 +28,7 @@ namespace ShopManagement.Infrastructure.EfCore.Slide
                 Text = x.Text,
                 Title=x.Title
 
-            }).FirstOrDefault(x=>x.Id==Id);
+            }).FirstOrDefault(x=>x.Id==id);
 
         }
 
@@ -38,7 +40,8 @@ namespace ShopManagement.Infrastructure.EfCore.Slide
                 PicturePath = x.PicturePath,
                 Heading = x.Heading,
                 Title=x.Title,
-                IsRemoved=x.IsRemoved
+                IsRemoved=x.IsRemoved,
+                CreationDate=x.CreationDate.ToShamsi()
             }).OrderByDescending(x=>x.Id).ToList();
 
         }
