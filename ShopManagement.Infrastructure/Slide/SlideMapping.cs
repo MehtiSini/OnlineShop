@@ -18,7 +18,7 @@ namespace ShopManagement.Infrastructure.EfCore.Slide
             builder.Property(x => x.BtnText).HasMaxLength(255).IsRequired();
             builder.Property(x => x.Heading).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Title).HasMaxLength(50);
-
+            builder.Property(x => x.Link).HasMaxLength(250).IsRequired();
 
         }
     }

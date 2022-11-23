@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopManagement.Configuratio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceHost", "ServiceHost\ServiceHost.csproj", "{AAFFFBA7-702E-4CB4-8CF4-C3111BD59B81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopManagement.Query", "ShopManagement.Query\ShopManagement.Query.csproj", "{A5D69CE8-79E0-41F8-B1F3-639D175BBFC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{AAFFFBA7-702E-4CB4-8CF4-C3111BD59B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAFFFBA7-702E-4CB4-8CF4-C3111BD59B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAFFFBA7-702E-4CB4-8CF4-C3111BD59B81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D69CE8-79E0-41F8-B1F3-639D175BBFC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D69CE8-79E0-41F8-B1F3-639D175BBFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D69CE8-79E0-41F8-B1F3-639D175BBFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D69CE8-79E0-41F8-B1F3-639D175BBFC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{AFC66E7C-8DEC-4C05-8F9C-F961DC5489D5} = {BEA75E73-8FA8-402C-BF05-4B2F0AD1DFF7}
 		{A2C8A443-6957-4752-8F8F-60389812F899} = {AFC66E7C-8DEC-4C05-8F9C-F961DC5489D5}
 		{04E40090-1821-421E-8533-C6FF83B8BCF6} = {AFC66E7C-8DEC-4C05-8F9C-F961DC5489D5}
+		{A5D69CE8-79E0-41F8-B1F3-639D175BBFC9} = {AFC66E7C-8DEC-4C05-8F9C-F961DC5489D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8565960-3936-4180-ADB8-FD785788A136}

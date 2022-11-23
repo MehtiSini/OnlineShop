@@ -18,7 +18,7 @@ namespace ShopManagement.Application.Slide
             var operation = new OperationResult();
 
             var slide = new SlideModel(cmd.PicturePath, cmd.PictureTitle, cmd.PictureAlt
-                , cmd.Heading, cmd.Title, cmd.Text, cmd.BtnText);
+                , cmd.Heading, cmd.Title, cmd.Link, cmd.Text, cmd.BtnText);
 
             _repository.Create(slide);
 
@@ -39,7 +39,7 @@ namespace ShopManagement.Application.Slide
             }
 
             slide.Edit(cmd.PicturePath, cmd.PictureTitle, cmd.PictureAlt
-              , cmd.Heading, cmd.Title, cmd.Text, cmd.BtnText);
+              , cmd.Heading, cmd.Title, cmd.Link, cmd.Text, cmd.BtnText);
 
             _repository.Save();
 
@@ -49,7 +49,7 @@ namespace ShopManagement.Application.Slide
 
         public EditSlide GetDetails(long Id)
         {
-           return _repository.GetDetails(Id);
+            return _repository.GetDetails(Id);
 
         }
 

@@ -11,11 +11,12 @@ namespace ShopManagement.Domain.SlideAgg
         public string? Title { get; private set; }
         public string? Text { get; private set; }
         public string? BtnText { get; private set; }
+        public string? Link { get; private set; }
         public bool IsRemoved { get; private set; }
 
         public SlideModel(string? picturePath,
          string? pictureTitle, string? pictureAlt,
-         string? heading, string? title, string? text, string? btnText)
+         string? heading, string? title, string? link, string? text, string? btnText)
         {
             PicturePath = picturePath;
             PictureTitle = pictureTitle;
@@ -24,12 +25,13 @@ namespace ShopManagement.Domain.SlideAgg
             Title = title;
             Text = text;
             BtnText = btnText;
+            Link = link;
             IsRemoved = false;
         }
 
         public void Edit(string? picturePath,
         string? pictureTitle, string? pictureAlt,
-        string? heading, string? title, string? text, string? btnText)
+        string? heading, string? title, string? link, string? text, string? btnText)
         {
             PicturePath = picturePath;
             PictureTitle = pictureTitle;
@@ -37,6 +39,7 @@ namespace ShopManagement.Domain.SlideAgg
             Heading = heading;
             Title = title;
             Text = text;
+            Link = link;
             BtnText = btnText;
         }
 
