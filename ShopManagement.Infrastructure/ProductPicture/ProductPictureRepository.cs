@@ -22,16 +22,16 @@ namespace ShopManagement.Infrastructure.EfCore.ProductPicture
             return _context.productPictures.Select(x => new EditProductPicture
             {
                 Id = x.Id,
-                PictureID = x.ProductId,
+                ProductId = x.ProductId,
                 PicturePath = x.PicturePath,
                 PictureAlt = x.PictureAlt,
-                PictureTitle = x.PictureTitle
+                PictureTitle = x.PictureTitle,
 
             }).FirstOrDefault(x => x.Id == id);
 
         }
 
-        public List<ProductPictureViewModel> Search(ProducPictureSearchModel searchModel)
+        public List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel)
         {
             var query = _context.productPictures.Include(X => X.Product).Select(x => new ProductPictureViewModel
             {
@@ -39,7 +39,8 @@ namespace ShopManagement.Infrastructure.EfCore.ProductPicture
                 PicturePath = x.PicturePath,
                 CreationDate = x.CreationDate.ToShamsi(),
                 Product = x.Product.Name,
-                ProductId = x.ProductId.ToString()
+                ProductId = x.ProductId.ToString(),
+                IsRemoved=x.IsRemoved
             });
 
             if (searchModel.ProductId != 0)

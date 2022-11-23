@@ -1,4 +1,5 @@
 ﻿using MyFramework.Tools;
+using ShopManagement.Contracts.Product;
 
 namespace ShopManagement.Contracts.ProductPicture
 {
@@ -9,6 +10,6 @@ namespace ShopManagement.Contracts.ProductPicture
         OperationResult Remove(long Id);
         OperationResult Activate(long Id);
         EditProductPicture GetDetails(long Id);
-        List<ProductPictureViewModel> Search(ProducPictureSearchModel searchModel);
+        List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel);
     }
 }

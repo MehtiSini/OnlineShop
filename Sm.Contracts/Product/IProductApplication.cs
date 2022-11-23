@@ -1,5 +1,6 @@
 ﻿using MyFramework.Tools;
 using ShopManagement.Contracts.ProductPicture;
+using Sm.Contracts.ProductCategory;
 
 namespace ShopManagement.Contracts.Product
 {
@@ -10,6 +11,7 @@ namespace ShopManagement.Contracts.Product
         OperationResult InStock(long Id);
         OperationResult OutOfStock(long Id);
         EditProduct GetDetails(long Id);
+        List<ProductViewModel> GetProducts();
         List<ProductViewModel> Search(ProductSearchModel searchModel);
     }
 }

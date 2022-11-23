@@ -37,6 +37,16 @@ namespace ShopManagement.Infrastructure.EfCore.Product
 
         }
 
+        public List<ProductViewModel> GetProducts()
+        {
+            return _context.products.Select(x => new ProductViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+
+            }).ToList();
+        }
+
         public List<ProductViewModel> Search(ProductSearchModel searchModel)
         {
             var query = _context.products.Include(x => x.Category).Select(x => new ProductViewModel

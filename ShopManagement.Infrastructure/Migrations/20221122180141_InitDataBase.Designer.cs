@@ -12,8 +12,8 @@ using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 namespace ShopManagement.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20221122160328_TblProductPictureAdded")]
-    partial class TblProductPictureAdded
+    [Migration("20221122180141_InitDataBase")]
+    partial class InitDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -167,9 +167,6 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PicturePath")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -177,6 +174,9 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                     b.Property<string>("PictureTitle")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<long>("ProductId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 

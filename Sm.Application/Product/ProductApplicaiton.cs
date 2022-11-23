@@ -37,8 +37,6 @@ namespace ShopManagement.Application.Product
 
         }
 
-      
-
         public OperationResult Edit(EditProduct cmd)
         {
             var operation = new OperationResult();
@@ -66,14 +64,15 @@ namespace ShopManagement.Application.Product
 
         }
 
-        public OperationResult Edit(EditProductPicture cmd)
-        {
-            throw new NotImplementedException();
-        }
-
         public EditProduct GetDetails(long Id)
         {
             return _repository.GetDetails(Id);
+
+        }
+
+        public List<ProductViewModel> GetProducts()
+        {
+            return _repository.GetProducts();
 
         }
 

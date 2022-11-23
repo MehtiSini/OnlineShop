@@ -1,5 +1,4 @@
-﻿using Blog.Domain.Tools;
-using MyFramework.Tools;
+﻿using MyFramework.Tools;
 using ShopManagement.Contracts.Product;
 using ShopManagement.Contracts.ProductPicture;
 using ShopManagement.Domain.ProductPictureAgg;
@@ -19,12 +18,12 @@ namespace ShopManagement.Application.ProductPicture
         {
             var operation = new OperationResult();
 
-            if (_repository.Exist(x => x.PicturePath == cmd.PicturePath))
+            if (_repository.Exist(x => x.PictureTitle == cmd.PictureTitle))
             {
                 return operation.Failed(OperationMessage.DuplicateRecord);
             }
 
-            var product = new ProductPictureModel(cmd.PictureID, cmd.PicturePath, cmd.PictureAlt, cmd.PictureTitle);
+            var product = new ProductPictureModel(cmd.ProductId, cmd.PicturePath, cmd.PictureAlt, cmd.PictureTitle);
 
             _repository.Create(product);
 
@@ -44,15 +43,14 @@ namespace ShopManagement.Application.ProductPicture
                 return operation.Failed(OperationMessage.NotFound);
             }
 
-            if (_repository.Exist(x => x.PicturePath == cmd.PicturePath && x.Id != cmd.Id && x.ProductId == cmd.PictureID))
-            {
-                return operation.Failed(OperationMessage.DuplicateRecord);
-            }
+            //if (_repository.Exist(x => x.PicturePath == cmd.PicturePath))
+            //{
+            //    return operation.Failed(OperationMessage.DuplicateRecord);
+            //}
 
-            ProductPicture.Edit(cmd.PictureID, cmd.PicturePath, cmd.PictureAlt, cmd.PictureTitle);
+            ProductPicture.Edit(cmd.ProductId, cmd.PicturePath, cmd.PictureAlt, cmd.PictureTitle);
 
             _repository.Save();
-
             return operation.Succeed();
         }
 
@@ -95,9 +93,10 @@ namespace ShopManagement.Application.ProductPicture
             return operation.Succeed();
         }
 
-        public List<ProductPictureViewModel> Search(ProducPictureSearchModel searchModel)
+        public List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel)
         {
             return _repository.Search(searchModel);
         }
+
     }
 }

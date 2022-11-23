@@ -6,7 +6,7 @@ namespace ShopManagement.Domain.ProductPictureAgg
     public interface IProductPictureRepository : IRepository<long, ProductPictureModel>
     {
         EditProductPicture GetDetails(long id);
-        List<ProductPictureViewModel> Search(ProducPictureSearchModel searchModel);
+        List<ProductPictureViewModel> Search(ProductPictureSearchModel searchModel);
 
     }
 }

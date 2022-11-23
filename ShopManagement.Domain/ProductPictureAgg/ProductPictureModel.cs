@@ -11,22 +11,25 @@ namespace ShopManagement.Domain.ProductPictureAgg
         public string? PictureAlt { get; private set; }
         public string? PictureTitle { get; private set; }
         public bool IsRemoved { get; private set; }
-
         public ProductModel? Product { get; private set; }
 
-
-        public ProductPictureModel(long pictureID, string? picturePath, string? pictureAlt, string? pictureTitle)
+        public ProductPictureModel()
         {
-            ProductId = pictureID;
+
+        }
+
+        public ProductPictureModel(long productId, string? picturePath, string? pictureAlt, string? pictureTitle)
+        {
+            ProductId = productId;
             PicturePath = picturePath;
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             IsRemoved = false;
         }
 
-        public void Edit(long pictureID, string? picturePath, string? pictureAlt, string? pictureTitle)
+        public void Edit(long productId, string? picturePath, string? pictureAlt, string? pictureTitle)
         {
-            ProductId = pictureID;
+            ProductId = productId;
             PicturePath = picturePath;
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;

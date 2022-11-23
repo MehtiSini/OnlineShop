@@ -21,10 +21,10 @@ namespace ShopManagement.Domain.ProductAgg
         public string? Keywords { get; private set; }
 
         public ICollection<ProductPictureModel> Pictures { get; private set; }
-
-
         public long CategoryId { get; private set; }
         public ProductCategoryModel? Category { get; private set; }
+
+
 
         public ProductModel(string? name, long code,
             double unitPrice, string? picturePath, 

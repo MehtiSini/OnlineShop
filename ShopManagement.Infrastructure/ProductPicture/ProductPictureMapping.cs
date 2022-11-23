@@ -15,7 +15,9 @@ namespace ShopManagement.Infrastructure.EfCore.ProductPicture
             builder.Property(x => x.PictureAlt).HasMaxLength(500);
             builder.Property(x => x.PicturePath).HasMaxLength(1000);
 
-            builder.HasOne(x => x.Product).WithMany(x => x.Pictures).HasForeignKey(x => x.ProductId);
+            builder.HasOne(x => x.Product)
+                .WithMany(x => x.Pictures)
+                .HasForeignKey(x => x.ProductId);
         }
     }
 }
