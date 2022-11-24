@@ -43,7 +43,7 @@ namespace ShopManagement.Contracts.Product
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public long CategoryId { get; set; }
 
-        public List<ProductCategoryViewModel>? Categories { get; set; }
+        public List<ProductCategoryQueryModel>? Categories { get; set; }
 
     }
 

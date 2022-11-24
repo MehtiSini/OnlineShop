@@ -63,14 +63,14 @@ namespace Sm.Application.ProductCategory
             return _repository.GetDetails(Id);
         }
 
-        public List<ProductCategoryViewModel> GetProductCategories()
+        public List<ProductCategoryQueryModel> GetProductCategories()
         {
 
             return _repository.GetProductCategories();
 
         }
 
-        public List<ProductCategoryViewModel> Search(ProductCategorySearchModel cmd)
+        public List<ProductCategoryQueryModel> Search(ProductCategorySearchModel cmd)
         {
             return _repository.Search(cmd);
         }

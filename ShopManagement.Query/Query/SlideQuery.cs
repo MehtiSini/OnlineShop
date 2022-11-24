@@ -1,5 +1,5 @@
 ﻿using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
-using ShopManagement.Query.Contracts;
+using ShopManagement.Query.Contracts.Slide;
 
 namespace ShopManagement.Query.Query
 {

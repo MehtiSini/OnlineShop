@@ -1,6 +1,6 @@
 ﻿namespace Sm.Contracts.ProductCategory
 {
-    public class ProductCategoryViewModel
+    public class ProductCategoryQueryModel
     {
         public long Id { get; set; }
         public string? Name { get; set; }

@@ -33,9 +33,9 @@ namespace ShopManagement.Infrastructure.EfCore.ProductCategory
             }).FirstOrDefault(x => x.Id == id);
         }
 
-        public List<ProductCategoryViewModel> GetProductCategories()
+        public List<ProductCategoryQueryModel> GetProductCategories()
         {
-            return _context.productCategories.Select(x=> new ProductCategoryViewModel
+            return _context.productCategories.Select(x=> new ProductCategoryQueryModel
             {
                 Id=x.Id,
                 Name=x.Name
@@ -44,9 +44,9 @@ namespace ShopManagement.Infrastructure.EfCore.ProductCategory
 
         }
 
-        public List<ProductCategoryViewModel> Search(ProductCategorySearchModel searchModel)
+        public List<ProductCategoryQueryModel> Search(ProductCategorySearchModel searchModel)
         {
-            var query = _context.productCategories.Include(x=>x.Products).Select(x => new ProductCategoryViewModel
+            var query = _context.productCategories.Include(x=>x.Products).Select(x => new ProductCategoryQueryModel
             {
                 CreationDate = x.CreationDate.ToShamsi(),
                 Id = x.Id,

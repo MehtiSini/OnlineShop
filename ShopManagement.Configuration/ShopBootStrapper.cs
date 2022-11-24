@@ -17,7 +17,8 @@ using ShopManagement.Infrastructure.EfCore.ProductCategory;
 using ShopManagement.Infrastructure.EfCore.ProductPicture;
 using ShopManagement.Infrastructure.EfCore.Slide;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
-using ShopManagement.Query.Contracts;
+using ShopManagement.Query.Contracts.Category;
+using ShopManagement.Query.Contracts.Slide;
 using ShopManagement.Query.Query;
 using Sm.Application.ProductCategory;
 using Sm.Contracts.ProductCategory;
@@ -41,6 +42,7 @@ namespace ShopManagement.Configuration
             service.AddTransient<ISlideRepository, SlideRepository>();
 
             service.AddTransient<ISlideQuery, SlideQuery>();
+            service.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
 
             service.AddDbContext<ShopContext>(x => x.UseSqlServer(ConnString));
 

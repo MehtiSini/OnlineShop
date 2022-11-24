@@ -9,7 +9,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategory
     {
         public ProductCategorySearchModel SearchModel { get; set; }
 
-        public List<ProductCategoryViewModel> ProductCategories;
+        public List<ProductCategoryQueryModel> ProductCategories;
 
         private readonly IProductCategoryApplication _application;
 
