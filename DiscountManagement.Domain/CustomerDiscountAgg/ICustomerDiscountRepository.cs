@@ -1,4 +1,4 @@
-﻿using DiscountManagement.Contracts;
+﻿using DiscountManagement.Contracts.CustomerDiscount;
 using DiscountManagement.Domain.CusotmerDiscountAgg;
 using MyFramework.Domain;
 

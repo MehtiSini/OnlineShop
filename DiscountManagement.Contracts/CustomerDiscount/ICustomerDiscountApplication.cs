@@ -1,6 +1,6 @@
 ﻿using MyFramework.Tools;
 
-namespace DiscountManagement.Contracts
+namespace DiscountManagement.Contracts.CustomerDiscount
 {
     public interface ICustomerDiscountApplication
     {

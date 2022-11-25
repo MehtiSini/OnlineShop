@@ -1,10 +1,10 @@
 ﻿using Blog.Domain.Tools;
-using DiscountManagement.Contracts;
+using DiscountManagement.Contracts.CustomerDiscount;
 using DiscountManagement.Domain.CusotmerDiscountAgg;
 using DiscountManagement.Domain.CustomerDiscountAgg;
 using MyFramework.Tools;
 
-namespace DiscountManagement.Application
+namespace DiscountManagement.Application.CustomerDiscount
 {
     public class CustomerDiscountApplication : ICustomerDiscountApplication
     {
@@ -18,6 +18,9 @@ namespace DiscountManagement.Application
         public OperationResult DefineDiscount(DefineCustomerDiscount cmd)
         {
             var operation = new OperationResult();
+
+              if (_repository.Exist(x => x.ProductId == cmd.ProductId && x.DiscountRate == cmd.DiscountRate))
+                return operation.Failed(OperationMessage.DuplicateRecord);
 
             var StartDate = cmd.StartDate.ToGeorgianDateTime();
             var EndDate = cmd.EndDate.ToGeorgianDateTime();
@@ -39,7 +42,7 @@ namespace DiscountManagement.Application
 
             if (Discount == null)
             {
-                return operation.Failed(OperationMessage.NotFound );
+                return operation.Failed(OperationMessage.NotFound);
             }
 
             var StartDate = cmd.StartDate.ToGeorgianDateTime();

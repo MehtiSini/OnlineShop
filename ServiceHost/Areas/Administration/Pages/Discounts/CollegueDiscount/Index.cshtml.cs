@@ -1,49 +1,47 @@
-using DiscountManagement.Contracts.CustomerDiscount;
+using DiscountManagement.Contracts.CollegueDiscount;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ShopManagement.Contracts.Product;
 
-namespace ServiceHost.Areas.Administration.Pages.CustomerDiscount
+namespace ServiceHost.Areas.Administration.Pages.CollegueDiscount
 {
     public class IndexModel : PageModel
     {
         public SelectList Products;
 
-        public CustomerDiscountSearchModel SearchModel { get; set; }
+        public CollegueDiscountSearchModel SearchModel { get; set; }
 
-        public List<CustomerDiscountViewModel> Discounts;
+        public List<CollegueDiscountViewModel> Discounts;
 
         private readonly IProductApplication _productapplication;
 
-        private readonly ICustomerDiscountApplication _discountapplication;
+        private readonly ICollegueDiscountApplication _discountapplication;
 
-        public IndexModel(IProductApplication productapplication, ICustomerDiscountApplication discountapplication)
+        public IndexModel(IProductApplication productapplication, ICollegueDiscountApplication discountapplication)
         {
             _productapplication = productapplication;
             _discountapplication = discountapplication;
         }
 
-        public void OnGet(CustomerDiscountSearchModel searchModel)
+        public void OnGet(CollegueDiscountSearchModel searchModel)
         {
             Products = new SelectList(_productapplication.GetProducts(), "Id", "Name");
-
             Discounts = _discountapplication.Search(searchModel);
         }
 
         public IActionResult OnGetCreate()
         {
-            var command = new DefineCustomerDiscount
+            var command = new DefineCollegueDiscount
             {
                 Products = _productapplication.GetProducts()
             };
             return Partial("./Create", command);
         }
 
-        public JsonResult OnPostCreate(DefineCustomerDiscount create)
+        public JsonResult OnPostCreate(DefineCollegueDiscount create)
         {
-            var result = _discountapplication.DefineDiscount(create);
-
+            var result = _discountapplication.Define(create);
             return new JsonResult(result);
         }
 
@@ -54,11 +52,24 @@ namespace ServiceHost.Areas.Administration.Pages.CustomerDiscount
             return Partial("Edit", Discount);
         }
 
-        public JsonResult OnPostEdit(EditCustomerDiscount cmd)
+        public JsonResult OnPostEdit(EditCollegueDiscount cmd)
         {
             var result = _discountapplication.Edit(cmd);
-
             return new JsonResult(result);
+        }
+
+        public IActionResult OnGetRemove(long id)
+        {
+            var result = _discountapplication.Remove(id);
+
+            return RedirectToPage("./Index");
+        }
+
+        public IActionResult OnGetActivate(long id)
+        {
+            var result = _discountapplication.Activate(id);
+
+            return RedirectToPage("./Index");
         }
 
     }

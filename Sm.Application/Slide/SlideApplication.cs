@@ -19,7 +19,7 @@ namespace ShopManagement.Application.Slide
 
             var slide = new SlideModel(cmd.PicturePath, cmd.PictureTitle, cmd.PictureAlt
                 , cmd.Heading, cmd.Title, cmd.Link, cmd.Text, cmd.BtnText);
-
+           
             _repository.Create(slide);
 
             _repository.Save();

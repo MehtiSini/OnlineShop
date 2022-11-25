@@ -1,5 +1,5 @@
 ﻿using Blog.Domain.Tools;
-using DiscountManagement.Contracts;
+using DiscountManagement.Contracts.CustomerDiscount;
 using DiscountManagement.Domain.CusotmerDiscountAgg;
 using DiscountManagement.Domain.CustomerDiscountAgg;
 using DiscountManagement.Infrastructure.EfCore.DbContextModel;
@@ -22,7 +22,7 @@ namespace DiscountManagement.Infrastructure.EfCore.CustomerDiscount
 
         public EditCustomerDiscount GetDetails(long id)
         {
-            return _context.CustomerDiscounts.Select(x => new EditCustomerDiscount
+            return _context.CustomerDiscount.Select(x => new EditCustomerDiscount
             {
                 Id = x.Id,
                 ProductId = x.ProductId,
@@ -38,7 +38,7 @@ namespace DiscountManagement.Infrastructure.EfCore.CustomerDiscount
         {
             var Product = _shopcontext.products.Select(x => new { x.Id, x.Name }).ToList();
 
-            var query = _context.CustomerDiscounts.Select(x => new CustomerDiscountViewModel
+            var query = _context.CustomerDiscount.Select(x => new CustomerDiscountViewModel
             {
                 Id = x.Id,
                 StartDateEn = x.StartDate,
