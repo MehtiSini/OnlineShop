@@ -1,3 +1,4 @@
+using DiscountManagement.Configuration;
 using ShopManagement.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,12 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-ShopBootStrapper shop = new ShopBootStrapper();
+ShopBootStrapper Shop = new ShopBootStrapper();
+DiscountBootstrapper Discount = new DiscountBootstrapper();
 
 var ConnString  = builder.Configuration.GetSection("ConnString")["OnlineShopDb"] ;
 
-shop.ConfigService(builder.Services, ConnString );
-
+Shop.ConfigService(builder.Services, ConnString );
+Discount.ConfigService(builder.Services, ConnString );
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

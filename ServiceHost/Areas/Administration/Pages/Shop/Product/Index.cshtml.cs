@@ -19,7 +19,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
 
         private readonly IProductApplication _application;
 
-        public IndexModel(IProductApplication application, IProductCategoryApplication applicationCategory)
+        public IndexModel(IProductApplication application, IProductCategoryApplication applicationCategory, DiscountManagement.Contracts.ICustomerDiscountApplication discountapplication)
         {
             _application = application;
             _applicationCategory = applicationCategory;
@@ -30,6 +30,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
             ProductCategories = new SelectList(_applicationCategory.GetProductCategories(), "Id", "Name");
 
             Products = _application.Search(searchModel);
+
         }
 
         public IActionResult OnGetCreate()

@@ -24,8 +24,6 @@ namespace ShopManagement.Domain.ProductAgg
         public long CategoryId { get; private set; }
         public ProductCategoryModel? Category { get; private set; }
 
-
-
         public ProductModel(string? name, long code,
             double unitPrice, string? picturePath, 
             string? pictureAlt, string? pictureTitle,

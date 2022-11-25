@@ -34,6 +34,28 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Slide",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PicturePath = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    PictureTitle = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    PictureAlt = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Heading = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BtnText = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    IsRemoved = table.Column<bool>(type: "bit", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Slide", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
@@ -105,6 +127,9 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ProductPicture");
+
+            migrationBuilder.DropTable(
+                name: "Slide");
 
             migrationBuilder.DropTable(
                 name: "Product");

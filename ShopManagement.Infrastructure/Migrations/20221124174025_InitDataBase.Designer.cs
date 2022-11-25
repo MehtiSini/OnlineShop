@@ -12,8 +12,8 @@ using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 namespace ShopManagement.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20221123214338_LinkAddedToSlide")]
-    partial class LinkAddedToSlide
+    [Migration("20221124174025_InitDataBase")]
+    partial class InitDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
