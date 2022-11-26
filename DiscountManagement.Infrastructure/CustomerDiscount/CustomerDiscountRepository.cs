@@ -27,8 +27,8 @@ namespace DiscountManagement.Infrastructure.EfCore.CustomerDiscount
                 Id = x.Id,
                 ProductId = x.ProductId,
                 DiscountRate = x.DiscountRate,
-                StartDate = x.StartDate.ToShamsi(),
-                EndDate = x.EndDate.ToShamsi(),
+                StartDate = x.StartDate.ToString(),
+                EndDate = x.EndDate.ToString(),
                 Reason = x.Reason
             }).FirstOrDefault(x => x.Id == id);
 

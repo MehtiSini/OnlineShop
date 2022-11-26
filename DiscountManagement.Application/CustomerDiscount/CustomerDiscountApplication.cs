@@ -19,7 +19,7 @@ namespace DiscountManagement.Application.CustomerDiscount
         {
             var operation = new OperationResult();
 
-              if (_repository.Exist(x => x.ProductId == cmd.ProductId && x.DiscountRate == cmd.DiscountRate))
+            if (_repository.Exist(x => x.ProductId == cmd.ProductId && x.DiscountRate == cmd.DiscountRate))
                 return operation.Failed(OperationMessage.DuplicateRecord);
 
             var StartDate = cmd.StartDate.ToGeorgianDateTime();
