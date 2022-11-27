@@ -18,7 +18,7 @@ namespace ShopManagement.Infrastructure.EfCore.Product
 
         public EditProduct GetDetails(long id)
         {
-            return _context.products.Select(x => new EditProduct
+            var k = _context.products.Select(x => new EditProduct
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -31,9 +31,10 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 PictureAlt = x.PictureAlt,
                 PicturePath = x.PicturePath,
                 PictureTitle = x.PictureTitle,
-                UnitPrice = x.UnitPrice,
-                Slug=x.Slug
+                Slug = x.Slug
             }).FirstOrDefault(x => x.Id == id);
+
+            return k;
 
         }
 
@@ -54,10 +55,8 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 Name = x.Name,
                 Code = x.Code.ToString(),
                 Id = x.Id,
-                InStock=x.IsInStock,
                 CreationDate = x.CreationDate.ToShamsi(),
                 PicturePath = x.PicturePath,
-                UnitPrice = x.UnitPrice,
                 CategoryName = x.Category.Name,
                 CategoryId = x.CategoryId
             });
@@ -78,7 +77,7 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 query = query.Where(x => x.CategoryId == searchModel.CategoryId);
             }
 
-                return query.OrderByDescending(x => x.Id).ToList();
+            return query.OrderByDescending(x => x.Id).ToList();
 
         }
     }

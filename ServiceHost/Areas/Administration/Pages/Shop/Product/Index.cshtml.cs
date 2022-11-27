@@ -60,20 +60,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
         public JsonResult OnPostEdit(EditProduct cmd)
         {
             var result = _application.Edit(cmd);
-
             return new JsonResult(result);
-        }
-
-        public IActionResult OnGetInStock(long Id)
-        {
-            _application.InStock(Id);
-            return RedirectToPage("./Index");
-        }
-
-        public IActionResult OnGetOutOfStock(long Id)
-        {
-            _application.OutOfStock(Id);
-            return RedirectToPage("./Index");
         }
     }
 }

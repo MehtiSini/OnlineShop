@@ -9,8 +9,6 @@ namespace ShopManagement.Domain.ProductAgg
     {
         public string? Name { get; private set; }
         public long Code { get; private set; }
-        public int IsInStock { get; private set; }
-        public double UnitPrice { get; private set; }
         public string? PicturePath { get; private set; }
         public string? PictureAlt { get; private set; }
         public string? PictureTitle { get; private set; }
@@ -25,15 +23,14 @@ namespace ShopManagement.Domain.ProductAgg
         public ProductCategoryModel? Category { get; private set; }
 
         public ProductModel(string? name, long code,
-            double unitPrice, string? picturePath, 
+           string? picturePath,
             string? pictureAlt, string? pictureTitle,
-            string? shortDescription, string? description, 
-            string? metaDescription, string? slug, 
+            string? shortDescription, string? description,
+            string? metaDescription, string? slug,
             string? keywords, long categoryId)
         {
             Name = name;
             Code = code;
-            UnitPrice = unitPrice;
             PicturePath = picturePath;
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
@@ -43,19 +40,17 @@ namespace ShopManagement.Domain.ProductAgg
             Slug = slug;
             Keywords = keywords;
             CategoryId = categoryId;
-            IsInStock = IsInStockStatus.InStock;
         }
-        
+
         public void Edit(string? name, long code,
-            double unitPrice, string? picturePath, 
+             string? picturePath,
             string? pictureAlt, string? pictureTitle,
-            string? shortDescription, string? description, 
+            string? shortDescription, string? description,
             string? metaDescription,
             string? keywords, long categoryId, string? slug)
         {
             Name = name;
             Code = code;
-            UnitPrice = unitPrice;
             PicturePath = picturePath;
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
@@ -64,18 +59,7 @@ namespace ShopManagement.Domain.ProductAgg
             MetaDescription = metaDescription;
             Keywords = keywords;
             CategoryId = categoryId;
-            IsInStock = IsInStockStatus.InStock;
             Slug = slug;
-        }
-      
-        public void InStock()
-        {
-            IsInStock = IsInStockStatus.InStock;
-        }
-
-        public void OutOfStock()
-        {
-            IsInStock = IsInStockStatus.OutOfStock;
         }
 
 

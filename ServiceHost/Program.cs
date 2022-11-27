@@ -1,4 +1,5 @@
 using DiscountManagement.Configuration;
+using InventoryManaement.Configuration;
 using ShopManagement.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,11 +9,14 @@ builder.Services.AddRazorPages();
 
 ShopBootStrapper Shop = new ShopBootStrapper();
 DiscountBootstrapper Discount = new DiscountBootstrapper();
+InventoryBootStrapper Inventory = new InventoryBootStrapper();
 
-var ConnString  = builder.Configuration.GetSection("ConnString")["OnlineShopDb"] ;
+var ConnString = builder.Configuration.GetSection("ConnString")["OnlineShopDb"];
 
-Shop.ConfigService(builder.Services, ConnString );
-Discount.ConfigService(builder.Services, ConnString );
+Shop.ConfigService(builder.Services, ConnString);
+Discount.ConfigService(builder.Services, ConnString);
+Inventory.ConfigService(builder.Services, ConnString);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

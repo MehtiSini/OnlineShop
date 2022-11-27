@@ -60,14 +60,14 @@ namespace ServiceHost.Areas.Administration.Pages.CollegueDiscount
 
         public IActionResult OnGetRemove(long id)
         {
-            var result = _discountapplication.Remove(id);
+            _discountapplication.Remove(id);
 
             return RedirectToPage("./Index");
         }
 
         public IActionResult OnGetActivate(long id)
         {
-            var result = _discountapplication.Activate(id);
+            _discountapplication.Activate(id);
 
             return RedirectToPage("./Index");
         }

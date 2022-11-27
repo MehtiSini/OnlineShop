@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
@@ -11,9 +12,11 @@ using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 namespace ShopManagement.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20221127123223_RmoveUnitPriceAndIsInStockFromProuct")]
+    partial class RmoveUnitPriceAndIsInStockFromProuct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

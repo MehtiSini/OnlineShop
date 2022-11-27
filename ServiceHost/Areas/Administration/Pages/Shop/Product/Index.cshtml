@@ -61,8 +61,6 @@
 									<th>نام</th>
 									<th>کد</th>
 									<th>گروه محصولی</th>
-									<th>قیمت</th>
-									<th>موجودی انبار</th>
 									<th>تاریخ تولید</th>
 									<th>عملیات</th>
 								</tr>
@@ -78,32 +76,12 @@
 										<td>@Product.Name</td>
 										<td>@Product.Code</td>
 										<td>@Product.CategoryName</td>
-										<td>@Product.UnitPrice</td>
-										<td class="text-center">
-											@if (@Product.InStock ==IsInStockStatus.InStock)
-											{
-												<i class="fa fa-check fa-2x text-success"></i>
-											}
-											else
-											{
-												<i class="fa fa-remove fa-2x text-danger"></i>
-											}
-										</td>
 										<td>@Product.CreationDate</td>
 										<td>
 											<a class="btn btn-warning pull-right m-rl-5"
 										   href="#showmodal=@Url.Page("./Index", "Edit", new { id = Product.Id})">
 												<i class="fa fa-edit"></i> ویرایش
 											</a>
-
-											@if (@Product.InStock == IsInStockStatus.InStock)
-											{
-												<a asp-page="./Index" asp-page-handler="OutOfStock" asp-route-Id="@Product.Id" class="btn btn-danger waves-effect waves-light m-b-5"> اتمام موجودی	</a>
-											}
-											else
-											{
-												<a asp-page="./Index" asp-page-handler="InStock" asp-route-Id="@Product.Id" class="btn btn-success waves-effect waves-light m-b-5"> موجود شد	</a>
-											}
 
 										</td>
 									</tr>

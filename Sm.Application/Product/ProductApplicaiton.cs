@@ -26,7 +26,7 @@ namespace ShopManagement.Application.Product
 
             var slug = cmd.Slug.ToSlug();
 
-            var product = new ProductModel(cmd.Name, cmd.Code, cmd.UnitPrice, cmd.PicturePath
+            var product = new ProductModel(cmd.Name, cmd.Code, cmd.PicturePath
                 , cmd.PictureAlt, cmd.PictureTitle, cmd.Description, cmd.ShortDescription, cmd.MetaDescription, slug, cmd.Keywords, cmd.CategoryId);
 
             _repository.Create(product);
@@ -55,7 +55,7 @@ namespace ShopManagement.Application.Product
 
             var slug = cmd.Slug.ToSlug();
 
-            Product.Edit(cmd.Name, cmd.Code, cmd.UnitPrice, cmd.PicturePath
+            Product.Edit(cmd.Name, cmd.Code, cmd.PicturePath
                 , cmd.PictureAlt, cmd.PictureTitle, cmd.Description, cmd.ShortDescription, cmd.MetaDescription, cmd.Keywords, cmd.CategoryId,slug);
 
             _repository.Save();
@@ -74,41 +74,6 @@ namespace ShopManagement.Application.Product
         {
             return _repository.GetProducts();
 
-        }
-
-        public OperationResult InStock(long Id)
-        {
-            var operation = new OperationResult();
-
-            var Product = _repository.GetById(Id);
-
-            if (Product == null)
-            {
-                return operation.Failed(OperationMessage.NotFound);
-            }
-
-            Product.InStock();
-            _repository.Save();
-
-            return operation.Succeed();
-
-        }
-
-        public OperationResult OutOfStock(long Id)
-        {
-            var operation = new OperationResult();
-
-            var Product = _repository.GetById(Id);
-
-            if (Product == null)
-            {
-                return operation.Failed(OperationMessage.NotFound);
-            }
-
-            Product.OutOfStock();
-            _repository.Save();
-
-            return operation.Succeed();
         }
 
         public List<ProductViewModel> Search(ProductSearchModel searchModel)

@@ -11,10 +11,6 @@ namespace ShopManagement.Contracts.Product
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public long Code { get; set; }
-        public int IsInStock { get; set; }
-
-        [Range(1,100000,ErrorMessage = ValidationMessage.IsRequired)]
-        public double UnitPrice { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? PicturePath { get; set; }
