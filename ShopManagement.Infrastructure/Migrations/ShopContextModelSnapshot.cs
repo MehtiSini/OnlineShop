@@ -10,7 +10,6 @@ using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace ShopManagement.Infrastructure.EfCore.Migrations
 {
-    [DbContext(typeof(ShopContext))]
     partial class ShopContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

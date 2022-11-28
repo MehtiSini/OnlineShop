@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Blog.Domain.Tools;
+using DiscountManagement.Infrastructure.EfCore.DbContextModel;
+using InventoryManagement.Infrastructure.EfCore.DbContextModel;
+using Microsoft.EntityFrameworkCore;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 using ShopManagement.Query.Contracts.Category;
@@ -8,16 +11,20 @@ namespace ShopManagement.Query.Query
 {
     public class ProductCategoryQuery : IProductCategoryQuery
     {
-        private readonly ShopContext _context;
+        private readonly ShopContext _shopcontext;
+        private readonly InventoryContext _inventorycontext;
+        private readonly DiscountContext _discountcontext;
 
-        public ProductCategoryQuery(ShopContext context)
+        public ProductCategoryQuery(ShopContext context, InventoryContext inventorycontext, DiscountContext discountcontext)
         {
-            _context = context;
+            _shopcontext = context;
+            _inventorycontext = inventorycontext;
+            _discountcontext = discountcontext;
         }
 
         public List<ProductCategoryQueryModel> GetCategories()
         {
-            return _context.productCategories.Select(x => new ProductCategoryQueryModel
+            return _shopcontext.productCategories.Select(x => new ProductCategoryQueryModel
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -31,7 +38,13 @@ namespace ShopManagement.Query.Query
 
         public List<ProductCategoryQueryModel> GetCategoryWithProduct()
         {
-            return _context.productCategories.Include(x => x.Products)
+            var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
+                .Select(x => new { x.DiscountRate, x.ProductId }).ToList();
+
+            var Inventory = _inventorycontext.Inventories
+                .Select(x => new { x.ProductId, x.UnitPrice }).ToList();
+
+            var Categories = _shopcontext.productCategories.Include(x => x.Products)
                 .ThenInclude(x => x.Category)
                 .Select(x => new ProductCategoryQueryModel
                 {
@@ -42,29 +55,53 @@ namespace ShopManagement.Query.Query
                     PicturePath = x.PicturePath,
                     PictureTitle = x.PictureTitle,
                     Products = MapProducts(x.Products),
-                    ProductsCount=x.Products.Count
+                    ProductsCount = x.Products.Count
 
                 }).Where(x => x.ProductsCount > 0).ToList();
+
+            foreach (var category in Categories)
+            {
+                foreach (var product in category.Products)
+                {
+                    var Price = Inventory.FirstOrDefault(x => x.ProductId == product.Id)
+                        .UnitPrice;
+
+                    product.Price = Price.ToMoney();
+
+                    Inventory.FirstOrDefault(x => x.ProductId == product.Id)
+                        .UnitPrice.ToMoney();
+
+                    var discount = Discount.FirstOrDefault(x => x.ProductId == product.Id);
+
+                    if (discount != null)
+                    {
+                        var discountrate = discount.DiscountRate;
+
+                        product.DiscountRate = discountrate;
+
+                        product.HasDiscount = discountrate > 0;
+
+                        var DiscountAmount = Math.Round(Price * discountrate) / 100;
+
+                        product.PriceWithDiscount = (Price - DiscountAmount).ToMoney();
+                    }
+                }
+            }
+            return Categories;
         }
 
         public static List<ProductQueryModel> MapProducts(List<ProductModel> products)
         {
-            var result = new List<ProductQueryModel>();
-
-            foreach (var product in products)
+            return products.Select(product => new ProductQueryModel
             {
-                var item = new ProductQueryModel
-                {
-                    Id = product.Id,
-                    Slug = product.Slug,
-                    Name = product.Name,
-                    PictureAlt = product.PictureAlt,
-                    PictureTitle = product.PictureTitle,
-                    PicturePath = product.PicturePath
-                };
-                result.Add(item);
-            }
-            return result;
+                Id = product.Id,
+                Slug = product.Slug,
+                Name = product.Name,
+                PictureAlt = product.PictureAlt,
+                PictureTitle = product.PictureTitle,
+                PicturePath = product.PicturePath,
+                Category = product.Category.Name
+            }).ToList();
         }
     }
 }

@@ -5,13 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 #nullable disable
 
 namespace ShopManagement.Infrastructure.EfCore.Migrations
 {
-    [DbContext(typeof(ShopContext))]
     [Migration("20221124174025_InitDataBase")]
     partial class InitDataBase
     {

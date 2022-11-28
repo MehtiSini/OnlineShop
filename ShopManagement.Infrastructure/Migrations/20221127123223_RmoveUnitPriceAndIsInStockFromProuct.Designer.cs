@@ -11,7 +11,6 @@ using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace ShopManagement.Infrastructure.EfCore.Migrations
 {
-    [DbContext(typeof(ShopContext))]
     [Migration("20221127123223_RmoveUnitPriceAndIsInStockFromProuct")]
     partial class RmoveUnitPriceAndIsInStockFromProuct
     {

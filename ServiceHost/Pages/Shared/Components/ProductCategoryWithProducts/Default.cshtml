@@ -21,10 +21,8 @@
 						<div class="nav nav-tabs justify-content-center" id="nav-tab2" role="tablist">
 							@foreach (var category in Model)
 							{
-
 								<a class="nav-item nav-link @(Model.First() == category ? "active" : "")" id="product-tab-@category.Id" data-toggle="tab"
 							   href="#product-series-@category.Id" role="tab" aria-selected="true">@category.Name</a>
-
 							}
 						</div>
 					</div>
@@ -59,9 +57,12 @@
 												<div class="single-grid-product">
 													<div class="single-grid-product__image">
 
-														<div class="single-grid-product__label">
-															<span class="sale">-@product.DiscountRate%</span>
-														</div>
+														@if (product.HasDiscount)
+														{
+															<div class="single-grid-product__label">
+																<span class="sale">-@product.DiscountRate % </span>
+															</div>
+														}
 														<a asp-page="/Product" asp-route-id="@product.Slug">
 															<img src="~/ProductPictures/@product.PicturePath" title="@product.PictureTitle" class="img-fluid"
 														 alt="@product.PictureAlt">
@@ -86,9 +87,17 @@
 																@product.Name
 															</a>
 														</h3>
-														<p class="single-grid-product__price">
-
-														</p>
+														  <p class="single-grid-product__price">
+                                                            @if (product.HasDiscount)
+                                                            {
+                                                                <span class="discounted-price" style="font-size:18px">@product.PriceWithDiscount تومان</span>
+                                                                <span class="main-price discounted" style="font-size:15px">@product.Price تومان</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="main-price" style="font-size:20px">@product.Price تومان</span>
+                                                            }
+                                                        </p>
 													</div>
 												</div>
 											</div>

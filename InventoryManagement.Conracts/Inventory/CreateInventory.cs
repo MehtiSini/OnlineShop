@@ -9,7 +9,7 @@ namespace InventoryManagement.Conracts.Inventory
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public long ProductId { get; set; }
 
-        [Range(1, 100000, ErrorMessage = ValidationMessage.IsRequired)]
+        [Range(1, 1000000000000000, ErrorMessage = ValidationMessage.IsRequired)]
         public double UnitPrice { get; set; }
 
         public List<ProductViewModel>? Products { get; set; }

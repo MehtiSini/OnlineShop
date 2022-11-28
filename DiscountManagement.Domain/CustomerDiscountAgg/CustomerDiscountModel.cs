@@ -10,6 +10,7 @@ namespace DiscountManagement.Domain.CusotmerDiscountAgg
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public string? Reason { get; private set; }
+        public bool DiscountFinished { get; private set; }
 
         public CustomerDiscountModel(long productId, int discountRate, DateTime startDate, DateTime endDate, string? reason)
         {
@@ -18,6 +19,7 @@ namespace DiscountManagement.Domain.CusotmerDiscountAgg
             StartDate = startDate;
             EndDate = endDate;
             Reason = reason;
+            DiscountFinished = false;
         }
 
         public void Edit(long productId, int discountRate, DateTime startDate, DateTime endDate, string? reason)
@@ -29,5 +31,14 @@ namespace DiscountManagement.Domain.CusotmerDiscountAgg
             Reason = reason;
         }
 
+        public bool CheckIfDiscountFinished(DateTime StartDate, DateTime EndDate)
+        {
+            if (EndDate > StartDate)
+            {
+                return DiscountFinished = false;
+            }
+
+            return DiscountFinished = true;
+        }
     }
 }
