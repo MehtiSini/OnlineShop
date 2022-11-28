@@ -23,7 +23,7 @@ namespace Sm.Application.ProductCategory
                 return operation.Failed(OperationMessage.DuplicateRecord);
             }
 
-            var slug = cmd.Slug.ToSlug;
+            var slug = cmd.Slug.ToSlug();
 
             var category = new ProductCategoryModel(cmd.PictureAlt, cmd.Name, cmd.PictureTitle, cmd.PicturePath,
                 cmd.Description, cmd.KeyWords, cmd.MetaDescription, slug.ToString());

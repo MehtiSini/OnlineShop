@@ -15,7 +15,7 @@
 							<div class="col-lg-4 col-sm-6 grid-item">
 								<div class="single-category-item">
 									<div class="single-category-item__image">
-										<a asp-page="/ProductCategory" aasp-route-Id="@item.Slug">
+										<a asp-page="/ProductCategory" asp-route-Id="@item.Slug">
 											<img src="@item.PicturePath" class="img-fluid" alt="@item.PictureAlt" title="@item.PictureTitle">
 										</a>
 									</div>
@@ -30,7 +30,6 @@
 						}
 					</div>
 				</div>
-				<!--=======  End of category wrapper  =======-->
 			</div>
 		</div>
 	</div>
