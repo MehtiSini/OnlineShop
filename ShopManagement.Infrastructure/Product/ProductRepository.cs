@@ -18,7 +18,7 @@ namespace ShopManagement.Infrastructure.EfCore.Product
 
         public EditProduct GetDetails(long id)
         {
-            var k = _context.products.Select(x => new EditProduct
+            return _context.products.Select(x => new EditProduct
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -34,7 +34,6 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 Slug = x.Slug
             }).FirstOrDefault(x => x.Id == id);
 
-            return k;
 
         }
 

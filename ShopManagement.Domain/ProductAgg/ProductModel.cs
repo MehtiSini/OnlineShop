@@ -8,7 +8,7 @@ namespace ShopManagement.Domain.ProductAgg
     public class ProductModel : EntityBase
     {
         public string? Name { get; private set; }
-        public long Code { get; private set; }
+        public string? Code { get; private set; }
         public string? PicturePath { get; private set; }
         public string? PictureAlt { get; private set; }
         public string? PictureTitle { get; private set; }
@@ -22,7 +22,7 @@ namespace ShopManagement.Domain.ProductAgg
         public long CategoryId { get; private set; }
         public ProductCategoryModel? Category { get; private set; }
 
-        public ProductModel(string? name, long code,
+        public ProductModel(string? name, string? code,
            string? picturePath,
             string? pictureAlt, string? pictureTitle,
             string? shortDescription, string? description,
@@ -42,7 +42,7 @@ namespace ShopManagement.Domain.ProductAgg
             CategoryId = categoryId;
         }
 
-        public void Edit(string? name, long code,
+        public void Edit(string? name, string? code,
              string? picturePath,
             string? pictureAlt, string? pictureTitle,
             string? shortDescription, string? description,
@@ -61,7 +61,5 @@ namespace ShopManagement.Domain.ProductAgg
             CategoryId = categoryId;
             Slug = slug;
         }
-
-
     }
 }

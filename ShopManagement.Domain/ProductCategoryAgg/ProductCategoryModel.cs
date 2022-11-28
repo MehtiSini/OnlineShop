@@ -15,7 +15,7 @@ namespace ShopManagement.Domain.ProductCategoryAgg
         public long ProductsCount { get; private set; }
         public string? Slug { get; private set; }
 
-        public ICollection<ProductModel> Products { get; private set; }
+        public List<ProductModel> Products { get; private set; }
 
         //Cunstructor
         public ProductCategoryModel(string? name, string? description, string? picturePath, string? pictureAlt, string? pictureTitle, string? keyWords, string? metaDescription, string? slug)
@@ -30,6 +30,7 @@ namespace ShopManagement.Domain.ProductCategoryAgg
             Slug = slug;
         }
 
+
         //Edit Category
         public void Edit(string? name, string? description, string? picturePath, string? pictureAlt, string? pictureTitle, string? keyWords, string? metaDescription, string? slug)
         {
@@ -42,8 +43,5 @@ namespace ShopManagement.Domain.ProductCategoryAgg
             MetaDescription = metaDescription;
             Slug = slug;
         }
-
     }
-
-  
 }

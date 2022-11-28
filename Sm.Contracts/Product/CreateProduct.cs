@@ -10,7 +10,7 @@ namespace ShopManagement.Contracts.Product
         public string? Name { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public long Code { get; set; }
+        public string? Code { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? PicturePath { get; set; }
