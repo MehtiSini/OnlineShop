@@ -1,9 +1,10 @@
-﻿using ShopManagement.Query.Contracts.Category;
-using ShopManagement.Query.Contracts.Product;
+﻿using Blog.Domain.Tools;
 using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using InventoryManagement.Infrastructure.EfCore.DbContextModel;
+using Microsoft.EntityFrameworkCore;
+using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
-using Blog.Domain.Tools;
+using ShopManagement.Query.Contracts.Product;
 
 namespace ShopManagement.Query.Query
 {
@@ -33,7 +34,7 @@ namespace ShopManagement.Query.Query
                 Category = product.Category.Name,
                 CategorySlug = product.Category.Slug
 
-            }).OrderByDescending(x=>x.Id).Take(6).ToList();
+            }).OrderByDescending(x => x.Id).Take(6).ToList();
 
             var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
                 .Select(x => new { x.DiscountRate, x.ProductId }).ToList();
@@ -69,11 +70,79 @@ namespace ShopManagement.Query.Query
                 }
             }
             return Products;
-
-
-
         }
 
-       
+
+        public List<ProductQueryModel> Search(string Value)
+        {
+            var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
+                .Select(x => new { x.DiscountRate, x.ProductId }).AsNoTracking().ToList();
+
+            var Inventory = _inventorycontext.Inventories
+                .Select(x => new { x.ProductId, x.UnitPrice }).AsNoTracking().ToList();
+
+            var query = _shopcontext.products.Include(x => x.Category)
+                .AsNoTracking()
+                .Select(x => new ProductQueryModel
+                {
+                    Id = x.Id,
+                    Slug = x.Slug,
+                    Name = x.Name,
+                    PictureAlt = x.PictureAlt,
+                    PicturePath = x.PicturePath,
+                    PictureTitle = x.PictureTitle,
+                    Category = x.Category.Name,
+                    ShortDescription = x.ShortDescription
+
+                }).AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(Value))
+            {
+                query = query.Where(x => x.Name.Contains(Value) || x.ShortDescription.Contains(Value));
+            }
+            var Products = query.AsNoTracking().OrderByDescending(x => x.Id).ToList();
+
+            foreach (var product in Products)
+            {
+                var Price = Inventory.FirstOrDefault(x => x.ProductId == product.Id)
+                    .UnitPrice;
+
+                product.Price = Price.ToMoney();
+
+                Inventory.FirstOrDefault(x => x.ProductId == product.Id)
+                    .UnitPrice.ToMoney();
+
+                var discount = Discount.FirstOrDefault(x => x.ProductId == product.Id);
+
+                if (discount != null)
+                {
+                    var discountrate = discount.DiscountRate;
+
+                    product.DiscountRate = discountrate;
+
+                    product.HasDiscount = discountrate > 0;
+
+                    var DiscountAmount = Math.Round(Price * discountrate) / 100;
+
+                    product.PriceWithDiscount = (Price - DiscountAmount).ToMoney();
+                }
+            }
+            return Products;
+        }
+
+        public static List<ProductQueryModel> MapProducts(List<ProductModel> products)
+        {
+            return products.Select(product => new ProductQueryModel
+            {
+                Id = product.Id,
+                Slug = product.Slug,
+                Name = product.Name,
+                PictureAlt = product.PictureAlt,
+                PictureTitle = product.PictureTitle,
+                PicturePath = product.PicturePath,
+                Category = product.Category.Name
+            }).ToList();
+        }
+
     }
 }

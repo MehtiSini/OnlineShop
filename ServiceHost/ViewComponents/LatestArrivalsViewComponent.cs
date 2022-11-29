@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopManagement.Query.Contracts.Category;
+using ShopManagement.Query.Contracts.Product;
 
 namespace ServiceHost.ViewComponents
 {

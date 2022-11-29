@@ -33,19 +33,19 @@ namespace ShopManagement.Query.Query
                 PicturePath = x.PicturePath,
                 PictureTitle = x.PictureTitle
 
-            }).ToList();
+            }).AsNoTracking().ToList();
         }
 
         public List<ProductCategoryQueryModel> GetCategoryWithProduct()
         {
             var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
-                .Select(x => new { x.DiscountRate, x.ProductId }).ToList();
+                .Select(x => new { x.DiscountRate, x.ProductId }).AsNoTracking().ToList();
 
             var Inventory = _inventorycontext.Inventories
-                .Select(x => new { x.ProductId, x.UnitPrice }).ToList();
+                .Select(x => new { x.ProductId, x.UnitPrice }).AsNoTracking().ToList();
 
             var Categories = _shopcontext.productCategories.Include(x => x.Products)
-                .ThenInclude(x => x.Category)
+                .ThenInclude(x => x.Category).AsNoTracking()
                 .Select(x => new ProductCategoryQueryModel
                 {
                     Id = x.Id,
@@ -57,7 +57,7 @@ namespace ShopManagement.Query.Query
                     Products = MapProducts(x.Products),
                     ProductsCount = x.Products.Count
 
-                }).Where(x => x.ProductsCount > 0).ToList();
+                }).Where(x => x.ProductsCount > 0).AsNoTracking().ToList();
 
             foreach (var category in Categories)
             {
@@ -93,10 +93,10 @@ namespace ShopManagement.Query.Query
         public ProductCategoryQueryModel GetCategoryWithProductsBy(string Slug)
         {
             var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
-              .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate }).ToList();
+              .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate }).AsNoTracking().ToList();
 
             var Inventory = _inventorycontext.Inventories
-                .Select(x => new { x.ProductId, x.UnitPrice }).ToList();
+                .Select(x => new { x.ProductId, x.UnitPrice }).AsNoTracking().ToList();
 
             var Category = _shopcontext.productCategories
                 .Include(x => x.Products)
@@ -115,7 +115,7 @@ namespace ShopManagement.Query.Query
                     Description = x.Description,
                     KeyWords = x.KeyWords
 
-                }).FirstOrDefault(x => x.Slug == Slug);
+                }).AsNoTracking().FirstOrDefault(x => x.Slug == Slug);
 
             foreach (var product in Category.Products)
             {
