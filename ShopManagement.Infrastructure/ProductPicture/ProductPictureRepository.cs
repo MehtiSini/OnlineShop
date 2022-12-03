@@ -23,11 +23,16 @@ namespace ShopManagement.Infrastructure.EfCore.ProductPicture
             {
                 Id = x.Id,
                 ProductId = x.ProductId,
-                PicturePath = x.PicturePath,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
 
             }).FirstOrDefault(x => x.Id == id);
+
+        }
+
+        public ProductPictureModel GetProductWithCategory(long id)
+        {
+            return _context.productPictures.Include(x => x.Product).ThenInclude(x => x.Category).FirstOrDefault(x => x.Id == id);
 
         }
 
@@ -40,7 +45,7 @@ namespace ShopManagement.Infrastructure.EfCore.ProductPicture
                 CreationDate = x.CreationDate.ToShamsi(),
                 Product = x.Product.Name,
                 ProductId = x.ProductId.ToString(),
-                IsRemoved=x.IsRemoved
+                IsRemoved = x.IsRemoved
             });
 
             if (searchModel.ProductId != 0)

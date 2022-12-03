@@ -22,7 +22,6 @@ namespace ShopManagement.Infrastructure.EfCore.Slide
                 Id = x.Id,
                 BtnText = x.BtnText,
                 PictureAlt = x.PictureAlt,
-                PicturePath = x.PicturePath,
                 PictureTitle = x.PictureTitle,
                 Heading = x.Heading,
                 Text = x.Text,

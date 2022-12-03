@@ -17,6 +17,11 @@ namespace ShopManagement.Infrastructure.EfCore.ProductCategory
             _context = context;
         }
 
+        public string GetSlugById(long id)
+        {
+            return _context.productCategories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id).Slug;
+        }
+
         public EditProductCategory GetDetails(long id)
         {
             return _context.productCategories.Select(x => new EditProductCategory
@@ -25,7 +30,6 @@ namespace ShopManagement.Infrastructure.EfCore.ProductCategory
                 Name = x.Name,
                 Description = x.Description,
                 KeyWords = x.KeyWords,
-                PicturePath = x.PicturePath,
                 PictureTitle = x.PictureTitle,
                 PictureAlt = x.PictureTitle,
                 MetaDescription = x.MetaDescription,
@@ -35,10 +39,10 @@ namespace ShopManagement.Infrastructure.EfCore.ProductCategory
 
         public List<ProductCategoryQueryModel> GetProductCategories()
         {
-            return _context.productCategories.Select(x=> new ProductCategoryQueryModel
+            return _context.productCategories.Select(x => new ProductCategoryQueryModel
             {
-                Id=x.Id,
-                Name=x.Name
+                Id = x.Id,
+                Name = x.Name
 
             }).ToList();
 
@@ -46,7 +50,7 @@ namespace ShopManagement.Infrastructure.EfCore.ProductCategory
 
         public List<ProductCategoryQueryModel> Search(ProductCategorySearchModel searchModel)
         {
-            var query = _context.productCategories.Include(x=>x.Products).Select(x => new ProductCategoryQueryModel
+            var query = _context.productCategories.Include(x => x.Products).Select(x => new ProductCategoryQueryModel
             {
                 CreationDate = x.CreationDate.ToShamsi(),
                 Id = x.Id,

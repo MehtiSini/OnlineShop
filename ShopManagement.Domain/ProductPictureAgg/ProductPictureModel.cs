@@ -30,7 +30,12 @@ namespace ShopManagement.Domain.ProductPictureAgg
         public void Edit(long productId, string? picturePath, string? pictureAlt, string? pictureTitle)
         {
             ProductId = productId;
-            PicturePath = picturePath;
+
+            if (!string.IsNullOrEmpty(picturePath))
+            {
+                PicturePath = picturePath;
+            }
+
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
         }

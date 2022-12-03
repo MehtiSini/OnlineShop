@@ -1,6 +1,5 @@
 ﻿using MyFramework.Domain;
 using ShopManagement.Contracts.Product;
-using Sm.Contracts.ProductCategory;
 
 namespace ShopManagement.Domain.ProductAgg
 {
@@ -8,6 +7,7 @@ namespace ShopManagement.Domain.ProductAgg
     {
         EditProduct GetDetails(long id);
         List<ProductViewModel> GetProducts();
+        ProductModel GetProductWithCategory(long Id);
         List<ProductViewModel> Search(ProductSearchModel searchModel);
     }
 }

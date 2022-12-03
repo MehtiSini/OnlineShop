@@ -1,4 +1,5 @@
-﻿using MyFramework.Domain;
+﻿using Microsoft.AspNetCore.Http;
+using MyFramework.Domain;
 using MyFramework.Tools;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
@@ -31,7 +32,12 @@ namespace ShopManagement.Domain.ProductAgg
         {
             Name = name;
             Code = code;
-            PicturePath = picturePath;
+
+            if (!string.IsNullOrWhiteSpace(picturePath))
+            {
+                PicturePath = picturePath;
+            }
+
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             ShortDescription = shortDescription;
@@ -52,6 +58,7 @@ namespace ShopManagement.Domain.ProductAgg
             Name = name;
             Code = code;
             PicturePath = picturePath;
+            //PicturePath = picturePath;
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             ShortDescription = shortDescription;

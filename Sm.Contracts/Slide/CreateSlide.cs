@@ -1,12 +1,14 @@
-﻿using MyFramework.Tools;
+﻿using Microsoft.AspNetCore.Http;
+using MyFramework.Tools;
 using System.ComponentModel.DataAnnotations;
 
 namespace ShopManagement.Contracts.Slide
 {
     public class CreateSlide
     {
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? PicturePath { get; set; }
+        [MaxFileSize(MaxFileSize: 3 * 1024 * 1024, ErrorMessage = ValidationMessage.MaxFileSize)]
+        //[FileExtensionsLimitation(new string[] { ".jpeg", ".jpg", ".png" }, ErrorMessage = ValidationMessage.InValidFileFormat)]
+        public IFormFile? PicturePath { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? PictureTitle { get; set; }

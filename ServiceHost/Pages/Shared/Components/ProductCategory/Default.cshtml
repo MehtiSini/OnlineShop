@@ -10,17 +10,17 @@
 				<div class="category-wrapper">
 					<div class="row row-10 masonry-category-layout">
 
-						@foreach (var item in Model)
+						@foreach (var Product in Model)
 						{
 							<div class="col-lg-4 col-sm-6 grid-item">
 								<div class="single-category-item">
 									<div class="single-category-item__image">
-										<a asp-page="/ProductCategory" asp-route-Id="@item.Slug">
-											<img src="@item.PicturePath" class="img-fluid" alt="@item.PictureAlt" title="@item.PictureTitle">
+										<a asp-page="/ProductCategory" asp-route-Id="@Product.Slug">
+											<img src="~/ProductPictures/@Product.PicturePath"  class="img-fluid" alt="@Product.PictureAlt" title="@Product.PictureTitle">
 										</a>
 									</div>
 									<div class="single-category-item__content">
-										<h3 class="title">@item.Name</h3>
+										<h3 class="title">@Product.Name</h3>
 										<a href="shop-left-sidebar.html">
 											<i class="ion-android-arrow-dropleft-circle"></i> خرید
 										</a>

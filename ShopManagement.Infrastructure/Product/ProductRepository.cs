@@ -1,8 +1,10 @@
 ﻿using Blog.Domain.Tools;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
 using ShopManagement.Contracts.Product;
 using ShopManagement.Domain.ProductAgg;
+using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace ShopManagement.Infrastructure.EfCore.Product
@@ -29,13 +31,11 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 CategoryId = x.CategoryId,
                 Keywords = x.Keywords,
                 PictureAlt = x.PictureAlt,
-                PicturePath = x.PicturePath,
                 PictureTitle = x.PictureTitle,
                 Slug = x.Slug
             }).FirstOrDefault(x => x.Id == id);
-
-
         }
+
 
         public List<ProductViewModel> GetProducts()
         {
@@ -57,7 +57,8 @@ namespace ShopManagement.Infrastructure.EfCore.Product
                 CreationDate = x.CreationDate.ToShamsi(),
                 PicturePath = x.PicturePath,
                 CategoryName = x.Category.Name,
-                CategoryId = x.CategoryId
+                CategoryId = x.CategoryId,
+                Slug = x.Slug
             });
 
             if (!string.IsNullOrWhiteSpace(searchModel.Name))
@@ -78,6 +79,11 @@ namespace ShopManagement.Infrastructure.EfCore.Product
 
             return query.OrderByDescending(x => x.Id).ToList();
 
+        }
+
+        public ProductModel GetProductWithCategory(long id)
+        {
+            return _context.products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
         }
     }
 }

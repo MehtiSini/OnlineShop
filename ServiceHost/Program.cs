@@ -1,5 +1,7 @@
 using DiscountManagement.Configuration;
 using InventoryManaement.Configuration;
+using MyFramework.Tools;
+using ServiceHost;
 using ShopManagement.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ var ConnString = builder.Configuration.GetSection("ConnString")["OnlineShopDb"];
 Shop.ConfigService(builder.Services, ConnString);
 Discount.ConfigService(builder.Services, ConnString);
 Inventory.ConfigService(builder.Services, ConnString);
+
+builder.Services.AddTransient<IFileUploader,FileUploader>();
 
 var app = builder.Build();
 

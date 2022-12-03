@@ -31,7 +31,6 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
             ProductCategories = new SelectList(_applicationCategory.GetProductCategories(), "Id", "Name");
 
             Products = _application.Search(searchModel);
-
         }
 
         public IActionResult OnGetCreate()
@@ -53,13 +52,16 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
         public IActionResult OnGetEdit(long id)
         {
             var product = _application.GetDetails(id);
+
             product.Categories = _applicationCategory.GetProductCategories();
+
             return Partial("Edit", product);
         }
 
         public JsonResult OnPostEdit(EditProduct cmd)
         {
             var result = _application.Edit(cmd);
+
             return new JsonResult(result);
         }
     }

@@ -7,11 +7,14 @@ namespace Sm.Application.ProductCategory
 {
     public class ProductCategoryApplication : IProductCategoryApplication
     {
+        private readonly IFileUploader _fileUploader;
+
         private readonly IProductCategoryRepository _repository;
 
-        public ProductCategoryApplication(IProductCategoryRepository repository)
+        public ProductCategoryApplication(IProductCategoryRepository repository, IFileUploader fileUploader)
         {
             _repository = repository;
+            _fileUploader = fileUploader;
         }
 
         public OperationResult Create(CreateProductCategory cmd)
@@ -25,7 +28,9 @@ namespace Sm.Application.ProductCategory
 
             var slug = cmd.Slug.ToSlug();
 
-            var category = new ProductCategoryModel(cmd.PictureAlt, cmd.Name, cmd.PictureTitle, cmd.PicturePath,
+            var PicturePath = _fileUploader.Upload(cmd.PicturePath,cmd.Slug);
+
+            var category = new ProductCategoryModel(cmd.PictureAlt, cmd.Name, cmd.PictureTitle, PicturePath,
                 cmd.Description, cmd.KeyWords, cmd.MetaDescription, slug.ToString());
 
             _repository.Create(category);
@@ -51,7 +56,9 @@ namespace Sm.Application.ProductCategory
 
             var slug = cmd.Slug.ToSlug();
 
-            ProductCategory.Edit(cmd.Name, cmd.Description, cmd.PicturePath, cmd.PictureAlt,
+            var PicturePath = _fileUploader.Upload(cmd.PicturePath, cmd.Slug);
+
+            ProductCategory.Edit(cmd.Name, cmd.Description, PicturePath, cmd.PictureAlt,
          cmd.PictureTitle, cmd.KeyWords, cmd.MetaDescription, slug);
 
             _repository.Save();

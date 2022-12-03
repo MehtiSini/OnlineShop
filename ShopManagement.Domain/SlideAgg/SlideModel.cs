@@ -33,7 +33,11 @@ namespace ShopManagement.Domain.SlideAgg
         string? pictureTitle, string? pictureAlt,
         string? heading, string? title, string? link, string? text, string? btnText)
         {
-            PicturePath = picturePath;
+            if (!string.IsNullOrEmpty(picturePath))
+            {
+                PicturePath = picturePath;
+            }
+
             PictureTitle = pictureTitle;
             PictureAlt = pictureAlt;
             Heading = heading;

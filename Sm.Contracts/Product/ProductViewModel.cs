@@ -1,4 +1,6 @@
-﻿namespace ShopManagement.Contracts.Product
+﻿using Microsoft.AspNetCore.Http;
+
+namespace ShopManagement.Contracts.Product
 {
     public class ProductViewModel
     {
@@ -9,6 +11,7 @@
         public string? CategoryName { get; set; }
         public string? CreationDate { get; set; }
         public long CategoryId { get; set; }
+        public string? Slug { get; set; }
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using MyFramework.Tools;
+﻿using Microsoft.AspNetCore.Http;
+using MyFramework.Tools;
 using Sm.Contracts.ProductCategory;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,14 +7,15 @@ namespace ShopManagement.Contracts.Product
 {
     public class CreateProduct
     {
-        [Required(ErrorMessage =ValidationMessage.IsRequired)]
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? Name { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? Code { get; set; }
 
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? PicturePath { get; set; }
+        [MaxFileSize(MaxFileSize: 3 * 1024 * 1024, ErrorMessage = ValidationMessage.MaxFileSize)]
+        //[FileExtensionsLimitation(new string[] { ".jpeg", ".jpg", ".png" }, ErrorMessage = ValidationMessage.InValidFileFormat)]
+        public IFormFile? PicturePath { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? PictureAlt { get; set; }
