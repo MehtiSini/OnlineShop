@@ -19,7 +19,7 @@ namespace ShopManagement.Domain.ProductAgg
         public string? Slug { get; private set; }
         public string? Keywords { get; private set; }
 
-        public ICollection<ProductPictureModel> Pictures { get; private set; }
+        public List<ProductPictureModel> Pictures { get; private set; }
         public long CategoryId { get; private set; }
         public ProductCategoryModel? Category { get; private set; }
 
@@ -57,8 +57,12 @@ namespace ShopManagement.Domain.ProductAgg
         {
             Name = name;
             Code = code;
-            PicturePath = picturePath;
-            //PicturePath = picturePath;
+
+            if(!string.IsNullOrEmpty(picturePath))
+            {
+                PicturePath = picturePath;
+            }
+
             PictureAlt = pictureAlt;
             PictureTitle = pictureTitle;
             ShortDescription = shortDescription;

@@ -79,7 +79,7 @@ namespace ShopManagement.Application.Product
 
             Product.Edit(cmd.Name, cmd.Code, FileName
                 , cmd.PictureAlt, cmd.PictureTitle,
-                cmd.Description, cmd.ShortDescription, cmd.MetaDescription, cmd.Keywords, cmd.CategoryId, slug);
+                cmd.ShortDescription, cmd.Description, cmd.MetaDescription, cmd.Keywords, cmd.CategoryId, slug);
 
             _repository.Save();
 

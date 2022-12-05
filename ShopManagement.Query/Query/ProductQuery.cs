@@ -3,8 +3,10 @@ using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using InventoryManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Domain.ProductAgg;
+using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 using ShopManagement.Query.Contracts.Product;
+using ShopManagement.Query.Contracts.ProductPictures;
 
 namespace ShopManagement.Query.Query
 {
@@ -72,7 +74,6 @@ namespace ShopManagement.Query.Query
             return Products;
         }
 
-
         public List<ProductQueryModel> Search(string Value)
         {
             var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
@@ -130,9 +131,12 @@ namespace ShopManagement.Query.Query
             return Products;
         }
 
-        public static List<ProductQueryModel> MapProducts(List<ProductModel> products)
+        public ProductQueryModel GetProductDetails(string Slug)
         {
-            return products.Select(product => new ProductQueryModel
+            var Inventory = _inventorycontext.Inventories
+            .Select(x => new { x.ProductId, x.UnitPrice, x.IsInStock }).ToList();
+
+            var Product = _shopcontext.products.Select(product => new ProductQueryModel
             {
                 Id = product.Id,
                 Slug = product.Slug,
@@ -140,9 +144,70 @@ namespace ShopManagement.Query.Query
                 PictureAlt = product.PictureAlt,
                 PictureTitle = product.PictureTitle,
                 PicturePath = product.PicturePath,
-                Category = product.Category.Name
-            }).ToList();
+                Category = product.Category.Name,
+                Code = product.Code,
+                CategorySlug = product.Category.Slug,
+                ShortDescription = product.ShortDescription,
+                Description = product.Description,
+                KeyWords = product.Keywords,
+                Pictures = MapPictures(product.Pictures)
+
+            }).AsNoTracking().FirstOrDefault(x => x.Slug == Slug);
+
+            if (Product == null)
+            {
+                return new ProductQueryModel();
+            }
+
+            var ProductInventory = Inventory.FirstOrDefault(x => x.ProductId == Product.Id);
+
+            if (ProductInventory != null)
+            {
+                var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
+                  .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate }).ToList();
+
+                var Price = Inventory.FirstOrDefault(x => x.ProductId == Product.Id)
+                    .UnitPrice;
+
+                Product.Price = Price.ToMoney();
+
+                Product.InStock = ProductInventory.IsInStock;
+
+                Inventory.FirstOrDefault(x => x.ProductId == Product.Id)
+                    .UnitPrice.ToMoney();
+
+                var discount = Discount.FirstOrDefault(x => x.ProductId == Product.Id);
+
+                if (discount != null)
+                {
+                    var discountrate = discount.DiscountRate;
+
+                    Product.DiscountRate = discountrate;
+
+                    Product.HasDiscount = discountrate > 0;
+
+                    Product.DiscountExpireDate = discount.EndDate.ToDiscountFormat();
+
+                    var DiscountAmount = Math.Round(Price * discountrate) / 100;
+
+                    Product.PriceWithDiscount = (Price - DiscountAmount).ToMoney();
+                }
+            }
+
+            return Product;
         }
 
+        public static List<ProductPictureQueryModel> MapPictures(List<ProductPictureModel> pictures)
+        {
+            return pictures.Select(picture => new ProductPictureQueryModel
+            {
+                ProductId = picture.ProductId,
+                PictureAlt = picture.PictureAlt,
+                PicturePath = picture.PicturePath,
+                PictureTitle = picture.PictureTitle,
+                IsRemoved=picture.IsRemoved
+
+            }).Where(x => x.IsRemoved == false).ToList();
+        }
     }
 }

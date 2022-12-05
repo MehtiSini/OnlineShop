@@ -42,12 +42,12 @@ namespace ShopManagement.Domain.ProductPictureAgg
 
         public void Remove()
         {
-            IsRemoved = false;
+            IsRemoved = true;
         }
 
         public void Activate()
         {
-            IsRemoved = true;
+            IsRemoved = false;
         }
 
     }
