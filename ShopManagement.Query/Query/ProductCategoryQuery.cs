@@ -39,7 +39,7 @@ namespace ShopManagement.Query.Query
         public List<ProductCategoryQueryModel> GetCategoryWithProduct()
         {
             var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
-                .Select(x => new { x.DiscountRate, x.ProductId }).AsNoTracking().ToList();
+                .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate, x.StartDate }).AsNoTracking().ToList();
 
             var Inventory = _inventorycontext.Inventories
                 .Select(x => new { x.ProductId, x.UnitPrice }).AsNoTracking().ToList();
@@ -79,7 +79,10 @@ namespace ShopManagement.Query.Query
 
                         product.DiscountRate = discountrate;
 
-                        product.HasDiscount = discountrate > 0;
+                        if (discount.EndDate <= discount.StartDate)
+                        {
+                            product.HasDiscount = false;
+                        }
 
                         var DiscountAmount = Math.Round(Price * discountrate) / 100;
 
@@ -93,7 +96,7 @@ namespace ShopManagement.Query.Query
         public ProductCategoryQueryModel GetCategoryWithProductsBy(string Slug)
         {
             var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
-              .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate }).AsNoTracking().ToList();
+              .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate, x.StartDate }).AsNoTracking().ToList();
 
             var Inventory = _inventorycontext.Inventories
                 .Select(x => new { x.ProductId, x.UnitPrice }).AsNoTracking().ToList();
@@ -137,7 +140,10 @@ namespace ShopManagement.Query.Query
 
                     product.DiscountExpireDate = discount.EndDate.ToDiscountFormat();
 
-                    product.HasDiscount = discountrate > 0;
+                    if (discount.EndDate <= discount.StartDate)
+                    {
+                        product.HasDiscount = false;
+                    }
 
                     var DiscountAmount = Math.Round(Price * discountrate) / 100;
 

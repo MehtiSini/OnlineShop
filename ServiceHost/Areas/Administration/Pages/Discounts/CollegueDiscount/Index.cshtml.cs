@@ -49,7 +49,7 @@ namespace ServiceHost.Areas.Administration.Pages.CollegueDiscount
         {
             var Discount = _discountapplication.GetDetails(id);
             Discount.Products = _productapplication.GetProducts();
-            return Partial("Edit", Discount);
+            return Partial("EditComment", Discount);
         }
 
         public JsonResult OnPostEdit(EditCollegueDiscount cmd)

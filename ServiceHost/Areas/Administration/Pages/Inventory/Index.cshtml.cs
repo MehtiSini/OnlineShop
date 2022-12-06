@@ -53,7 +53,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
         {
             var Inventory = _inventoryapplication.GetDetails(id);
             Inventory.Products = _productapplication.GetProducts();
-            return Partial("Edit", Inventory);
+            return Partial("EditComment", Inventory);
         }
 
         public JsonResult OnPostEdit(EditInventory cmd)

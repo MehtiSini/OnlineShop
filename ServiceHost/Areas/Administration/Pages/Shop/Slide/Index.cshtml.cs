@@ -35,7 +35,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slide
         public IActionResult OnGetEdit(long id)
         {
             var slide = _slideApplication.GetDetails(id);
-            return Partial("Edit", slide);
+            return Partial("EditComment", slide);
         }
 
         public JsonResult OnPostEdit(EditSlide command)

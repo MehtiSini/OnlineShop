@@ -39,7 +39,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategory
         {
             var productcategory = _application.GetDetails(id);
 
-            return Partial("./Edit", productcategory);
+            return Partial("./EditComment", productcategory);
         }
 
         public JsonResult OnPostEdit(EditProductCategory cmd)

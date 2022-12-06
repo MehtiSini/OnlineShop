@@ -2,9 +2,13 @@
 using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using InventoryManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
+using MyFramework.Tools;
+using ShopManagement.Contracts.Comment;
+using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
+using ShopManagement.Query.Contracts.Comment;
 using ShopManagement.Query.Contracts.Product;
 using ShopManagement.Query.Contracts.ProductPictures;
 
@@ -39,7 +43,7 @@ namespace ShopManagement.Query.Query
             }).OrderByDescending(x => x.Id).Take(6).ToList();
 
             var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
-                .Select(x => new { x.DiscountRate, x.ProductId }).ToList();
+                 .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate, x.StartDate }).ToList();
 
             var Inventory = _inventorycontext.Inventories
                 .Select(x => new { x.ProductId, x.UnitPrice }).ToList();
@@ -63,7 +67,10 @@ namespace ShopManagement.Query.Query
 
                         product.DiscountRate = discountrate;
 
-                        product.HasDiscount = discountrate > 0;
+                        if (discount.EndDate <= discount.StartDate)
+                        {
+                            product.HasDiscount = false;
+                        }
 
                         var DiscountAmount = Math.Round(Price * discountrate) / 100;
 
@@ -136,7 +143,7 @@ namespace ShopManagement.Query.Query
             var Inventory = _inventorycontext.Inventories
             .Select(x => new { x.ProductId, x.UnitPrice, x.IsInStock }).ToList();
 
-            var Product = _shopcontext.products.Select(product => new ProductQueryModel
+            var Product = _shopcontext.products.Include(x => x.Comments).Select(product => new ProductQueryModel
             {
                 Id = product.Id,
                 Slug = product.Slug,
@@ -150,7 +157,8 @@ namespace ShopManagement.Query.Query
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
                 KeyWords = product.Keywords,
-                Pictures = MapPictures(product.Pictures)
+                Pictures = MapPictures(product.Pictures),
+                Comments = MapComments(product.Comments)
 
             }).AsNoTracking().FirstOrDefault(x => x.Slug == Slug);
 
@@ -164,7 +172,7 @@ namespace ShopManagement.Query.Query
             if (ProductInventory != null)
             {
                 var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
-                  .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate }).ToList();
+                  .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate, x.StartDate }).ToList();
 
                 var Price = Inventory.FirstOrDefault(x => x.ProductId == Product.Id)
                     .UnitPrice;
@@ -184,7 +192,10 @@ namespace ShopManagement.Query.Query
 
                     Product.DiscountRate = discountrate;
 
-                    Product.HasDiscount = discountrate > 0;
+                    if (discount.EndDate <= discount.StartDate)
+                    {
+                        Product.HasDiscount = false;
+                    }
 
                     Product.DiscountExpireDate = discount.EndDate.ToDiscountFormat();
 
@@ -197,6 +208,21 @@ namespace ShopManagement.Query.Query
             return Product;
         }
 
+        private static List<CommentQueryModel> MapComments(List<CommentModel> comments)
+        {
+            return comments.Select(comment => new CommentQueryModel
+            {
+                Id = comment.Id,
+                CreationDate = comment.CreationDate.ToFarsi(),
+                ProductId = comment.ProductId,
+                Name = comment.Name,
+                Message = comment.Message,
+                CommentStatus = comment.CommentStatus
+
+            }).Where(x => x.CommentStatus == OperationComment.Confirm).OrderByDescending(x => x.Id).ToList();
+
+        }
+
         public static List<ProductPictureQueryModel> MapPictures(List<ProductPictureModel> pictures)
         {
             return pictures.Select(picture => new ProductPictureQueryModel
@@ -205,7 +231,7 @@ namespace ShopManagement.Query.Query
                 PictureAlt = picture.PictureAlt,
                 PicturePath = picture.PicturePath,
                 PictureTitle = picture.PictureTitle,
-                IsRemoved=picture.IsRemoved
+                IsRemoved = picture.IsRemoved
 
             }).Where(x => x.IsRemoved == false).ToList();
         }

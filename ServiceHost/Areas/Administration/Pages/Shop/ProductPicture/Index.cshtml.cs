@@ -49,7 +49,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPicture
         {
             var product = _applicationProductPicture.GetDetails(id);
             product.Products = _applicationProduct.GetProducts();
-            return Partial("Edit", product);
+            return Partial("EditComment", product);
         }
 
         public JsonResult OnPostEdit(EditProductPicture cmd)

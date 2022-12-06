@@ -55,7 +55,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
 
             product.Categories = _applicationCategory.GetProductCategories();
 
-            return Partial("Edit", product);
+            return Partial("EditComment", product);
         }
 
         public JsonResult OnPostEdit(EditProduct cmd)

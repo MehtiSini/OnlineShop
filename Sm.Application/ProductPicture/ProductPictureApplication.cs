@@ -95,6 +95,7 @@ namespace ShopManagement.Application.ProductPicture
             }
 
             Product.Activate();
+
             _repository.Save();
 
             return operation.Succeed();

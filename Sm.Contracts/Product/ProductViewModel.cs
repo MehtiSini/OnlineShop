@@ -13,5 +13,4 @@ namespace ShopManagement.Contracts.Product
         public long CategoryId { get; set; }
         public string? Slug { get; set; }
     }
-
 }

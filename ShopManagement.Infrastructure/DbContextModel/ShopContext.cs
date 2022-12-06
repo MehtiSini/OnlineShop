@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
@@ -13,6 +14,7 @@ namespace ShopManagement.Infrastructure.ProductCategory.DbContextModel
         public DbSet<ProductModel> products { get; set; }
         public DbSet<ProductPictureModel> productPictures { get; set; }
         public DbSet<SlideModel> slides { get; set; }
+        public DbSet<CommentModel> comments { get; set; }
 
         public ShopContext(DbContextOptions<ShopContext> options) : base(options)
         {

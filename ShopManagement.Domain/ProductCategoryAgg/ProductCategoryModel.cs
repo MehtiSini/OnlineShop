@@ -31,7 +31,7 @@ namespace ShopManagement.Domain.ProductCategoryAgg
         }
 
 
-        //Edit Category
+        //EditComment Category
         public void Edit(string? name, string? description, string? picturePath, string? pictureAlt, string? pictureTitle, string? keyWords, string? metaDescription, string? slug)
         {
             Name = name;

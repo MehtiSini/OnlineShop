@@ -9,7 +9,7 @@ namespace ShopManagement.Infrastructure.EfCore.Slide
         public void Configure(EntityTypeBuilder<SlideModel> builder)
         {
             builder.ToTable("Slide");
-            builder.HasKey(x=>x.Id);
+            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.PictureTitle).HasMaxLength(255).IsRequired();
             builder.Property(x => x.PictureAlt).HasMaxLength(500).IsRequired();
