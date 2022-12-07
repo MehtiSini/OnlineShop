@@ -30,7 +30,6 @@ namespace ServiceHost.Pages
             _commentApplication.Add(Command);
 
             return RedirectToPage("/ProductDetails", new { Id = ProductSlug });
-
         }
 
     }

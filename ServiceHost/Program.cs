@@ -1,5 +1,6 @@
+using BlogManagement.Configuration;
 using DiscountManagement.Configuration;
-using InventoryManaement.Configuration;
+using InventoryManagement.Configuration;
 using MyFramework.Tools;
 using ServiceHost;
 using ShopManagement.Configuration;
@@ -12,12 +13,14 @@ builder.Services.AddRazorPages();
 ShopBootStrapper Shop = new ShopBootStrapper();
 DiscountBootstrapper Discount = new DiscountBootstrapper();
 InventoryBootStrapper Inventory = new InventoryBootStrapper();
+BlogBootStrapper Blog = new BlogBootStrapper();
 
 var ConnString = builder.Configuration.GetSection("ConnString")["OnlineShopDb"];
 
 Shop.ConfigService(builder.Services, ConnString);
 Discount.ConfigService(builder.Services, ConnString);
 Inventory.ConfigService(builder.Services, ConnString);
+Blog.ConfigService(builder.Services, ConnString);
 
 builder.Services.AddTransient<IFileUploader,FileUploader>();
 

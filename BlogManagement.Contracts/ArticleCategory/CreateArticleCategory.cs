@@ -1,48 +1,40 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyFramework.Tools;
-using Sm.Contracts.ProductCategory;
 using System.ComponentModel.DataAnnotations;
 
-namespace ShopManagement.Contracts.Product
+namespace BlogManagement.Contracts.ArticleCategory
 {
-    public class CreateProduct
+    public class CreateArticleCategory 
     {
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? Name { get; set; }
-
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? Code { get; set; }
+        public string? Name { get;  set; }
 
         [MaxFileSize(MaxFileSize: 1 * 1024 * 1024, ErrorMessage = ValidationMessage.MaxFileSize)]
         //[FileExtensionsLimitation(new string[] { ".jpeg", ".jpg", ".png" }, ErrorMessage = ValidationMessage.InValidFileFormat)]
-        public IFormFile? PicturePath { get; set; }
+        public IFormFile? PicturePath { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? PictureAlt { get; set; }
+        public string? PictureAlt { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? PictureTitle { get; set; }
+        public string? PictureTitle { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? ShortDescription { get; set; }
+        public string? Description { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? Description { get; set; }
+        public int ShowOrder { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? MetaDescription { get; set; }
+        public string? Slug { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? Slug { get; set; }
+        public string? MetaDescription { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? Keywords { get; set; }
+        public string? Keywords { get;  set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public long CategoryId { get; set; }
-
-        public List<ProductCategoryViewModel>? Categories { get; set; }
-
+        public string? CanonicalAddress { get;  set; }
     }
-
 }

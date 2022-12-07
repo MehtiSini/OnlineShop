@@ -6,8 +6,8 @@ namespace Sm.Contracts.ProductCategory
     {
         OperationResult Create(CreateProductCategory cmd);
         OperationResult Edit(EditProductCategory cmd);
-        List<ProductCategoryQueryModel> Search(ProductCategorySearchModel cmd);
-        List<ProductCategoryQueryModel> GetProductCategories();
+        List<ProductCategoryViewModel> Search(ProductCategorySearchModel cmd);
+        List<ProductCategoryViewModel> GetProductCategories();
         EditProductCategory GetDetails(long Id);
     }
 }

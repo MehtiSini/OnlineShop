@@ -1,4 +1,5 @@
-﻿using Blog.Domain.Tools;
+﻿using Azure.Core;
+using Blog.Domain.Tools;
 using MyFramework.Tools;
 
 namespace ServiceHost

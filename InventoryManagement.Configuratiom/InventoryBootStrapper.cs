@@ -6,7 +6,7 @@ using InventoryManagement.Infrastructure.EfCore.Inventory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InventoryManaement.Configuration
+namespace InventoryManagement.Configuration
 {
     public class InventoryBootStrapper
     {
