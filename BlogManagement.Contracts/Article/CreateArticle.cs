@@ -1,17 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using MyFramework.Tools;
-using Sm.Contracts.ProductCategory;
 using System.ComponentModel.DataAnnotations;
 
-namespace ShopManagement.Contracts.Product
+namespace BlogManagement.Contracts.Article
 {
-    public class CreateProduct
+    public class CreateArticle
     {
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? Name { get; set; }
+        public string? Title { get; set; }
+
+        [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
+        public long CategoryId { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? Code { get; set; }
+        public string? Description { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string? ShortDescription { get; set; }
+
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string? MetaDescription { get; set; }
 
         [MaxFileSize(MaxFileSize: 1 * 1024 * 1024, ErrorMessage = ValidationMessage.MaxFileSize)]
         //[FileExtensionsLimitation(new string[] { ".jpeg", ".jpg", ".png" }, ErrorMessage = ValidationMessage.InValidFileFormat)]
@@ -24,24 +32,16 @@ namespace ShopManagement.Contracts.Product
         public string? PictureTitle { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? ShortDescription { get; set; }
-
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? Description { get; set; }
-
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
-        public string? MetaDescription { get; set; }
-
-        [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? Slug { get; set; }
 
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? Keywords { get; set; }
 
-        [Range(1, long.MaxValue , ErrorMessage = ValidationMessage.IsRequired)]
-        public long CategoryId { get; set; }
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string? CanonicalAddress { get; set; }
 
-        public List<ProductCategoryViewModel>? Categories { get; set; }
+        [Required(ErrorMessage = ValidationMessage.IsRequired)]
+        public string? PublishDate { get; set; }
 
     }
 

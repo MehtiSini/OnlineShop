@@ -38,16 +38,12 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductCategory
         {
             var productcategory = _application.GetDetails(id);
 
-            return Partial("./EditComment", productcategory);
+            return Partial("./Edit", productcategory);
         }
 
         public JsonResult OnPostEdit(EditProductCategory cmd)
         {
-            if (!ModelState.IsValid)
-            {
-
-
-            }
+           
             var result = _application.Edit(cmd);
 
             return new JsonResult(result);

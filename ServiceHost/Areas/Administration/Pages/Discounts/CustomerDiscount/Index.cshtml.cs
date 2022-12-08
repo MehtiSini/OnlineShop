@@ -51,7 +51,7 @@ namespace ServiceHost.Areas.Administration.Pages.CustomerDiscount
         {
             var Discount = _discountapplication.GetDetails(id);
             Discount.Products = _productapplication.GetProducts();
-            return Partial("EditComment", Discount);
+            return Partial("Edit", Discount);
         }
 
         public JsonResult OnPostEdit(EditCustomerDiscount cmd)

@@ -1,16 +1,16 @@
-﻿using BlogManagement.Domain.ArticleCategoryAgg;
+﻿using BlogManagement.Domain.ArticleAgg;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BlogManagement.Infrastructure.EfCore.ArticleCategory
+namespace BlogManagement.Infrastructure.EfCore.Article
 {
-    public class ArticleCategoryMapping : IEntityTypeConfiguration<ArticleCategoryModel>
+    public class ArticleMapping : IEntityTypeConfiguration<ArticleModel>
     {
-        public void Configure(EntityTypeBuilder<ArticleCategoryModel> builder)
+        public void Configure(EntityTypeBuilder<ArticleModel> builder)
         {
-            builder.ToTable("ArticleCategory").HasKey(x => x.Id);
+            builder.ToTable("Article").HasKey(x => x.Id);
 
-            builder.Property(x => x.Name).HasMaxLength(500);
+            builder.Property(x => x.Title).HasMaxLength(500);
             builder.Property(x => x.Description).HasMaxLength(2000);
             builder.Property(x => x.PicturePath).HasMaxLength(500);
             builder.Property(x => x.PictureAlt).HasMaxLength(500);
@@ -20,10 +20,12 @@ namespace BlogManagement.Infrastructure.EfCore.ArticleCategory
             builder.Property(x => x.MetaDescription).HasMaxLength(150);
             builder.Property(x => x.CanonicalAddress).HasMaxLength(1000);
 
-            builder.HasMany(x => x.Articles)
-                .WithOne(x => x.Category)
+
+            builder.HasOne(x => x.Category)
+                .WithMany(x=>x.Articles)
                 .HasForeignKey(x=>x.CategoryId);
 
         }
     }
+
 }

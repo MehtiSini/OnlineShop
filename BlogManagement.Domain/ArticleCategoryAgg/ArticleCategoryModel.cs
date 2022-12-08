@@ -1,4 +1,5 @@
-﻿using MyFramework.Domain;
+﻿using BlogManagement.Domain.ArticleAgg;
+using MyFramework.Domain;
 
 namespace BlogManagement.Domain.ArticleCategoryAgg
 {
@@ -15,6 +16,7 @@ namespace BlogManagement.Domain.ArticleCategoryAgg
         public string? Keywords { get; private set; }
         public string? CanonicalAddress { get; private set; }
 
+        public List<ArticleModel> Articles { get; private set; }
 
         public ArticleCategoryModel(
             string? name, string? picturePath, string? pictureAlt,

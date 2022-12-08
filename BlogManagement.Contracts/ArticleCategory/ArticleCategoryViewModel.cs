@@ -11,5 +11,6 @@ namespace BlogManagement.Contracts.ArticleCategory
         public int ShowOrder { get; set; }
         public string? Slug { get; set; }
         public string? CreationDate { get; set; }
+        public int ArticlesCount { get; set; }
     }
 }

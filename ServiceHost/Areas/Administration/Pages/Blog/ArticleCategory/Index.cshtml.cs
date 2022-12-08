@@ -1,6 +1,7 @@
 using BlogManagement.Contracts.ArticleCategory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategory
 {
@@ -22,6 +23,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategory
             ArticleCategories = _application.Search(searchModel);
         }
 
+
         public IActionResult OnGetCreate()
         {
             return Partial("./Create", new CreateArticleCategory());
@@ -36,9 +38,9 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategory
 
         public IActionResult OnGetEdit(long id)
         {
-            var articleCategory = _application.GetDetails(id);
+            var category = _application.GetDetails(id);
 
-            return Partial("./Edit", articleCategory);
+            return Partial("./Edit", category);
         }
 
         public JsonResult OnPostEdit(EditArticleCategory cmd)
@@ -49,4 +51,5 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategory
         }
 
     }
+
 }

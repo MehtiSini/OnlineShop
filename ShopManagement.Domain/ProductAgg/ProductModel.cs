@@ -61,9 +61,13 @@ namespace ShopManagement.Domain.ProductAgg
             Name = name;
             Code = code;
 
-            if(!string.IsNullOrEmpty(picturePath))
+            if (!string.IsNullOrEmpty(picturePath))
             {
                 PicturePath = picturePath;
+            }
+            if (categoryId == 0)
+            {
+                CategoryId = categoryId;
             }
 
             PictureAlt = pictureAlt;
@@ -72,7 +76,6 @@ namespace ShopManagement.Domain.ProductAgg
             Description = description;
             MetaDescription = metaDescription;
             Keywords = keywords;
-            CategoryId = categoryId;
             Slug = slug;
         }
     }

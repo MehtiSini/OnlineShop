@@ -42,7 +42,8 @@ namespace ShopManagement.Application.Product
             var FileName = _fileUploader.Upload(cmd.PicturePath, Path);
 
             var product = new ProductModel(cmd.Name, cmd.Code, FileName
-                , cmd.PictureAlt, cmd.PictureTitle, cmd.Description, cmd.ShortDescription, cmd.MetaDescription, slug, cmd.Keywords, cmd.CategoryId);
+                , cmd.PictureAlt, cmd.PictureTitle, cmd.Description, cmd.ShortDescription,
+                cmd.MetaDescription, slug, cmd.Keywords, cmd.CategoryId);
 
             _repository.Create(product);
 

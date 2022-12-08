@@ -2,6 +2,7 @@
 using BlogManagement.Contracts.ArticleCategory;
 using BlogManagement.Domain.ArticleCategoryAgg;
 using BlogManagement.Infrastructure.EfCore.DbContextModel;
+using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
 
 namespace BlogManagement.Infrastructure.EfCore.ArticleCategory
@@ -14,6 +15,16 @@ namespace BlogManagement.Infrastructure.EfCore.ArticleCategory
         {
             _context = context;
         }
+
+        public List<ArticleCategoryViewModel> GetArticleCategories()
+        {
+            return _context.categories.Select(x => new ArticleCategoryViewModel
+            {
+                Id=x.Id,
+                Name=x.Name
+            }).ToList();
+        }
+
 
         public EditArticleCategory GetDetails(long id)
         {
@@ -34,9 +45,14 @@ namespace BlogManagement.Infrastructure.EfCore.ArticleCategory
 
         }
 
+        public string GetSlugById(long id)
+        {
+            return _context.categories.Select(x => new { x.Id, x.Slug }).FirstOrDefault(x => x.Id == id).Slug;
+        }
+
         public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel Search)
         {
-            var Query = _context.categories.Select(x => new ArticleCategoryViewModel
+            var Query = _context.categories.Include(x=>x.Articles).Select(x => new ArticleCategoryViewModel
             {
                 Id=x.Id,
                 ShowOrder = x.ShowOrder,
@@ -44,7 +60,8 @@ namespace BlogManagement.Infrastructure.EfCore.ArticleCategory
                 Name = x.Name,
                 PicturePath = x.PicturePath,
                 Slug = x.Slug,
-                CreationDate=x.CreationDate.ToFarsi()
+                ArticlesCount=x.Articles.Count,
+                CreationDate=x.CreationDate.ToShamsi()
             });
 
             if (!string.IsNullOrWhiteSpace(Search.Name))
