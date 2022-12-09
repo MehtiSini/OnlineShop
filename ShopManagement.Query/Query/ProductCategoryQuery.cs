@@ -22,7 +22,7 @@ namespace ShopManagement.Query.Query
             _discountcontext = discountcontext;
         }
 
-        public List<ProductCategoryQueryModel> GetCategories()
+        public List<ProductCategoryQueryModel> GetProductCategories()
         {
             return _shopcontext.productCategories.Select(x => new ProductCategoryQueryModel
             {

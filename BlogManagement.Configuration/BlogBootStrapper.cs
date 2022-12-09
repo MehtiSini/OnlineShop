@@ -9,6 +9,9 @@ using BlogManagement.Infrastructure.EfCore.ArticleCategory;
 using BlogManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using ShopManagement.Query.Contracts.Article;
+using ShopManagement.Query.Contracts.ArticleCategory;
+using ShopManagement.Query.Query;
 
 namespace BlogManagement.Configuration
 {
@@ -20,7 +23,10 @@ namespace BlogManagement.Configuration
             service.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
 
             service.AddTransient<IArticleRepository, ArticleRepository>();
-            service.AddTransient<IArticleApplication, ArticleApplication>();
+            service.AddTransient<IArticleApplication, A>();
+
+            service.AddTransient<IArticleQuery, ArticleQuery>();
+            service.AddTransient<IArticleCategoryQuery, ArticleCategoryQuery>();
 
             service.AddDbContext<BlogContext>(x => x.UseSqlServer(ConnString));
 

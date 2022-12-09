@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ShopManagement.Query;
+using ShopManagement.Query.Contracts.ArticleCategory;
 using ShopManagement.Query.Contracts.Category;
 
 namespace ServiceHost.ViewComponents
@@ -7,15 +9,21 @@ namespace ServiceHost.ViewComponents
     {
         private readonly IProductCategoryQuery _query;
 
-        public MenuViewComponent(IProductCategoryQuery query)
+        private readonly IArticleCategoryQuery _articleqQuery;
+
+        public MenuViewComponent(IProductCategoryQuery query, IArticleCategoryQuery articleqQuery)
         {
             this._query = query;
+            _articleqQuery = articleqQuery;
         }
 
         public IViewComponentResult Invoke()
         {
-            var result = _query.GetCategories();
-
+            var result = new MenuModel
+            {
+                ArticleCategories = _articleqQuery.GetArticleCategories(),
+                ProductCategories = _query.GetProductCategories()
+            };
             return View(result);
         }
 

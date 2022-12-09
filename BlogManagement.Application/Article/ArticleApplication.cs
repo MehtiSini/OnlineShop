@@ -7,13 +7,13 @@ using MyFramework.Tools;
 
 namespace BlogManagement.Application.Article
 {
-    public class ArticleApplication : IArticleApplication
+    public class A : IArticleApplication
     {
         private readonly IArticleRepository _repository;
         private readonly IArticleCategoryRepository _Categoryrepository;
         private readonly IFileUploader _fileUploader;
 
-        public ArticleApplication(IArticleRepository repository, IFileUploader fileUploader, IArticleCategoryRepository categoryrepository)
+        public A(IArticleRepository repository, IFileUploader fileUploader, IArticleCategoryRepository categoryrepository)
         {
             _repository = repository;
             _fileUploader = fileUploader;
@@ -29,8 +29,6 @@ namespace BlogManagement.Application.Article
                 return operation.Failed(OperationMessage.DuplicateRecord);
             }
 
-            var k = cmd.CategoryId;
-
             var slug = cmd.Slug.ToSlug();
 
             var CategorySlug = _Categoryrepository.GetSlugById(cmd.CategoryId);
@@ -41,7 +39,8 @@ namespace BlogManagement.Application.Article
 
             var PublishDate = cmd.PublishDate.ToGeorgianDateTime();
 
-            var Article = new ArticleModel(cmd.Title, cmd.CategoryId, cmd.Description, cmd.ShortDescription, cmd.MetaDescription,
+            var Article = new ArticleModel(cmd.Title, cmd.CategoryId, cmd.Description, cmd.ShortDescription, 
+                cmd.MetaDescription,
                 PicturePath, cmd.PictureAlt, cmd.PictureTitle,
                  slug, cmd.Keywords, cmd.CanonicalAddress, PublishDate);
 
@@ -54,7 +53,7 @@ namespace BlogManagement.Application.Article
         {
             var operation = new OperationResult();
 
-            var Article = _repository.GetById(cmd.Id);
+            var Article = _repository.GetArticleWithCategory(cmd.Id);
 
             if (Article == null)
             {
@@ -63,9 +62,7 @@ namespace BlogManagement.Application.Article
 
             var slug = cmd.Slug.ToSlug();
 
-            var CategorySlug = _Categoryrepository.GetSlugById(cmd.CategoryId);
-
-            var Path = $"{CategorySlug}/{slug}";
+            var Path = $"{Article.Category.Slug}/{slug}";
 
             var PicturePath = _fileUploader.Upload(cmd.PicturePath, Path);
 

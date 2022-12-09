@@ -6,7 +6,7 @@ namespace BlogManagement.Domain.ArticleAgg
     public interface IArticleRepository : IRepository<long,ArticleModel>
     {
         EditArticle GetDetails(long Id);
+        ArticleModel GetArticleWithCategory(long Id);
         List<ArticleViewModel> Search(ArticleSearchModel Search);
-
     }
 }

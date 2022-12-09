@@ -3,6 +3,7 @@ using BlogManagement.Contracts.ArticleCategory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace ServiceHost.Areas.Administration.Pages.Blog.Article
 {
@@ -28,7 +29,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.Article
 
         public IActionResult OnPost(EditArticle command)
         {
-             _articleApplication.Edit(command);
+            _articleApplication.Edit(command);
             return RedirectToPage("./Index");
         }
     }

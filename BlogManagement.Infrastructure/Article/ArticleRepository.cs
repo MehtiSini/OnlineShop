@@ -20,20 +20,27 @@ namespace BlogManagement.Infrastructure.EfCore.Article
         {
             return _context.articles.Select(x => new EditArticle
             {
-                Id=x.Id,
+                Id = x.Id,
                 CanonicalAddress = x.CanonicalAddress,
                 Slug = x.Slug,
-                ShortDescription =x.ShortDescription,
+                ShortDescription = x.ShortDescription,
                 Description = x.Description,
                 MetaDescription = x.MetaDescription,
                 Keywords = x.Keywords,
                 Title = x.Title,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
-                CategoryId=x.CategoryId,
-                PublishDate=x.PublishDate.ToString()
+                CategoryId = x.CategoryId,
+                PublishDate = x.PublishDate.ToString()
 
             }).FirstOrDefault(x => x.Id == id);
+        }
+
+        public ArticleModel GetArticleWithCategory(long id)
+        {
+            return _context.articles
+                .Include(x => x.Category)
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public List<ArticleViewModel> Search(ArticleSearchModel Search)
