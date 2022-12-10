@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CommentManagement.Domain.CommentAgg;
+using Microsoft.AspNetCore.Http;
 using MyFramework.Domain;
 using MyFramework.Tools;
-using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 
@@ -22,8 +22,6 @@ namespace ShopManagement.Domain.ProductAgg
         public long CategoryId { get; private set; }
 
         public List<ProductPictureModel> Pictures { get; private set; }
-        public List<CommentModel> Comments { get; private set; }
-
         public ProductCategoryModel? Category { get; private set; }
 
         public ProductModel(string? name, string? code,

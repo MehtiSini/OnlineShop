@@ -1,21 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MyFramework.Domain;
-using MyFramework.Infrastructure;
-using ShopManagement.Application.Comment;
 using ShopManagement.Application.Product;
 using ShopManagement.Application.ProductPicture;
 using ShopManagement.Application.Slide;
-using ShopManagement.Contracts.Comment;
 using ShopManagement.Contracts.Product;
 using ShopManagement.Contracts.ProductPicture;
 using ShopManagement.Contracts.Slide;
-using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Domain.SlideAgg;
-using ShopManagement.Infrastructure.EfCore.Comment;
 using ShopManagement.Infrastructure.EfCore.Product;
 using ShopManagement.Infrastructure.EfCore.ProductCategory;
 using ShopManagement.Infrastructure.EfCore.ProductPicture;
@@ -39,9 +33,6 @@ namespace ShopManagement.Configuration
 
             service.AddTransient<IProductApplication, ProductApplicaiton>();
             service.AddTransient<IProductRepository, ProductRepository>();
-
-            service.AddTransient<ICommentApplication, CommentApplication>();
-            service.AddTransient<ICommentRepository, CommentRepository>();
 
             service.AddTransient<IProductPictureApplication, ProductPictureApplication>();
             service.AddTransient<IProductPictureRepository, ProductPictureRepository>();

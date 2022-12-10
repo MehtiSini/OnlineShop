@@ -1,6 +1,6 @@
 ﻿using MyFramework.Tools;
 
-namespace ShopManagement.Contracts.Comment
+namespace CommentManagement.Contracts.Comment
 {
     public interface ICommentApplication
     {

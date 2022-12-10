@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommentManagement.Domain\CommentManagement.Domain.csproj" />
     <ProjectReference Include="..\MyFrameWork\MyFramework.csproj" />
     <ProjectReference Include="..\Sm.Contracts\ShopManagement.Contracts.csproj" />
   </ItemGroup>

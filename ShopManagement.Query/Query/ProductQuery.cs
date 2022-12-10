@@ -1,14 +1,14 @@
 ﻿using Blog.Domain.Tools;
+using CommentManagement.Domain.CommentAgg;
+using CommentManagement.Infrastructure.EfCore;
+using CommentManagement.Infrastructure.EfCore.DbContextModel;
+using CommentManagement.Query.Contracts.Comment;
 using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using InventoryManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Tools;
-using ShopManagement.Contracts.Comment;
-using ShopManagement.Domain.CommentAgg;
-using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
-using ShopManagement.Query.Contracts.Comment;
 using ShopManagement.Query.Contracts.Product;
 using ShopManagement.Query.Contracts.ProductPictures;
 
@@ -17,14 +17,16 @@ namespace ShopManagement.Query.Query
     public class ProductQuery : IProductQuery
     {
         private readonly ShopContext _shopcontext;
-        private readonly InventoryContext _inventorycontext;
-        private readonly DiscountContext _discountcontext;
+        private readonly InventoryContext _inventoryContext;
+        private readonly DiscountContext _discountContext;
+        private readonly CommentContext _commentContext;
 
-        public ProductQuery(ShopContext shopcontext, InventoryContext inventorycontext, DiscountContext discountcontext)
+        public ProductQuery(ShopContext shopcontext, InventoryContext inventorycontext, DiscountContext discountcontext, CommentContext commentContext)
         {
             _shopcontext = shopcontext;
-            _inventorycontext = inventorycontext;
-            _discountcontext = discountcontext;
+            _inventoryContext = inventorycontext;
+            _discountContext = discountcontext;
+            _commentContext = commentContext;
         }
 
         public List<ProductQueryModel> GetlatestArrivals()
@@ -42,10 +44,10 @@ namespace ShopManagement.Query.Query
 
             }).OrderByDescending(x => x.Id).Take(6).ToList();
 
-            var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
+            var Discount = _discountContext.CustomerDiscount.Where(x => x.DiscountFinished == false)
                  .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate, x.StartDate }).ToList();
 
-            var Inventory = _inventorycontext.Inventories
+            var Inventory = _inventoryContext.Inventories
                 .Select(x => new { x.ProductId, x.UnitPrice }).ToList();
 
             {
@@ -83,10 +85,10 @@ namespace ShopManagement.Query.Query
 
         public List<ProductQueryModel> Search(string Value)
         {
-            var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
+            var Discount = _discountContext.CustomerDiscount.Where(x => x.DiscountFinished == false)
                 .Select(x => new { x.DiscountRate, x.ProductId }).AsNoTracking().ToList();
 
-            var Inventory = _inventorycontext.Inventories
+            var Inventory = _inventoryContext.Inventories
                 .Select(x => new { x.ProductId, x.UnitPrice }).AsNoTracking().ToList();
 
             var query = _shopcontext.products.Include(x => x.Category)
@@ -140,10 +142,10 @@ namespace ShopManagement.Query.Query
 
         public ProductQueryModel GetProductDetails(string Slug)
         {
-            var Inventory = _inventorycontext.Inventories
+            var Inventory = _inventoryContext.Inventories
             .Select(x => new { x.ProductId, x.UnitPrice, x.IsInStock }).ToList();
 
-            var Product = _shopcontext.products.Include(x => x.Comments).Select(product => new ProductQueryModel
+            var Product = _shopcontext.products.Select(product => new ProductQueryModel
             {
                 Id = product.Id,
                 Slug = product.Slug,
@@ -156,10 +158,9 @@ namespace ShopManagement.Query.Query
                 CategorySlug = product.Category.Slug,
                 ShortDescription = product.ShortDescription,
                 Description = product.Description,
+                MetaDescription = product.MetaDescription,
                 KeyWords = product.Keywords,
                 Pictures = MapPictures(product.Pictures),
-                Comments = MapComments(product.Comments)
-
             }).AsNoTracking().FirstOrDefault(x => x.Slug == Slug);
 
             if (Product == null)
@@ -171,7 +172,7 @@ namespace ShopManagement.Query.Query
 
             if (ProductInventory != null)
             {
-                var Discount = _discountcontext.CustomerDiscount.Where(x => x.DiscountFinished == false)
+                var Discount = _discountContext.CustomerDiscount.Where(x => x.DiscountFinished == false)
                   .Select(x => new { x.DiscountRate, x.ProductId, x.EndDate, x.StartDate }).ToList();
 
                 var Price = Inventory.FirstOrDefault(x => x.ProductId == Product.Id)
@@ -203,25 +204,36 @@ namespace ShopManagement.Query.Query
 
                     Product.PriceWithDiscount = (Price - DiscountAmount).ToMoney();
                 }
+
+                Product.Comments = _commentContext.comments
+               .Where(x => x.Type == CommentType.Product)
+               .Where(x => x.OwnerRecordId == Product.Id)
+               .Where(x=>x.CommentStatus == OperationComment.Confirm)
+               .Select(x => new CommentQueryModel
+               {
+                   Id = x.Id,
+                   Message = x.Message,
+                   Name = x.Name,
+                   CreationDate = x.CreationDate.ToFarsi()
+               }).OrderByDescending(x => x.Id).ToList();
             }
 
             return Product;
         }
 
-        private static List<CommentQueryModel> MapComments(List<CommentModel> comments)
-        {
-            return comments.Select(comment => new CommentQueryModel
-            {
-                Id = comment.Id,
-                CreationDate = comment.CreationDate.ToFarsi(),
-                ProductId = comment.ProductId,
-                Name = comment.Name,
-                Message = comment.Message,
-                CommentStatus = comment.CommentStatus
+        //private static List<CommentQueryModel> MapComments(List<CommentModel> Comments)
+        //{
+        //    return Comments.Select(comment => new CommentQueryModel
+        //    {
+        //        Id = comment.Id,
+        //        CreationDate = comment.CreationDate.ToFarsi(),
+        //        Name = comment.Name,
+        //        Message = comment.Message,
+        //        CommentStatus = comment.CommentStatus
 
-            }).Where(x => x.CommentStatus == OperationComment.Confirm).OrderByDescending(x => x.Id).ToList();
+        //    }).Where(x => x.CommentStatus == OperationComment.Confirm).OrderByDescending(x => x.Id).ToList();
 
-        }
+        //}
 
         public static List<ProductPictureQueryModel> MapPictures(List<ProductPictureModel> pictures)
         {

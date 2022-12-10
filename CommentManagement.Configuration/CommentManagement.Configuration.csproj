@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlogManagement.Infrastructure\BlogManagement.Infrastructure.EfCore.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Cm.Infrastructure.EfCore\CommentManagement.Infrastructure.EfCore.csproj" />
-    <ProjectReference Include="..\CommentManagement.Query\CommentManagement.Query.csproj" />
-    <ProjectReference Include="..\DiscountManagement.Infrastructure\DiscountManagement.Infrastructure.EfCore.csproj" />
-    <ProjectReference Include="..\InventoryManagement.Infrastructure\InventoryManagement.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\CommentManagement.Application\CommentManagement.Application.csproj" />
     <ProjectReference Include="..\ShopManagement.Infrastructure\ShopManagement.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 

@@ -1,9 +1,12 @@
 using BlogManagement.Configuration;
+using CommentManagement.Configuration;
 using DiscountManagement.Configuration;
 using InventoryManagement.Configuration;
 using MyFramework.Tools;
 using ServiceHost;
 using ShopManagement.Configuration;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,7 @@ ShopBootStrapper Shop = new ShopBootStrapper();
 DiscountBootstrapper Discount = new DiscountBootstrapper();
 InventoryBootStrapper Inventory = new InventoryBootStrapper();
 BlogBootStrapper Blog = new BlogBootStrapper();
+CommentBootStrapper Comment = new CommentBootStrapper();
 
 var ConnString = builder.Configuration.GetSection("ConnString")["OnlineShopDb"];
 
@@ -21,8 +25,11 @@ Shop.ConfigService(builder.Services, ConnString);
 Discount.ConfigService(builder.Services, ConnString);
 Inventory.ConfigService(builder.Services, ConnString);
 Blog.ConfigService(builder.Services, ConnString);
+Comment.ConfigService(builder.Services, ConnString);
 
+builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 builder.Services.AddTransient<IFileUploader,FileUploader>();
+
 
 var app = builder.Build();
 

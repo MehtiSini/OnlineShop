@@ -1,6 +1,6 @@
 ﻿@page
 @using MyFramework.Tools
-@model Areas.Administration.Pages.Shop.Comment.IndexModel
+@model Areas.Administration.Pages.Comment.IndexModel
 @{
 }
 
@@ -51,7 +51,7 @@
 									<th>نام</th>
 									<th>ایمیل</th>
 									<th>پیام</th>
-									<th>محصول</th>
+									<th>بخش مربوطه</th>
 									<th>تاریخ ایجاد</th>
 									<th>وضعیت</th>
 									<th>عملیات</th>
@@ -65,7 +65,7 @@
 										<td>@item.Name</td>
 										<td>@item.Email</td>
 										<td>@item.Message</td>
-										<td>@item.Product</td>
+										<td>@item.Type</td>
 										<td>@item.CreationDate</td>
 										<td class="text-center">
 											@if (item.CommentStatus == OperationComment.Cancel)

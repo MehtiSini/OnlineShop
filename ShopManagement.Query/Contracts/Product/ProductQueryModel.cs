@@ -1,5 +1,4 @@
-﻿using ShopManagement.Contracts.Comment;
-using ShopManagement.Query.Contracts.Comment;
+﻿using CommentManagement.Query.Contracts.Comment;
 using ShopManagement.Query.Contracts.ProductPictures;
 
 namespace ShopManagement.Query.Contracts.Product
@@ -20,13 +19,13 @@ namespace ShopManagement.Query.Contracts.Product
         public string? CategorySlug { get; set; }
         public string? ShortDescription { get; set; }
         public string? Description { get; set; }
+        public string? MetaDescription { get; set; }
         public string? KeyWords { get; set; }
         public bool HasDiscount { get; set; }
         public int InStock { get; set; }
         public string? DiscountExpireDate { get; set; }
 
         public List<CommentQueryModel>? Comments { get; set; }
-
         public List<ProductPictureQueryModel>? Pictures { get; set; }
 
     }

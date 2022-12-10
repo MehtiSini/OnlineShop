@@ -1,7 +1,10 @@
 ﻿@page "{id}"
 @model ServiceHost.Pages.ProductDetailsModel
 @{
-}
+	ViewData["Title"] = @Model.Product.Name;
+	ViewData["keywords"] = @Model.Product.KeyWords;
+	ViewData["metaDescription"] = @Model.Product.MetaDescription;
+ }
 
 <div class="breadcrumb-area section-space--half">
 	<div class="container wide">
@@ -108,7 +111,7 @@
 								<div class="col-lg-6">
 									<div class="single-product-content-description">
 										<a asp-page="./ProductCategory" asp-route-id="@Model.Product.CategorySlug">@Model.Product.Category</a>
-										<h4 class="product-title">@Model.Product.Name</h4>
+										<h2 class="product-title">@Model.Product.Name</h2>
 										<div class="product-rating">
 											<span class="rating">
 												<i class="ion-android-star active"></i>
@@ -301,7 +304,7 @@
                                                                 </div>
                                                                 <input type="hidden" name="ownerRecordId" value="@Model.Product.Id" />
                                                                 @*<input type="hidden" name="type" value="@CommnetManagement.Infrastructure.EFCore.CommentType.Product" />*@
-                                                                <input type="hidden" name="ProductId" value="@Model.Product.Id" />
+                                                                @*<input type="hidden" name="ProductId" value="@Model.Product.Id" />*@
                                                                 <input type="hidden" name="ProductSlug" value="@Model.Product.Slug" />
                                                                 <div class="col-12">
                                                                     <input value="ارسال" type="submit">

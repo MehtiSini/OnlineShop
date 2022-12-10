@@ -1,4 +1,6 @@
-﻿namespace ShopManagement.Query.Contracts.Article
+﻿using CommentManagement.Query.Contracts.Comment;
+
+namespace ShopManagement.Query.Contracts.Article
 {
     public class ArticleQueryModel
     {
@@ -6,7 +8,8 @@
         public string? Title { get;  set; }
         public long CategoryId { get;  set; }
         public string? ShortDescription { get;  set; }
-        public string? Description { get;  set; }
+        public string? Description { get; set; }
+        public string? MetaDescription { get;  set; }
         public string? PicturePath { get;  set; }
         public string? PictureAlt { get;  set; }
         public string? PictureTitle { get;  set; }
@@ -16,5 +19,7 @@
         public string? Keywords { get; set; }
         public List<string>? KeywordsList { get; set; }
         public string? PublishDate { get; set; }
+        public List<CommentQueryModel>? Comments { get; set; }
+
     }
 }

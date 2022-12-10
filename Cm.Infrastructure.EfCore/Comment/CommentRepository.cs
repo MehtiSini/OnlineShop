@@ -1,34 +1,37 @@
 ﻿using Blog.Domain.Tools;
+using CommentManagement.Contracts.Comment;
+using CommentManagement.Domain.CommentAgg;
+using CommentManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
-using ShopManagement.Contracts.Comment;
-using ShopManagement.Domain.CommentAgg;
-using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
-namespace ShopManagement.Infrastructure.EfCore.Comment
+namespace CommentManagement.Infrastructure.EfCore.Comment
 {
     public class CommentRepository : RepositoryBase<long, CommentModel>, ICommentRepository
     {
-        private readonly ShopContext _context;
+        private readonly CommentContext _commentContext;
+        private readonly ShopContext _shopContext;
 
-        public CommentRepository(ShopContext context) : base(context)
+        public CommentRepository(CommentContext context, ShopContext shopContext) : base(context)
         {
-            _context = context;
+            _commentContext = context;
+            _shopContext = shopContext;
         }
 
         public List<CommentViewModel> Search(CommentSearchModel search)
         {
-            var Query = _context.comments.Include(x => x.Product).Select(x => new CommentViewModel
+            var Query = _commentContext.comments.Select(x => new CommentViewModel
             {
                 Id = x.Id,
+                Name = x.Name,
                 Email = x.Email,
+                Website = x.Website,
+                CreationDate = x.CreationDate.ToFarsi(),
                 CommentStatus = x.CommentStatus,
                 Message = x.Message,
-                Name = x.Name,
-                ProductId = x.ProductId,
-                Product = x.Product.Name,
-                CreationDate=x.Product.CreationDate.ToFarsi()
+                OnwerRecordID = x.OwnerRecordId,
+                Type=x.Type
             });
 
             if (!string.IsNullOrWhiteSpace(search.Name))
@@ -43,5 +46,7 @@ namespace ShopManagement.Infrastructure.EfCore.Comment
 
             return Query.OrderByDescending(x => x.Id).ToList();
         }
+
+
     }
 }

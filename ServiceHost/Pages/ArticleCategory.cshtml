@@ -1,7 +1,11 @@
-﻿@page
+﻿@page "{Id}"
 @model ServiceHost.Pages.ArticleCategoryModel
 @{
+    ViewData["Title"] = @Model.ArticleCategory.Name;
+	ViewData["keywords"] = @Model.ArticleCategory.Keywords;
+	ViewData["metaDescription"] = @Model.ArticleCategory.MetaDescription;
 }
+
 
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
@@ -37,7 +41,7 @@
                                             <div class="col-md-6">
                                                 <div class="single-blog-post">
                                                     <div class="single-blog-post__image">
-                                                        <a asp-page="./Article" asp-route-id="@article.Slug">
+                                                        <a asp-page="/ArticleDetailsDetails" asp-route-id="@article.Slug">
                                                             <img src="~/ProductPictures/@article.PicturePath"
                                                                  class="img-fluid" alt="@article.PictureAlt"
                                                                  title="@article.Title">
@@ -45,7 +49,7 @@
                                                     </div>
                                                     <div class="single-blog-post__content">
                                                         <h3 class="title">
-                                                            <a asp-page="./Article" asp-route-id="@article.Slug">
+                                                            <a asp-page="/ArticleDetails" asp-route-id="@article.Slug">
                                                                 @article.Title
                                                             </a>
                                                         </h3>
@@ -55,7 +59,7 @@
                                                         <p class="short-desc">
                                                             @article.ShortDescription
                                                         </p>
-                                                        <a asp-page="./Article" asp-route-id="@article.Slug"
+                                                        <a asp-page="/ArticleDetails" asp-route-id="@article.Slug"
                                                            class="blog-post-link">ادامه مطلب</a>
                                                     </div>
                                                 </div>
@@ -96,7 +100,7 @@
                                             @foreach (var category in Model.ArticleCategories)
                                             {
                                                 <li>
-                                                    <a asp-page="./ArticleCategory" asp-route-id="@category.Slug" class="active">
+                                                    <a asp-page="./ArticleDetailsCategory" asp-route-id="@category.Slug" class="active">
                                                         @category.Name <span class="counter">@category.ArticlesCount</span>
                                                     </a>
                                                 </li>
@@ -111,7 +115,7 @@
                                             {
                                                 <div class="single-block d-flex">
                                                     <div class="image">
-                                                        <a asp-page="./Article" asp-route-id="@article.Slug">
+                                                        <a asp-page="./ArticleDetailsDetails" asp-route-id="@article.Slug">
                                                             <img src="~/ProductPictures/@article.PicturePath"
                                                                  class="img-fluid" alt="@article.PictureAlt"
                                                                  title="@article.PictureTitle">
@@ -119,7 +123,7 @@
                                                     </div>
                                                     <div class="content">
                                                         <p>
-                                                            <a asp-page="./Article" asp-route-id="@article.Slug">
+                                                            <a asp-page="./ArticleDetails" asp-route-id="@article.Slug">
                                                                 @article.Title
                                                             </a> <span>@article.PublishDate</span>
                                                         </p>

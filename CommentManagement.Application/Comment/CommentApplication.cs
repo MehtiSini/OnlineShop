@@ -1,8 +1,8 @@
-﻿using MyFramework.Tools;
-using ShopManagement.Contracts.Comment;
-using ShopManagement.Domain.CommentAgg;
+﻿using CommentManagement.Contracts.Comment;
+using CommentManagement.Domain.CommentAgg;
+using MyFramework.Tools;
 
-namespace ShopManagement.Application.Comment
+namespace CommentManagement.Application.Comment
 {
     public class CommentApplication : ICommentApplication
     {
@@ -18,13 +18,12 @@ namespace ShopManagement.Application.Comment
             var operation = new OperationResult();
 
             var Comment = new CommentModel(Cmd.Name, Cmd.Email, Cmd.Message,
-                Cmd.ProductId);
+                Cmd.OwnerRecordId, Cmd.Type, Cmd.Website, Cmd.ParentId);
 
             _commentRepository.Create(Comment);
 
             _commentRepository.Save();
             return operation.Succeed();
-
         }
 
         public OperationResult Cancel(long id)
@@ -59,9 +58,9 @@ namespace ShopManagement.Application.Comment
             return operation.Succeed();
         }
 
-        public List<CommentViewModel> Search(CommentSearchModel Cmd)
+        public List<CommentViewModel> Search(CommentSearchModel Search)
         {
-            return _commentRepository.Search(Cmd);
+            return _commentRepository.Search(Search);
         }
     }
 }
