@@ -1,8 +1,7 @@
 ﻿@using ShopManagement.Contracts.Product
-@model EditProduct
+@model  EditProduct
 @{
 }
-
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -72,9 +71,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group no-margin">
-                    <label asp-for="ShortDescription" class="control-label">توضیحات کوتاه</label>
+                    <label asp-for="ShortDescription" class="control-label">توضیحات</label>
                     <textarea class="form-control autogrow" asp-for="ShortDescription" onchange="fillField('ShortDescription', 'MetaDescription')"
-                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 60px;"></textarea>
+                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
                     <span asp-validation-for="ShortDescription" class="error"></span>
                 </div>
             </div>

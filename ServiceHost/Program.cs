@@ -1,3 +1,4 @@
+using AccountManagement.Configuration;
 using BlogManagement.Configuration;
 using CommentManagement.Configuration;
 using DiscountManagement.Configuration;
@@ -18,6 +19,7 @@ DiscountBootstrapper Discount = new DiscountBootstrapper();
 InventoryBootStrapper Inventory = new InventoryBootStrapper();
 BlogBootStrapper Blog = new BlogBootStrapper();
 CommentBootStrapper Comment = new CommentBootStrapper();
+AccountBootstrapper Account = new AccountBootstrapper();
 
 var ConnString = builder.Configuration.GetSection("ConnString")["OnlineShopDb"];
 
@@ -26,6 +28,7 @@ Discount.ConfigService(builder.Services, ConnString);
 Inventory.ConfigService(builder.Services, ConnString);
 Blog.ConfigService(builder.Services, ConnString);
 Comment.ConfigService(builder.Services, ConnString);
+Account.ConfigService(builder.Services, ConnString);
 
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 builder.Services.AddTransient<IFileUploader,FileUploader>();
