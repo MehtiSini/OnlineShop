@@ -16,6 +16,11 @@ namespace AccountManagement.Infrastrucure.EfCore.Account
             _accountContext = accountContext;
         }
 
+        public AccountModel GetBy(string Username)
+        {
+            return _accountContext.accounts.FirstOrDefault(x => x.Username == Username);
+        }
+
         public EditAccount GetDetails(long id)
         {
             return _accountContext.accounts.Select(x => new EditAccount

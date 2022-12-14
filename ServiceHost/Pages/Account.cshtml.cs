@@ -1,4 +1,4 @@
-using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Contracts.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -8,11 +8,7 @@ namespace ServiceHost.Pages
     public class AccountModel : PageModel
     {
         [TempData]
-        public string LoginMessage { get; set; }
-
-        [TempData]
-        public string RegisterMessage { get; set; }
-
+        public string? LoginMessage { get; set; }
 
         private readonly IAccountApplication _accountApplication;
 
@@ -25,29 +21,24 @@ namespace ServiceHost.Pages
         {
         }
 
-        public IActionResult OnPostLogin(Login command)
+        public IActionResult OnPostLogin(LoginModel Command)
         {
-            var result = _accountApplication.Login(command);
-            if (result.IsSuccedded)
-                return RedirectToPage("/Index");
+            var Result = _accountApplication.Login(Command);
 
-            LoginMessage = result.Message;
-            return RedirectToPage("/Account");
+            if (Result.IsSucceed)
+            {
+                LoginMessage = Result.Message;
+                return RedirectToPage("./Index");
+            }
+
+            return RedirectToPage("./Account");
         }
 
-        public IActionResult OnGetLogout()
+        public IActionResult OnGetSignOut()
         {
-            _accountApplication.Logout();
-            return RedirectToPage("/Index");
-        }
-
-        public IActionResult OnPostRegister(RegisterAccount command)
-        {
-            var result = _accountApplication.Register(command);
-            if (result.IsSuccedded)
-                return RedirectToPage("/Account");
-            RegisterMessage = result.Message;
-            return RedirectToPage("/Account");
+            _accountApplication.SignOut();
+            return RedirectToPage("./Index");
         }
     }
+
 }

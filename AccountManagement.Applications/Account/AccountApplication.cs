@@ -1,4 +1,5 @@
-﻿using AccountManagement.Contracts.Account;
+﻿using _0_Framework.Application;
+using AccountManagement.Contracts.Account;
 using AcoountManagement.Domain.AccountAgg;
 using MyFramework.Tools;
 
@@ -9,12 +10,14 @@ namespace AccountManagement.Applications.Account
         private readonly IAccountRepository _accountRepository;
         private readonly IFileUploader _fileUploader;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IAuthHelper _authHelper;
 
-        public AccountApplication(IAccountRepository accountRepository, IFileUploader fileUploader, IPasswordHasher passwordHasher)
+        public AccountApplication(IAccountRepository accountRepository, IFileUploader fileUploader, IPasswordHasher passwordHasher, IAuthHelper authHelper)
         {
             _accountRepository = accountRepository;
             _fileUploader = fileUploader;
             _passwordHasher = passwordHasher;
+            _authHelper = authHelper;
         }
 
         public OperationResult ChangePassword(ChangePassword cmd)
@@ -72,7 +75,7 @@ namespace AccountManagement.Applications.Account
 
             var Account = _accountRepository.GetById(cmd.Id);
 
-            if (_accountRepository.Exist(x =>( x.Username == cmd.Username || x.Mobile == cmd.Mobile) && x.Id != cmd.Id))
+            if (_accountRepository.Exist(x => (x.Username == cmd.Username || x.Mobile == cmd.Mobile) && x.Id != cmd.Id))
             {
                 return operation.Failed(OperationMessage.DuplicateRecord);
             }
@@ -99,6 +102,39 @@ namespace AccountManagement.Applications.Account
         public List<AccountViewModel> Search(AccountSearchModel Search)
         {
             return _accountRepository.Search(Search);
+        }
+
+        public OperationResult Login(LoginModel cmd)
+        {
+            var operation = new OperationResult();
+
+            var Account = _accountRepository.GetBy(cmd.Username);
+
+            if (Account == null)
+            {
+                return operation.Failed(OperationMessage.UserNotFound);
+            }
+
+            //This Mehtods Check If The Password Is Match With Hash In DataBase Or not
+            (bool Verified, bool NeedsUpgrade) Result = _passwordHasher.Check(Account.Password, cmd.Password);
+
+            if (!Result.Verified)
+            {
+                return operation.Failed(OperationMessage.UserNotFound);
+            }
+
+            var authViewModel = new AuthViewModel(Account.Id,Account.RoleId,Account.FullName
+                ,Account.Username,Account.Mobile);
+
+            _authHelper.Signin(authViewModel);
+
+            return operation.Succeed();
+
+        }
+
+        public void SignOut()
+        {
+            _authHelper.SignOut();
         }
     }
 }

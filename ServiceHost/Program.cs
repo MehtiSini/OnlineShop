@@ -1,8 +1,10 @@
+using _0_Framework.Application;
 using AccountManagement.Configuration;
 using BlogManagement.Configuration;
 using CommentManagement.Configuration;
 using DiscountManagement.Configuration;
 using InventoryManagement.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using MyFramework.Tools;
 using ServiceHost;
 using ShopManagement.Configuration;
@@ -30,8 +32,24 @@ Blog.ConfigService(builder.Services, ConnString);
 Comment.ConfigService(builder.Services, ConnString);
 Account.ConfigService(builder.Services, ConnString);
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 builder.Services.AddTransient<IFileUploader,FileUploader>();
+builder.Services.AddTransient<IAuthHelper, AuthHelper>();
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+    {
+        o.LoginPath = new PathString("/Account");
+        o.LogoutPath = new PathString("/Account");
+        o.AccessDeniedPath = new PathString("/AccessDenied");
+    });
 
 
 var app = builder.Build();
@@ -44,8 +62,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseAuthentication();
+
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
+
+app.UseCookiePolicy();
 
 app.UseRouting();
 
