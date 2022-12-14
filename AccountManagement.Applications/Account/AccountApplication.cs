@@ -46,7 +46,7 @@ namespace AccountManagement.Applications.Account
 
         }
 
-        public OperationResult Create(CreateAccount cmd)
+        public OperationResult Register(RegisterAccount cmd)
         {
             var operation = new OperationResult();
 

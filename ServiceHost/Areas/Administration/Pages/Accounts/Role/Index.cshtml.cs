@@ -23,7 +23,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
         public IActionResult OnGetCreate()
         {
             var command = new CreateRole();
-            return Partial("./Create", command);
+            return Partial("./Register", command);
         }
 
         public JsonResult OnPostCreate(CreateRole create)

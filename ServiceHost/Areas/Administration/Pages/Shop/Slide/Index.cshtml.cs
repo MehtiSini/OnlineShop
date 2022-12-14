@@ -23,7 +23,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slide
         public IActionResult OnGetCreate()
         {
             var command = new CreateSlide();
-            return Partial("./Create", command);
+            return Partial("./Register", command);
         }
 
         public JsonResult OnPostCreate(CreateSlide command)

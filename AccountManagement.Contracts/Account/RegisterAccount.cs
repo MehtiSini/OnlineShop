@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AccountManagement.Contracts.Account
 {
-    public class CreateAccount
+    public class RegisterAccount
     {
         [Required(ErrorMessage = ValidationMessage.IsRequired)]
         public string? FullName { get; set; }
@@ -21,7 +21,6 @@ namespace AccountManagement.Contracts.Account
 
         public IFormFile? ProfilePhoto { get; set; }
 
-        [Range(1, long.MaxValue, ErrorMessage = ValidationMessage.IsRequired)]
         public long RoleId { get; set; }
 
         public List<RoleViewModel>? Roles{ get; set; }

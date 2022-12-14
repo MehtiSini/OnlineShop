@@ -36,7 +36,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPicture
             {
                 Products = _applicationProduct.GetProducts()
             };
-            return Partial("./Create", command);
+            return Partial("./Register", command);
         }
 
         public JsonResult OnPostCreate(CreateProductPicture create)

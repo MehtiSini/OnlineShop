@@ -40,7 +40,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             {
                 Products = _productapplication.GetProducts()
             };
-            return Partial("./Create", command);
+            return Partial("./Register", command);
         }
 
         public JsonResult OnPostCreate(CreateInventory create)

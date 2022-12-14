@@ -47,11 +47,11 @@
 	</div>
 </div>
 
-<div class="row" id="ProductCategoriesDiv">
+<div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">لیست محصولات(@Model.Accounts.Count)</h3>
+				<h3 class="panel-title">لیست کاربران(@Model.Accounts.Count)</h3>
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -75,7 +75,14 @@
 									<tr>
 										<td>@account.Id</td>
 										<td>
-											<img src="~/ProductPictures/@account.ProfilePhoto" style="width: 50px; height: 50px" />
+											@if (string.IsNullOrEmpty(@account.ProfilePhoto))
+																		{
+												<img src="~/ProductPictures/profilePhotos/NormalUser.png" style="width: 50px; height: 50px" />
+											}
+											else
+											{
+												<img src="~/ProductPictures/@account.ProfilePhoto" style="width: 50px; height: 50px" />
+											}
 										</td>
 										<td>@account.FullName</td>
 										<td>@account.Username</td>

@@ -12,7 +12,7 @@ namespace AcoountManagement.Domain.AccountAgg
         public string? ProfilePhoto { get; private set; }
         public long RoleId { get; private set; }
 
-        public RoleModel Role{ get; private set; }
+        public RoleModel Role { get; private set; }
 
         public AccountModel(string? fullName, string? username, string? password,
             string? mobile, string? profilePhoto, long roleId)
@@ -22,7 +22,14 @@ namespace AcoountManagement.Domain.AccountAgg
             Password = password;
             Mobile = mobile;
             ProfilePhoto = profilePhoto;
-            RoleId = roleId;
+            if (roleId == 0)
+            {
+                RoleId = 2;
+            }
+            else
+            {
+                RoleId = roleId;
+            }
         }
 
         public void Edit(string? fullName, string? username,

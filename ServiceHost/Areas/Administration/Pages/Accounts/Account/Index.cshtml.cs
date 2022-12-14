@@ -36,16 +36,16 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Account
 
         public IActionResult OnGetCreate()
         {
-            var command = new CreateAccount
+            var command = new RegisterAccount
             {
                 Roles = _applicationRole.ListRoles()
             };
             return Partial("./Create", command);
         }
 
-        public JsonResult OnPostCreate(CreateAccount create)
+        public JsonResult OnPostCreate(RegisterAccount create)
         {
-            var result = _applicationAccount.Create(create);
+            var result = _applicationAccount.Register(create);
 
             return new JsonResult(result);
         }
