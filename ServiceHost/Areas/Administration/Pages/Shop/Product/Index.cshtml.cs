@@ -1,13 +1,16 @@
 using DiscountManagement.Contracts.CustomerDiscount;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MyFramework.Tools;
 using ShopManagement.Contracts.Product;
-using Sm.Application.ProductCategory;
 using Sm.Contracts.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Product
 {
+    [Authorize(Roles = Roles.Administrator)]
+
     public class IndexModel : PageModel
     {
         public SelectList ProductCategories;

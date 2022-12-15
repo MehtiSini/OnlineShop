@@ -9,7 +9,9 @@ namespace ServiceHost.Pages
     {
         [TempData]
         public string? LoginMessage { get; set; }
-        public string? RegisterMessage { get; set; }
+
+        [TempData]
+        public string RegisterMessage { get; set; }
 
         private readonly IAccountApplication _accountApplication;
 
@@ -28,10 +30,9 @@ namespace ServiceHost.Pages
 
             if (Result.IsSucceed)
             {
-                LoginMessage = Result.Message;
                 return RedirectToPage("./Index");
             }
-
+            LoginMessage = Result.Message;
             return RedirectToPage("./Account");
         }
 
@@ -47,10 +48,9 @@ namespace ServiceHost.Pages
 
             if (Result.IsSucceed)
             {
-                LoginMessage = Result.Message;
                 return RedirectToPage("./Index");
             }
-
+            RegisterMessage = Result.Message;
             return new JsonResult(Result);
         }
 

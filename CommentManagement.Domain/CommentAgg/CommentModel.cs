@@ -35,7 +35,6 @@ namespace CommentManagement.Domain.CommentAgg
             CommentStatus = OperationComment.Confirm;
         }
 
-
         public void Cancel()
         {
             CommentStatus = OperationComment.Cancel;

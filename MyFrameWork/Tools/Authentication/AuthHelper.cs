@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using MyFramework.Tools;
 
 namespace _0_Framework.Application
 {
@@ -25,8 +26,18 @@ namespace _0_Framework.Application
             result.Username = claims.FirstOrDefault(x => x.Type == "Username").Value;
             result.RoleId = long.Parse(claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
             result.Fullname = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
-            //result.Role = Roles.GetRoleBy(result.RoleId);
+            result.Role = Roles.GetRoleBy(result.RoleId);
             return result;
+        }
+
+        public string CurrentAccountRole()
+        {
+            if (IsAuthenticated())
+            {
+                return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value;
+            }
+            return null;
+
         }
 
         public bool IsAuthenticated()

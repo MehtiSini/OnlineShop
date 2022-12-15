@@ -119,7 +119,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Configuration", "AccountManagement.Config\AccountManagement.Configuration.csproj", "{B467B0B9-7A48-4DC7-BBB2-66604B4FD053}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Applications", "AccountManagement.Applications\AccountManagement.Applications.csproj", "{0D53953D-75E1-4AD4-B82F-CCA1891AA81D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Applications", "AccountManagement.Applications\AccountManagement.Applications.csproj", "{0D53953D-75E1-4AD4-B82F-CCA1891AA81D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

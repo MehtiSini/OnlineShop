@@ -20,5 +20,6 @@ namespace CommentManagement.Contracts.Comment
         public int OwnerRecordId { get; set; }
         public int Type { get; set; }
         public long ParentId { get; set; }
+        public long TypeName { get; set; }
     }
 }

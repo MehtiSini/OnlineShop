@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.Tools;
+using BlogManagement.Infrastructure.EfCore.DbContextModel;
 using CommentManagement.Contracts.Comment;
 using CommentManagement.Domain.CommentAgg;
 using CommentManagement.Infrastructure.EfCore.DbContextModel;
@@ -12,11 +13,28 @@ namespace CommentManagement.Infrastructure.EfCore.Comment
     {
         private readonly CommentContext _commentContext;
         private readonly ShopContext _shopContext;
+        private readonly BlogContext _blogContext;
 
-        public CommentRepository(CommentContext context, ShopContext shopContext) : base(context)
+        public CommentRepository(CommentContext context, ShopContext shopContext, BlogContext blogontext) : base(context)
         {
             _commentContext = context;
             _shopContext = shopContext;
+            _blogContext = blogontext;
+        }
+
+        public string GetTypeName(int Type, long OwnerRecordId)
+        {
+            if (Type == 1)
+            {
+                return _shopContext.products.FirstOrDefault(x => x.Id == OwnerRecordId).Name;
+            }
+
+            if (Type == 2)
+            {
+                return _blogContext.articles.FirstOrDefault(x => x.Id == OwnerRecordId).Title;
+            }
+
+            return "";
         }
 
         public List<CommentViewModel> Search(CommentSearchModel search)
@@ -46,7 +64,6 @@ namespace CommentManagement.Infrastructure.EfCore.Comment
 
             return Query.OrderByDescending(x => x.Id).ToList();
         }
-
 
     }
 }

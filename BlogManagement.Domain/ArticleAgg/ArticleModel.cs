@@ -63,7 +63,5 @@ namespace BlogManagement.Domain.ArticleAgg
             PublishDate = publishDate;
             CategoryId = categoryId;
         }
-
-
     }
 }

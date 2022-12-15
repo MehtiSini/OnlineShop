@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AcoountManagement.Domain\AcoountManagement.Domain.csproj" />
+    <ProjectReference Include="..\BlogManagement.Infrastructure\BlogManagement.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\ShopManagement.Infrastructure\ShopManagement.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

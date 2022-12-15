@@ -7,5 +7,7 @@ namespace CommentManagement.Domain.CommentAgg
     public interface ICommentRepository : IRepository<long,CommentModel>
     {
         List<CommentViewModel> Search(CommentSearchModel search);
+        string GetTypeName(int Type, long OwnerRecordId);
+
     }
 }

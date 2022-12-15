@@ -58,6 +58,11 @@ namespace CommentManagement.Application.Comment
             return operation.Succeed();
         }
 
+        public string GetTypeName(int Type, long OwnerRecordId)
+        {
+           return _commentRepository.GetTypeName(Type, OwnerRecordId);
+        }
+
         public List<CommentViewModel> Search(CommentSearchModel Search)
         {
             return _commentRepository.Search(Search);
