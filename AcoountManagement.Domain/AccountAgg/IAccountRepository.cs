@@ -8,6 +8,6 @@ namespace AcoountManagement.Domain.AccountAgg
         AccountModel GetBy(string Username);
         EditAccount GetDetails(long Id);
         List<AccountViewModel> Search(AccountSearchModel Search);
-
+        string GetProfilePhoto(long Id);
     }
 }

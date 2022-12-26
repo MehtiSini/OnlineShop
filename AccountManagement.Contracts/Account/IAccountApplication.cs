@@ -11,5 +11,6 @@ namespace AccountManagement.Contracts.Account
         void SignOut();
         EditAccount GetDetails(long Id);
         List<AccountViewModel> Search(AccountSearchModel Search);
+        string GetProfilePhoto(long Id);
     }
 }

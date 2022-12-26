@@ -27,6 +27,7 @@ namespace _0_Framework.Application
             result.RoleId = long.Parse(claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
             result.Fullname = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
             result.Role = Roles.GetRoleBy(result.RoleId);
+            result.ProfilePhoto = Roles.GetRoleBy(result.RoleId);
             return result;
         }
 

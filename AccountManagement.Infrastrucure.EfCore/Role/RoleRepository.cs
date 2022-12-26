@@ -2,7 +2,9 @@
 using AccountManagement.Infrastrucure.EfCore.DbContextModel;
 using AcoountManagement.Domain.RoleAgg;
 using Blog.Domain.Tools;
+using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
+using MyFramework.Tools.Authentication;
 
 namespace AccountManagement.Infrastrucure.EfCore.Role
 {
@@ -17,12 +19,25 @@ namespace AccountManagement.Infrastrucure.EfCore.Role
 
         public EditRole GetDetails(long id)
         {
-            return _context.roles.Select(x => new EditRole
+            var Role = _context.roles.Select(x => new EditRole
             {
-                Id=x.Id,
-                Name=x.Name
+                Id = x.Id,
+                Name = x.Name,
+                MappedPermission = MapPermissions(x.Permissions),
 
-            }).FirstOrDefault(x => x.Id == id);
+            }).AsNoTracking()
+                .FirstOrDefault(x => x.Id == id);
+
+            Role.Permissions = Role.MappedPermission.Select(x => x.Code).ToList();
+
+
+            return Role;
+
+        }
+
+        private static List<PermissionDto> MapPermissions(List<PermissionModel> permissions)
+        {
+            return permissions.Select(x => new PermissionDto(x.Code, x.Name)).ToList();
         }
 
         public List<RoleViewModel> ListRoles()
@@ -31,9 +46,9 @@ namespace AccountManagement.Infrastrucure.EfCore.Role
             {
                 Id = x.Id,
                 Name = x.Name,
-                CreationDate=x.CreationDate.ToFarsi()
+                CreationDate = x.CreationDate.ToFarsi()
 
-            }).ToList() ;
+            }).ToList();
         }
     }
 }

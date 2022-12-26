@@ -1,16 +1,17 @@
-﻿@using MyFramework.Tools
+﻿@using AccountManagement.Contracts.Account
+@using MyFramework.Tools
 @using _0_Framework.Application
+@inject IAccountApplication account
 @inject IAuthHelper authHelper
 @{
 	var CurrentAccount = authHelper.CurrentAccountInfo();
 }
 
-
 <div class="left side-menu">
 	<div class="sidebar-inner slimscrollleft">
 		<div class="user-details">
 			<div class="pull-right">
-				<img src="~/AdminTheme/assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+				<img src="~/ProductPictures/@account.GetProfilePhoto(@CurrentAccount.Id)" alt="" class="thumb-md img-circle">
 			</div>
 			<div class="user-info">
 				<div class="dropdown">
@@ -26,7 +27,7 @@
 				<p class="text-muted m-0">@CurrentAccount.Role</p>
 			</div>
 		</div>
-		<!--- Divider -->
+
 		<div id="sidebar-menu">
 			<ul>
 				<li>

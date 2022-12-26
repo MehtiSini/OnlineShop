@@ -2,10 +2,8 @@
 using AccountManagement.Infrastrucure.EfCore.DbContextModel;
 using AcoountManagement.Domain.AccountAgg;
 using Blog.Domain.Tools;
-using BlogManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
-using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace AccountManagement.Infrastrucure.EfCore.Account
 {
@@ -39,7 +37,10 @@ namespace AccountManagement.Infrastrucure.EfCore.Account
             }).FirstOrDefault(x => x.Id == id);
         }
 
-      
+        public string GetProfilePhoto(long id)
+        {
+            return _accountContext.accounts.FirstOrDefault(x => x.Id == id).ProfilePhoto;
+        }
 
         public List<AccountViewModel> Search(AccountSearchModel Search)
         {

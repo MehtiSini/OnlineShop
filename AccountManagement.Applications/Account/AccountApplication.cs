@@ -136,5 +136,10 @@ namespace AccountManagement.Applications.Account
         {
             _authHelper.SignOut();
         }
+
+        public string GetProfilePhoto(long Id)
+        {
+            return _accountRepository.GetProfilePhoto(Id);
+        }
     }
 }

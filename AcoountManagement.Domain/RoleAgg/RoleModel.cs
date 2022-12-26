@@ -8,15 +8,24 @@ namespace AcoountManagement.Domain.RoleAgg
         public string? Name { get; private set; }
         public List<AccountModel> Accounts { get; private set; }
 
-        public RoleModel(string? name)
+        public List<PermissionModel> Permissions { get; private set; }
+
+        protected RoleModel()
+        {
+
+        }
+
+        public RoleModel(string? name , List<PermissionModel> permissions)
         {
             Name = name;
             Accounts = new List<AccountModel>();
+            Permissions = permissions;
         }
 
-        public void Edit(string? name)
+        public void Edit(string? name , List<PermissionModel> permissions)
         {
             Name = name;
+            Permissions = permissions;
         }
     }
 }

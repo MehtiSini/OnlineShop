@@ -22,7 +22,7 @@ namespace AccountManagement.Applications.Role
                 return operation.Failed(OperationMessage.DuplicateRecord);
             }
 
-            var Role = new RoleModel(cmd.Name);
+            var Role = new RoleModel(cmd.Name , new List<PermissionModel>());
 
             _repository.Create(Role);
             _repository.Save();
@@ -45,7 +45,11 @@ namespace AccountManagement.Applications.Role
                 return operation.Failed(OperationMessage.DuplicateRecord);
             }
 
-            Role.Edit(cmd.Name);
+            var permissions = new List<PermissionModel>();
+
+            cmd.Permissions.ForEach(code => permissions.Add(new PermissionModel(code)));
+
+            Role.Edit(cmd.Name, permissions);
             _repository.Save();
             return operation.Succeed();
         }

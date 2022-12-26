@@ -20,32 +20,6 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
             Roles = _applicationRole.ListRoles();
         }
 
-        public IActionResult OnGetCreate()
-        {
-            var command = new CreateRole();
-            return Partial("./Create", command);
-        }
-
-        public JsonResult OnPostCreate(CreateRole create)
-        {
-            var result = _applicationRole.Create(create);
-
-            return new JsonResult(result);
-        }
-
-        public IActionResult OnGetEdit(long id)
-        {
-            var Role = _applicationRole.GetDetails(id);
-
-            return Partial("Edit", Role);
-        }
-
-        public JsonResult OnPostEdit(EditRole cmd)
-        {
-            var result = _applicationRole.Edit(cmd);
-
-            return new JsonResult(result);
-        }
 
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyFramework.Tools.Authentication;
 using ShopManagement.Application.Product;
 using ShopManagement.Application.ProductPicture;
 using ShopManagement.Application.Slide;
+using ShopManagement.Configuration.Permission;
 using ShopManagement.Contracts.Product;
 using ShopManagement.Contracts.ProductPicture;
 using ShopManagement.Contracts.Slide;
@@ -43,6 +45,8 @@ namespace ShopManagement.Configuration
             service.AddTransient<ISlideQuery, SlideQuery>();
             service.AddTransient<IProductCategoryQuery, ProductCategoryQuery>();
             service.AddTransient<IProductQuery, ProductQuery>();
+
+            service.AddTransient<IPermissionExposer, ShopPermissionExposer>();
 
             service.AddDbContext<ShopContext>(x => x.UseSqlServer(ConnString));
 
