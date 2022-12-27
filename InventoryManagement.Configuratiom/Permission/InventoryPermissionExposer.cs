@@ -1,4 +1,5 @@
-﻿using MyFramework.Tools.Authentication;
+﻿using InventoryManagement.Infrastructure.Configuration.Permission;
+using MyFramework.Tools.Authentication;
 
 namespace InventoryManagement.Configuratiom.Permission
 {
@@ -11,10 +12,13 @@ namespace InventoryManagement.Configuratiom.Permission
                 {
                     "Inventory", new List<PermissionDto>
                   {
-                        new PermissionDto(50,"ساخت انبار"),
-                        new PermissionDto(51,"جست و جوی در انبار"),
-                        new PermissionDto(52,"ویرایش انبار"),
-                        new PermissionDto(53,"لیست انبار")
+                        new PermissionDto(InventoryPermissions.CreateInventory,"ساخت انبار"),
+                        new PermissionDto(InventoryPermissions.SearchInventory,"جست و جوی در انبار"),
+                        new PermissionDto(InventoryPermissions.EditInventory,"ویرایش انبار"),
+                        new PermissionDto(InventoryPermissions.ListInventory,"لیست انبار"),
+                        new PermissionDto(InventoryPermissions.Increase,"افزایش موجودی"),
+                        new PermissionDto(InventoryPermissions.Reduce,"کاهش موجودی"),
+                        new PermissionDto(InventoryPermissions.OperationLog,"گزارش انبار")
                   }
                 }
             };

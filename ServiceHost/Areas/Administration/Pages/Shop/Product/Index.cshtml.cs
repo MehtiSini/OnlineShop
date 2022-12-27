@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MyFramework.Tools;
+using MyFramework.Tools.Authentication;
+using ShopManagement.Configuration.Permission;
 using ShopManagement.Contracts.Product;
 using Sm.Contracts.ProductCategory;
 
@@ -29,6 +31,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
             _applicationCategory = applicationCategory;
         }
 
+        [NeedPermission(ShopPermissions.CreateProduct)]
         public void OnGet(ProductSearchModel searchModel)
         {
             ProductCategories = new SelectList(_applicationCategory.GetProductCategories(), "Id", "Name");

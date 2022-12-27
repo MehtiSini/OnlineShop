@@ -11,19 +11,17 @@ namespace ShopManagement.Configuration.Permission
                 {
                     "Product", new List<PermissionDto>
                   {
-                        new PermissionDto(10,"افزودن محصول"),
-                        new PermissionDto(11,"جست و جوی محصولات"),
-                        new PermissionDto(12,"ویرایش محصولات"),
-                        new PermissionDto(13,"لیست محصولات")
+                        new PermissionDto(ShopPermissions.CreateProduct,"افزودن محصول"),
+                        new PermissionDto(ShopPermissions.SearchProducts,"جست و جوی محصولات"),
+                        new PermissionDto(ShopPermissions.EditProduct,"ویرایش محصولات"),
                   }
                 },
                 {
                     "ProductCategory" , new List<PermissionDto>
                     {
-                        new PermissionDto(20,"افزودن کتگوری"),
-                        new PermissionDto(21,"جست و جوی کتگوری"),
-                        new PermissionDto(22,"ویرایش کتگوری"),
-                        new PermissionDto(22,"لیست کتگوری ها")
+                        new PermissionDto(ShopPermissions.CreateProductCategory,"افزودن کتگوری"),
+                        new PermissionDto(ShopPermissions.SearchProductCategories,"جست و جوی کتگوری"),
+                        new PermissionDto(ShopPermissions.EditProductCategory,"ویرایش کتگوری"),
                     }
                 }
             };
