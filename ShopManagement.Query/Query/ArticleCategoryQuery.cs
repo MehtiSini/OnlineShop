@@ -2,6 +2,7 @@
 using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
+using MyFramework.Tools;
 using ShopManagement.Query.Contracts.Article;
 using ShopManagement.Query.Contracts.ArticleCategory;
 

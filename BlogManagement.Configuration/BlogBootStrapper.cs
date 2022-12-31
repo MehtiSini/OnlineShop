@@ -23,7 +23,7 @@ namespace BlogManagement.Configuration
             service.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
 
             service.AddTransient<IArticleRepository, ArticleRepository>();
-            service.AddTransient<IArticleApplication, A>();
+            service.AddTransient<IArticleApplication, ArticleApplication>();
 
             service.AddTransient<IArticleQuery, ArticleQuery>();
             service.AddTransient<IArticleCategoryQuery, ArticleCategoryQuery>();

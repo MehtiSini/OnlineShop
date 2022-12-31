@@ -5,6 +5,7 @@ using DiscountManagement.Domain.CustomerDiscountAgg;
 using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
+using MyFramework.Tools;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace DiscountManagement.Infrastructure.EfCore.CustomerDiscount

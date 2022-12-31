@@ -5,6 +5,7 @@ using CommentManagement.Domain.CommentAgg;
 using CommentManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
+using MyFramework.Tools;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace CommentManagement.Infrastructure.EfCore.Comment

@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Blog.Domain.Tools
+namespace MyFramework.Tools
 {
     public static class ShamsiToMiladi
     {

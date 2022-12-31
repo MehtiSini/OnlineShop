@@ -17,7 +17,7 @@ function addToCart(id, name, price, picture) {
             id,
             name,
             unitPrice: price,
-            picture,
+            PicturePath: picture,
             count
         }
 
@@ -41,7 +41,7 @@ function updateCart() {
                             </a>
                             <div class="image">
                                 <a href="single-product.html">
-                                    <img src="/ProductPictures/${x.picture}"
+                                    <img src="/ProductPictures/${x.PicturePath}"
                                          class="img-fluid" alt="">
                                 </a>
                             </div>
@@ -65,6 +65,13 @@ function removeFromCart(id) {
     products.splice(itemToRemove, 1);
     $.cookie(cookieName, JSON.stringify(products), { expires: 2, path: "/" });
     updateCart();
+    let Url = window.location.href.toLowerCase();
+
+    if (Url.includes("cart"))
+    {
+        location.reload();
+    }
+
 }
 
 function changeCartItemCount(id, totalId, count) {

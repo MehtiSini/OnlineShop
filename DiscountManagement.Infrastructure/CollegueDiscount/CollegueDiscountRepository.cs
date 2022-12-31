@@ -3,6 +3,7 @@ using DiscountManagement.Contracts.CollegueDiscount;
 using DiscountManagement.Domain.CollegueDiscountAgg;
 using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using MyFramework.Infrastructure;
+using MyFramework.Tools;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace DiscountManagement.Infrastructure.EfCore.CollegueDiscount

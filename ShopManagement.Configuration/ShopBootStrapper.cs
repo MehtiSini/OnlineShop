@@ -17,6 +17,7 @@ using ShopManagement.Infrastructure.EfCore.ProductCategory;
 using ShopManagement.Infrastructure.EfCore.ProductPicture;
 using ShopManagement.Infrastructure.EfCore.Slide;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
+using ShopManagement.Query.Contracts.Cart;
 using ShopManagement.Query.Contracts.Category;
 using ShopManagement.Query.Contracts.Product;
 using ShopManagement.Query.Contracts.Slide;
@@ -47,6 +48,7 @@ namespace ShopManagement.Configuration
             service.AddTransient<IProductQuery, ProductQuery>();
 
             service.AddTransient<IPermissionExposer, ShopPermissionExposer>();
+            service.AddTransient<ICartCalculator, CartCalculator>();
 
             service.AddDbContext<ShopContext>(x => x.UseSqlServer(ConnString));
 

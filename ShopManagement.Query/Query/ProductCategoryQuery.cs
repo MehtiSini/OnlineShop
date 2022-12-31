@@ -2,6 +2,7 @@
 using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using InventoryManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
+using MyFramework.Tools;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 using ShopManagement.Query.Contracts.Category;

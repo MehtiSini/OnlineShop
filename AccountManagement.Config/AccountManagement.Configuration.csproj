@@ -14,6 +14,7 @@
     <ProjectReference Include="..\AccountManagement.Applications\AccountManagement.Applications.csproj" />
     <ProjectReference Include="..\AccountManagement.Contracts\AccountManagement.Contracts.csproj" />
     <ProjectReference Include="..\AccountManagement.Infrastrucure.EfCore\AccountManagement.Infrastrucure.EfCore.csproj" />
+    <ProjectReference Include="..\MyFrameWork\MyFramework.csproj" />
   </ItemGroup>
 
 </Project>

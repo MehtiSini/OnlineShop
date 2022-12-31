@@ -4,6 +4,7 @@ using AcoountManagement.Domain.AccountAgg;
 using Blog.Domain.Tools;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
+using MyFramework.Tools;
 
 namespace AccountManagement.Infrastrucure.EfCore.Account
 {

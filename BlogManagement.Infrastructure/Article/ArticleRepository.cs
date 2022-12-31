@@ -4,6 +4,7 @@ using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
+using MyFramework.Tools;
 
 namespace BlogManagement.Infrastructure.EfCore.Article
 {

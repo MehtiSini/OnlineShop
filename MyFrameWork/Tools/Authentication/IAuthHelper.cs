@@ -6,7 +6,7 @@ namespace _0_Framework.Application
         void SignOut();
         bool IsAuthenticated();
         void Signin(AuthViewModel account);
-        string CurrentAccountRole();
+        string GetCurrentAccountRole();
         AuthViewModel CurrentAccountInfo();
         List<int> GetPermissions();
     }

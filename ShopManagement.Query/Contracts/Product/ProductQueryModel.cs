@@ -12,6 +12,7 @@ namespace ShopManagement.Query.Contracts.Product
         public string? Name { get; set; }
         public string? Code { get; set; }
         public string? Price { get; set; }
+        public double DoublePrice { get; set; }
         public string? PriceWithDiscount { get; set; }
         public int? DiscountRate { get; set; }
         public string? Category { get; set; }

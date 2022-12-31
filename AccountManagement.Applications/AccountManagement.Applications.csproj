@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AccountManagement.Contracts\AccountManagement.Contracts.csproj" />
     <ProjectReference Include="..\AcoountManagement.Domain\AcoountManagement.Domain.csproj" />
+    <ProjectReference Include="..\MyFrameWork\MyFramework.csproj" />
   </ItemGroup>
 
 </Project>

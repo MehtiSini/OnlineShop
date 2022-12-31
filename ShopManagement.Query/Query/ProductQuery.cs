@@ -7,6 +7,7 @@ using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using InventoryManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Tools;
+using ShopManagement.Contracts.Orders;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 using ShopManagement.Query.Contracts.Product;
@@ -180,6 +181,8 @@ namespace ShopManagement.Query.Query
 
                 Product.Price = Price.ToMoney();
 
+                Product.DoublePrice = Price;
+
                 Product.InStock = ProductInventory.IsInStock;
 
                 Inventory.FirstOrDefault(x => x.ProductId == Product.Id)
@@ -208,7 +211,7 @@ namespace ShopManagement.Query.Query
                 Product.Comments = _commentContext.comments
                .Where(x => x.Type == CommentType.Product)
                .Where(x => x.OwnerRecordId == Product.Id)
-               .Where(x=>x.CommentStatus == OperationComment.Confirm)
+               .Where(x => x.CommentStatus == OperationComment.Confirm)
                .Select(x => new CommentQueryModel
                {
                    Id = x.Id,
@@ -219,6 +222,19 @@ namespace ShopManagement.Query.Query
             }
 
             return Product;
+        }
+
+        public static List<ProductPictureQueryModel> MapPictures(List<ProductPictureModel> pictures)
+        {
+            return pictures.Select(picture => new ProductPictureQueryModel
+            {
+                ProductId = picture.ProductId,
+                PictureAlt = picture.PictureAlt,
+                PicturePath = picture.PicturePath,
+                PictureTitle = picture.PictureTitle,
+                IsRemoved = picture.IsRemoved
+
+            }).Where(x => x.IsRemoved == false).ToList();
         }
 
         //private static List<CommentQueryModel> MapComments(List<CommentModel> Comments)
@@ -235,17 +251,25 @@ namespace ShopManagement.Query.Query
 
         //}
 
-        public static List<ProductPictureQueryModel> MapPictures(List<ProductPictureModel> pictures)
-        {
-            return pictures.Select(picture => new ProductPictureQueryModel
-            {
-                ProductId = picture.ProductId,
-                PictureAlt = picture.PictureAlt,
-                PicturePath = picture.PicturePath,
-                PictureTitle = picture.PictureTitle,
-                IsRemoved = picture.IsRemoved
 
-            }).Where(x => x.IsRemoved == false).ToList();
+        public List<CartItem> CheckInventoryStatus(List<CartItem> cartItems)
+        {
+            var Inventory = _inventoryContext.Inventories.ToList();
+
+            foreach (var item in cartItems.Where
+                (cartItem => Inventory.Any(x => x.ProductId == cartItem.Id && x.IsInStock == OperationStock.InStock)))
+            {
+                var ProductInventory = _inventoryContext.Inventories.FirstOrDefault(x => x.ProductId == item.Id);
+             
+                //if(ProductInventory.CalculateCurrentCount() < item.Count)
+                //{
+                //    item.IsInStock = false;
+                //}
+
+                item.IsInStock = ProductInventory.CalculateCurrentCount() >= item.Count;
+            }
+
+            return cartItems;
         }
     }
 }

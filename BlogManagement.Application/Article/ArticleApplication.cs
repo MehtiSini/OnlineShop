@@ -7,13 +7,13 @@ using MyFramework.Tools;
 
 namespace BlogManagement.Application.Article
 {
-    public class A : IArticleApplication
+    public class ArticleApplication : IArticleApplication
     {
         private readonly IArticleRepository _repository;
         private readonly IArticleCategoryRepository _Categoryrepository;
         private readonly IFileUploader _fileUploader;
 
-        public A(IArticleRepository repository, IFileUploader fileUploader, IArticleCategoryRepository categoryrepository)
+        public ArticleApplication(IArticleRepository repository, IFileUploader fileUploader, IArticleCategoryRepository categoryrepository)
         {
             _repository = repository;
             _fileUploader = fileUploader;

@@ -1,6 +1,7 @@
 ﻿using Blog.Domain.Tools;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
+using MyFramework.Tools;
 using ShopManagement.Contracts.ProductPicture;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;

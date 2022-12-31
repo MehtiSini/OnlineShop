@@ -1,5 +1,4 @@
 using AccountManagement.Contracts.Role;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
@@ -19,7 +18,5 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts.Role
         {
             Roles = _applicationRole.ListRoles();
         }
-
-
     }
 }

@@ -32,7 +32,7 @@ namespace _0_Framework.Application
             return result;
         }
 
-        public string CurrentAccountRole()
+        public string GetCurrentAccountRole()
         {
             if (IsAuthenticated())
             {
@@ -51,7 +51,9 @@ namespace _0_Framework.Application
 
             var permissions = _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Permissions")
                 ?.Value;
+
             return JsonConvert.DeserializeObject<List<int>>(permissions);
+
         }
 
         public bool IsAuthenticated()

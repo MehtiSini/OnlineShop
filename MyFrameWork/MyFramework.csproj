@@ -24,4 +24,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CommentManagement.Query\CommentManagement.Query.csproj" />
+  </ItemGroup>
+
 </Project>

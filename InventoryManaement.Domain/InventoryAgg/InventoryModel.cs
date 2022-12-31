@@ -34,12 +34,15 @@ namespace InventoryManaement.Domain.InventoryAgg
              Where(x => x.OperationType == OperationStock.External)
              .Sum(x => x.Count);
 
-            return Plus - Minus;
+            var Result = Plus - Minus;
+
+            return Result;
+
         }
 
         public void Increase(long count, long operatorId, string desc)
         {
-            //To get The Newest Count
+            //To get The Update ProductCount
             var currentCount = CalculateCurrentCount() + count;
 
             var operation = new InventoryOperation(OperationStock.Internal, count, operatorId, currentCount, desc, 0, Id);
@@ -50,7 +53,6 @@ namespace InventoryManaement.Domain.InventoryAgg
             {
                 IsInStock = OperationStock.InStock;
             }
-
         }
 
         public void Reduce(long count, long operatorId, string desc, long orderId)
@@ -66,9 +68,7 @@ namespace InventoryManaement.Domain.InventoryAgg
             {
                 IsInStock = OperationStock.InStock;
             }
-
         }
-
     }
 
     public class InventoryOperation
@@ -99,7 +99,5 @@ namespace InventoryManaement.Domain.InventoryAgg
             InventoryId = inventoryId;
             OperationDate=DateTime.Now;
         }
-
     }
-
 }

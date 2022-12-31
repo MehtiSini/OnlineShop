@@ -1,5 +1,6 @@
 ﻿using Blog.Domain.Tools;
 using MyFramework.Infrastructure;
+using MyFramework.Tools;
 using ShopManagement.Contracts.Slide;
 using ShopManagement.Domain.SlideAgg;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;

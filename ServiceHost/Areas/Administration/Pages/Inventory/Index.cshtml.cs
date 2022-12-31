@@ -19,7 +19,6 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
 
         private readonly IProductApplication _productapplication;
 
-
         public IndexModel(IProductApplication productapplication, IInventoryApplication inventoryapplication)
         {
             _productapplication = productapplication;
@@ -31,7 +30,6 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             Products = new SelectList(_productapplication.GetProducts(), "Id", "Name");
 
             Inventories = _inventoryapplication.Search(searchModel);
-
         }
 
         public IActionResult OnGetCreate()
@@ -89,7 +87,6 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             };
 
             return Partial("Reduce", command);
-
         }
 
         public JsonResult OnPostReduce(ReduceInventory reduce)

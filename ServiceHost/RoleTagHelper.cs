@@ -24,7 +24,7 @@ namespace ServiceHost
                 return;
             }
 
-            var CurrentRole = _authHelper.CurrentAccountRole();
+            var CurrentRole = _authHelper.GetCurrentAccountRole();
 
             var Roles = GetRoles(User);
 

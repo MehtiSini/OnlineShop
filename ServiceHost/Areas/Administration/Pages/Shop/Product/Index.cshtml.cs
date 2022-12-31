@@ -11,8 +11,6 @@ using Sm.Contracts.ProductCategory;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Product
 {
-    [Authorize(Roles = Roles.Administrator)]
-
     public class IndexModel : PageModel
     {
         public SelectList ProductCategories;
