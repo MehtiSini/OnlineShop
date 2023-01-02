@@ -24,7 +24,6 @@ namespace BlogManagement.Infrastructure.EfCore.Article
             builder.HasOne(x => x.Category)
                 .WithMany(x=>x.Articles)
                 .HasForeignKey(x=>x.CategoryId);
-
         }
     }
 

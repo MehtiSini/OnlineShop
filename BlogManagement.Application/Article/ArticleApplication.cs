@@ -2,7 +2,6 @@
 using BlogManagement.Contracts.Article;
 using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Domain.ArticleCategoryAgg;
-using BlogManagement.Infrastructure.EfCore.ArticleCategory;
 using MyFramework.Tools;
 
 namespace BlogManagement.Application.Article
@@ -84,7 +83,6 @@ namespace BlogManagement.Application.Article
         public List<ArticleViewModel> Seacrh(ArticleSearchModel Search)
         {
             return _repository.Search(Search);
-
         }
     }
 }

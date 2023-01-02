@@ -17,9 +17,9 @@ namespace BlogManagement.Configuration
 {
     public class BlogBootStrapper
     {
-        public void ConfigService(IServiceCollection service , string ConnString)
+        public void ConfigService(IServiceCollection service, string ConnString)
         {
-            service.AddTransient<IArticleCategoryRepository , ArticleCategoryRepository>();
+            service.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();
             service.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
 
             service.AddTransient<IArticleRepository, ArticleRepository>();
@@ -29,7 +29,6 @@ namespace BlogManagement.Configuration
             service.AddTransient<IArticleCategoryQuery, ArticleCategoryQuery>();
 
             service.AddDbContext<BlogContext>(x => x.UseSqlServer(ConnString));
-
         }
     }
 }

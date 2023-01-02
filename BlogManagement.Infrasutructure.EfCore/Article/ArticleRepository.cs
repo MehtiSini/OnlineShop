@@ -1,5 +1,4 @@
-﻿using Blog.Domain.Tools;
-using BlogManagement.Contracts.Article;
+﻿using BlogManagement.Contracts.Article;
 using BlogManagement.Domain.ArticleAgg;
 using BlogManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;

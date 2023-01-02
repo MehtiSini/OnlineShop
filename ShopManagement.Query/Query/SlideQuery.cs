@@ -17,16 +17,16 @@ namespace ShopManagement.Query.Query
             return _context.slides.Where(x => x.IsRemoved == false)
                 .Select(x => new SlideQueryModel
                 {
-                    Heading=x.Heading,
+                    Heading = x.Heading,
                     Link = x.Link,
                     PictureTitle = x.PictureTitle,
                     PicturePath = x.PicturePath,
                     Text = x.Text,
                     Title = x.Title,
-                    BtnText=x.BtnText,
-                    PictureAlt=x.PictureAlt
+                    BtnText = x.BtnText,
+                    PictureAlt = x.PictureAlt
                 }).ToList();
-                    
+
         }
     }
 }

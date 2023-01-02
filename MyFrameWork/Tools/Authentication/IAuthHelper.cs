@@ -9,5 +9,6 @@ namespace _0_Framework.Application
         string GetCurrentAccountRole();
         AuthViewModel CurrentAccountInfo();
         List<int> GetPermissions();
+        long GetCurrentAccountId();
     }
 }

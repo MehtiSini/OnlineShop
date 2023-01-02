@@ -1,6 +1,5 @@
 using BlogManagement.Contracts.Article;
 using BlogManagement.Contracts.ArticleCategory;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 

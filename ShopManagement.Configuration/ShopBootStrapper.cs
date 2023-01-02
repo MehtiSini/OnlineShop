@@ -1,17 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MyFramework.Tools.Authentication;
+using ShopManagement.Application.Cart;
+using ShopManagement.Application.Contracts.Orders;
+using ShopManagement.Application.Order;
 using ShopManagement.Application.Product;
 using ShopManagement.Application.ProductPicture;
 using ShopManagement.Application.Slide;
 using ShopManagement.Configuration.Permission;
+using ShopManagement.Contracts.Orders;
 using ShopManagement.Contracts.Product;
 using ShopManagement.Contracts.ProductPicture;
 using ShopManagement.Contracts.Slide;
+using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Domain.SlideAgg;
+using ShopManagement.Infrastructure.EfCore.Order;
 using ShopManagement.Infrastructure.EfCore.Product;
 using ShopManagement.Infrastructure.EfCore.ProductCategory;
 using ShopManagement.Infrastructure.EfCore.ProductPicture;
@@ -50,8 +56,12 @@ namespace ShopManagement.Configuration
             service.AddTransient<IPermissionExposer, ShopPermissionExposer>();
             service.AddTransient<ICartCalculator, CartCalculator>();
 
-            service.AddDbContext<ShopContext>(x => x.UseSqlServer(ConnString));
+            service.AddTransient<IOrderApplication, OrderApplication>();
+            service.AddTransient<IOrderRepository, OrderRepository>();
 
+            service.AddSingleton<ICartService, CartService>();
+
+            service.AddDbContext<ShopContext>(x => x.UseSqlServer(ConnString));
         }
     }
 }

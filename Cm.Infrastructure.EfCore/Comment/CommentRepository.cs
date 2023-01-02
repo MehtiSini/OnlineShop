@@ -1,5 +1,4 @@
-﻿using Blog.Domain.Tools;
-using BlogManagement.Infrastructure.EfCore.DbContextModel;
+﻿using BlogManagement.Infrastructure.EfCore.DbContextModel;
 using CommentManagement.Contracts.Comment;
 using CommentManagement.Domain.CommentAgg;
 using CommentManagement.Infrastructure.EfCore.DbContextModel;

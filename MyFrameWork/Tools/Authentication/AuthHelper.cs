@@ -32,6 +32,15 @@ namespace _0_Framework.Application
             return result;
         }
 
+        public long GetCurrentAccountId()
+        {
+            if (IsAuthenticated())
+            {
+                return long.Parse(_contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "AccountId").Value);
+            }
+            return 0;
+        }
+
         public string GetCurrentAccountRole()
         {
             if (IsAuthenticated())
