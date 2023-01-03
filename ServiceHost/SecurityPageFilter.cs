@@ -1,5 +1,4 @@
-﻿using _0_Framework.Application;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using MyFramework.Tools.Authentication;
 using System.Reflection;
 

@@ -37,7 +37,7 @@ namespace ServiceHost.Areas.Administration.Pages.CustomerDiscount
             {
                 Products = _productapplication.GetProducts()
             };
-            return Partial("./Register", command);
+            return Partial("./Create", command);
         }
 
         public JsonResult OnPostCreate(DefineCustomerDiscount create)

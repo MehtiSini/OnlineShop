@@ -23,7 +23,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slide
         public IActionResult OnGetCreate()
         {
             var command = new CreateSlide();
-            return Partial("./Register", command);
+            return Partial("./Create", command);
         }
 
         public JsonResult OnPostCreate(CreateSlide command)
@@ -35,7 +35,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slide
         public IActionResult OnGetEdit(long id)
         {
             var slide = _slideApplication.GetDetails(id);
-            return Partial("EditComment", slide);
+            return Partial("Edit", slide);
         }
 
         public JsonResult OnPostEdit(EditSlide command)

@@ -64,7 +64,8 @@ namespace ShopManagement.Query.Query
             {
                 foreach (var product in category.Products)
                 {
-                    var Price = Inventory.FirstOrDefault(x => x.ProductId == product.Id)
+
+                    var Price = Inventory.FirstOrDefault(x => x.ProductId == product.Id) 
                         .UnitPrice;
 
                     product.Price = Price.ToMoney();

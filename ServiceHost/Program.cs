@@ -1,4 +1,3 @@
-using _0_Framework.Application;
 using AccountManagement.Configuration;
 using BlogManagement.Configuration;
 using CommentManagement.Configuration;
@@ -6,6 +5,7 @@ using DiscountManagement.Configuration;
 using InventoryManagement.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using MyFramework.Tools;
+using MyFramework.Tools.Authentication;
 using ServiceHost;
 using ShopManagement.Configuration;
 using System.Text.Encodings.Web;
@@ -36,6 +36,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
 builder.Services.AddTransient<IFileUploader, FileUploader>();
 builder.Services.AddTransient<IAuthHelper, AuthHelper>();
+builder.Services.AddTransient<IZarinPalFactory, ZarinPalFactory>();
 
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {

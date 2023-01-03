@@ -36,7 +36,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPicture
             {
                 Products = _applicationProduct.GetProducts()
             };
-            return Partial("./Register", command);
+            return Partial("./Create", command);
         }
 
         public JsonResult OnPostCreate(CreateProductPicture create)
@@ -49,7 +49,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.ProductPicture
         {
             var product = _applicationProductPicture.GetDetails(id);
             product.Products = _applicationProduct.GetProducts();
-            return Partial("EditComment", product);
+            return Partial("Edit", product);
         }
 
         public JsonResult OnPostEdit(EditProductPicture cmd)

@@ -36,7 +36,7 @@ namespace ServiceHost.Areas.Administration.Pages.CollegueDiscount
             {
                 Products = _productapplication.GetProducts()
             };
-            return Partial("./Register", command);
+            return Partial("./Create", command);
         }
 
         public JsonResult OnPostCreate(DefineCollegueDiscount create)

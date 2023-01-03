@@ -49,7 +49,7 @@ namespace DiscountManagement.Infrastructure.EfCore.CustomerDiscount
                 StartDate = x.StartDate.ToShamsi(),
                 EndDate = x.EndDate.ToShamsi(),
                 Reason = x.Reason,
-                CreationDate=x.CreationDate.ToShamsi()
+                CreationDate = x.CreationDate.ToShamsi()
             });
 
             if (search.ProductId > 0)

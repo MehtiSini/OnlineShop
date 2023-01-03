@@ -1,6 +1,6 @@
-﻿using _0_Framework.Application;
-using DiscountManagement.Infrastructure.EfCore.DbContextModel;
+﻿using DiscountManagement.Infrastructure.EfCore.DbContextModel;
 using MyFramework.Tools;
+using MyFramework.Tools.Authentication;
 using ShopManagement.Contracts.Orders;
 using ShopManagement.Query.Contracts.Cart;
 
@@ -23,7 +23,7 @@ namespace ShopManagement.Query.Query
         }
 
 
-        public CartDetail Calculator(DiscountContext _discountContext , IAuthHelper _authHelper, List<CartItem> items , CartDetail Cart)
+        public static CartDetail Calculator(DiscountContext _discountContext , IAuthHelper _authHelper, List<CartItem> items , CartDetail Cart)
         {
             
             var CollegueDiscount = _discountContext.CollegueDiscount.Where(x => x.IsRemoved == false)

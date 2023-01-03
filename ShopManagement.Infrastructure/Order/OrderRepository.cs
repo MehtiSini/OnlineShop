@@ -8,9 +8,23 @@ namespace ShopManagement.Infrastructure.EfCore.Order
     {
         private readonly ShopContext? _shopContext;
 
-        public OrderRepository(ShopContext? shopContext): base(shopContext)
+        public OrderRepository(ShopContext? shopContext) : base(shopContext)
         {
             _shopContext = shopContext;
+        }
+
+        public double GetAmountBy(long id)
+        {
+            var Order = _shopContext.orders.Select(x => new { x.PayAmount, x.Id }).FirstOrDefault(x => x.Id == id);
+          
+            if(Order != null)
+            {
+                return Order.PayAmount;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

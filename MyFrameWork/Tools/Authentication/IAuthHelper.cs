@@ -1,5 +1,4 @@
-﻿
-namespace _0_Framework.Application
+﻿namespace MyFramework.Tools.Authentication
 {
     public interface IAuthHelper
     {

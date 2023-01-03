@@ -1,5 +1,5 @@
-﻿using _0_Framework.Application;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using MyFramework.Tools.Authentication;
 
 namespace ServiceHost
 {

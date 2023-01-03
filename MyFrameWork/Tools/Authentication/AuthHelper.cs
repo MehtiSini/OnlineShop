@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-using MyFramework.Tools;
 using Newtonsoft.Json;
 
-namespace _0_Framework.Application
+namespace MyFramework.Tools.Authentication
 {
     public class AuthHelper : IAuthHelper
     {

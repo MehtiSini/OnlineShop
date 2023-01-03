@@ -4,7 +4,6 @@ namespace ShopManagement.Domain.OrderAgg
 {
     public class OrderItem : EntityBase
     {
-      
         public long ProductId { get; private set; }
         public int Count { get; private set; }
         public long DiscountRate { get; private set; }

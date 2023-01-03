@@ -43,7 +43,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Product
             {
                 Categories = _applicationCategory.GetProductCategories()
             };
-            return Partial("./Register", command);
+            return Partial("./Create", command);
         }
 
         public JsonResult OnPostCreate(CreateProduct create)

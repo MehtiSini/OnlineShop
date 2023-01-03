@@ -1,5 +1,5 @@
-﻿using _0_Framework.Application;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+using MyFramework.Tools.Authentication;
 
 namespace ServiceHost
 {
@@ -39,7 +39,7 @@ namespace ServiceHost
 
         public List<string> GetRoles(string Value)
         {
-            List<string> Roles = new List<string>();
+            List<string> Roles = new();
 
             string[] role = Value.Split(',');
 
