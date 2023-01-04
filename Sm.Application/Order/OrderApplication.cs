@@ -23,8 +23,8 @@ namespace ShopManagement.Application.Order
         {
             var CurrentAcountId = _authHelper.GetCurrentAccountId();
             var CustomerName = _authHelper.CurrentAccountInfo().Fullname;
-            
-            var Order = new OrderModel(CurrentAcountId, CustomerName, Cart.PaymentMethod,Cart.DiscountAmount,Cart.TotalAmount,Cart.PayAmount);
+
+            var Order = new OrderModel(CurrentAcountId, CustomerName, Cart.PaymentMethod,Cart.DiscountAmount,Cart.TotalAmount,Cart.PayAmount );
 
             foreach (var item in Cart.CartItems)
             {
@@ -35,7 +35,6 @@ namespace ShopManagement.Application.Order
             _orderRepository.Save();
             return Order.Id;
         }
-
 
         public double GetAmountBy(long Id)
         {
@@ -56,6 +55,30 @@ namespace ShopManagement.Application.Order
             }
 
             return "";
+        }
+
+        public List<OrderViewModel> Search(OrderSearchModel searchModel)
+        {
+            return _orderRepository.Search(searchModel);
+        }
+
+        public void Confirm(long id)
+        {
+            var Order = _orderRepository.GetById(id);
+            Order.Confirm();
+            _orderRepository.Save();
+        }
+
+        public void Cancel(long id)
+        {
+            var Order = _orderRepository.GetById(id);
+            Order.Cancel();
+            _orderRepository.Save();
+        }
+
+        public List<OrderItemsViewModel> GetItems(long OrderId)
+        {
+            return _orderRepository.GetItems(OrderId);
         }
     }
 }

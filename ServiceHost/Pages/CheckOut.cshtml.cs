@@ -74,7 +74,6 @@ namespace ServiceHost.Pages
             _orderApplication.PaymentSucceeded(OrderId,0);
 
             return RedirectToPage("/PaymentResult",PayResult.Succeeded("پرداخت شما به صورت نقدی میباشد " , null));
-
         }
 
         public IActionResult OnGetCallBack([FromQuery] string authority, [FromQuery] string status, long OrderId)
@@ -95,8 +94,6 @@ namespace ServiceHost.Pages
             {
                 return RedirectToPage("/PaymentResult", Result.Failed("پرداخت شما با موفقیت انجام نشد ، در صورت کسر وجه مبلغ تا 24 ساعت دیگر به حسابتان بازگردانده خواهد شد"));
             }
-
         }
-
     }
 }

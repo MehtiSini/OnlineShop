@@ -121,7 +121,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogManagement.Contracts", "BlogManagement.Contracts\BlogManagement.Contracts.csproj", "{8EB35D97-9979-4391-B9BB-833501B7C06F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Infrastructure.InventoryAcl", "Shop.Infrastructure.InventoryAcl\Shop.Infrastructure.InventoryAcl.csproj", "{F15461E8-34C7-49A7-869F-517A14C47D5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Infrastructure.InventoryAcl", "Shop.Infrastructure.InventoryAcl\Shop.Infrastructure.InventoryAcl.csproj", "{F15461E8-34C7-49A7-869F-517A14C47D5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

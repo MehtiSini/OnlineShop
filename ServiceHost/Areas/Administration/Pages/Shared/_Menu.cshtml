@@ -36,6 +36,9 @@
 				<li>
 					<a User="@Roles.Administrator" asp-page="Inventory/Index" class="waves-effect "><i class="md md-home"></i><span> انبارداری </span></a>
 				</li>
+				<li>
+					<a User="@Roles.Administrator" asp-page="/Shop/Order/Index" class="waves-effect "><i class="md md-home"></i><span> سفارشات </span></a>
+				</li>
 				<li class="has_sub">
 					<a User="@Roles.Administrator" class="waves-effect"><i class="md md-mail"></i><span> فروشگاه </span><span class="pull-right"><i class="md md-add"></i></span></a>
 					<ul class="list-unstyled">
@@ -62,7 +65,7 @@
 				</li>
 
 				<li class="has_sub">
-					<a User="@Roles.Administrator,@Roles.ContentUploader"  class="waves-effect"><i class="md md-mail"></i><span> سیستم بلاگ </span><span class="pull-right"><i class="md md-add"></i></span></a>
+					<a User="@Roles.Administrator,@Roles.ContentUploader" class="waves-effect"><i class="md md-mail"></i><span> سیستم بلاگ </span><span class="pull-right"><i class="md md-add"></i></span></a>
 					<ul class="list-unstyled">
 						<li><a asp-page="/Blog/ArticleCategory/Index">دسته بندی مقالات</a></li>
 						<li><a asp-page="/Blog/Article/Index">مقالات</a></li>
@@ -70,11 +73,11 @@
 				</li>
 
 				<li>
-					<a User="@Roles.Administrator,@Roles.ContentUploader"  asp-page="Comment/Index" class="waves-effect "><i class="md md-home"></i><span> سیستم نظرات </span></a>
+					<a User="@Roles.Administrator,@Roles.ContentUploader" asp-page="Comment/Index" class="waves-effect "><i class="md md-home"></i><span> سیستم نظرات </span></a>
 				</li>
 
 				<li>
-					<a  asp-page="/Account" asp-page-handler="Logout" class="waves-effect active"><i class="fa fa-sign-out"></i><span> خروج </span></a>
+					<a asp-page="/Account" asp-page-handler="Logout" class="waves-effect active"><i class="fa fa-sign-out"></i><span> خروج </span></a>
 				</li>
 
 			</ul>

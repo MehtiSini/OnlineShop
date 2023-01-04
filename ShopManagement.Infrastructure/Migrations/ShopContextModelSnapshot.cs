@@ -53,7 +53,7 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                     b.Property<double>("PayAmount")
                         .HasColumnType("float");
 
-                    b.Property<int>("PaymentMethod")
+                    b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
 
                     b.Property<long>("RefId")

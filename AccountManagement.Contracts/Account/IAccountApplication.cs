@@ -12,5 +12,6 @@ namespace AccountManagement.Contracts.Account
         EditAccount GetDetails(long Id);
         List<AccountViewModel> Search(AccountSearchModel Search);
         string GetProfilePhoto(long Id);
+        List<AccountViewModel> GetAccounts();
     }
 }

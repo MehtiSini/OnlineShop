@@ -9,5 +9,6 @@ namespace AcoountManagement.Domain.AccountAgg
         EditAccount GetDetails(long Id);
         List<AccountViewModel> Search(AccountSearchModel Search);
         string GetProfilePhoto(long Id);
+        List<AccountViewModel> GetAccounts();
     }
 }

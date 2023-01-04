@@ -16,12 +16,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-ShopBootStrapper Shop = new ShopBootStrapper();
-DiscountBootstrapper Discount = new DiscountBootstrapper();
-InventoryBootStrapper Inventory = new InventoryBootStrapper();
-BlogBootStrapper Blog = new BlogBootStrapper();
-CommentBootStrapper Comment = new CommentBootStrapper();
-AccountBootstrapper Account = new AccountBootstrapper();
+ShopBootStrapper Shop = new();
+DiscountBootstrapper Discount = new();
+InventoryBootStrapper Inventory = new();
+BlogBootStrapper Blog = new();
+CommentBootStrapper Comment = new();
+AccountBootstrapper Account = new();
 
 var ConnString = builder.Configuration.GetSection("ConnString")["OnlineShopDb"];
 

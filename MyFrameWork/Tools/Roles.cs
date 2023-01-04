@@ -9,19 +9,14 @@
 
         public static string GetRoleBy(long id)
         {
-            switch (id)
+            return id switch
             {
-                case 1:
-                    return "مدیرسیستم";
-                case 2:
-                    return "کابر ساده";
-                case 3:
-                    return "محتوا گذار";
-                case 4:
-                    return "کاربر همکار";
-                default:
-                    return "نامشخص";
-            }
+                1 => "مدیرسیستم",
+                2 => "کابر ساده",
+                3 => "محتوا گذار",
+                4 => "کاربر همکار",
+                _ => "نامشخص",
+            };
         }
 
     }

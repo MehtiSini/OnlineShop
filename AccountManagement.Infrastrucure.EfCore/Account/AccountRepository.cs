@@ -5,18 +5,41 @@ using Blog.Domain.Tools;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
 using MyFramework.Tools;
+using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace AccountManagement.Infrastrucure.EfCore.Account
 {
     public class AccountRepository : RepositoryBase<long, AccountModel>, IAccountRepository
     {
         private readonly AccountContext _accountContext;
-      
+        private readonly ShopContext _shopContext;
 
-        public AccountRepository(AccountContext accountContext) : base(accountContext)
+        public AccountRepository(AccountContext accountContext, ShopContext shopContext) : base(accountContext)
         {
             _accountContext = accountContext;
-        
+            _shopContext = shopContext;
+        }
+
+        public List<AccountViewModel> GetAccounts()
+        {
+            var Orders = _shopContext.orders.Select(x => new { x.Id, x.AccountId }).ToList();
+
+            var Accounts = _accountContext.accounts.Select(x => new AccountViewModel
+            {
+                Id = x.Id,
+                FullName = x.FullName
+            }).ToList();
+
+            //Combine Two Lists Togethere With The MasterPiece ==> ZIP
+
+            var AccountOrders = Accounts.Zip(Orders, (A,O) => new {account = A , order = O });
+
+            foreach (var item in AccountOrders)
+            {
+                Accounts = Accounts.Where(x => x.Id == item.order.AccountId).ToList();
+            }
+
+            return Accounts;
         }
 
         public AccountModel GetBy(string Username)

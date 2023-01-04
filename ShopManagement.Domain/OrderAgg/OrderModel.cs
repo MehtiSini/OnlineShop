@@ -5,7 +5,7 @@ namespace ShopManagement.Domain.OrderAgg
 {
     public class OrderModel : EntityBase
     {
-        public long AccountId { get; private set; } 
+        public long AccountId { get; private set; }
         public string CustomerName { get; private set; }
         public int PaymentMethod { get; private set; }
         public double DiscountAmount { get; private set; }
@@ -16,8 +16,8 @@ namespace ShopManagement.Domain.OrderAgg
         public long RefId { get; private set; }
         public List<OrderItem>? Items { get; private set; }
 
-        public OrderModel(long accountId,string customerName, int paymentMethod, double discountAmount, 
-            double totalAmount, double payAmount)
+        public OrderModel(long accountId, string customerName, int paymentMethod, double discountAmount,
+            double totalAmount, double payAmount )
         {
             AccountId = accountId;
             CustomerName = customerName;
@@ -30,19 +30,24 @@ namespace ShopManagement.Domain.OrderAgg
             TotalAmount = totalAmount;
         }
 
-        public void Cancel ()
+        public void Cancel()
         {
             OrderStatus = OperationOrder.Cancel;
         }
 
+        public void Confirm()
+        {
+            OrderStatus = OperationOrder.Confirm;
+        }
+
         public void PaymentSucceeded(long refId)
         {
-            if(refId != 0 )
+            if (refId != 0)
             {
                 RefId = refId;
             }
         }
-        public void SetIssueTrackingNo(string issueTrackingNo )
+        public void SetIssueTrackingNo(string issueTrackingNo)
         {
             IssueTrackingNo = issueTrackingNo;
         }
