@@ -1,24 +1,29 @@
-﻿using Blog.Domain.Tools;
+﻿using AccountManagement.Infrastrucure.EfCore.DbContextModel;
+using Blog.Domain.Tools;
 using InventoryManaement.Domain.InventoryAgg;
 using InventoryManagement.Conracts.Inventory;
 using InventoryManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;
 using MyFramework.Tools;
+using MyFramework.Tools.Authentication;
 using ShopManagement.Infrastructure.ProductCategory.DbContextModel;
 
 namespace InventoryManagement.Infrastructure.EfCore.Inventory
 {
     public class InventoryRepository : RepositoryBase<long, InventoryModel>, IInventoryRepository
     {
+        private readonly ShopContext _Shopcontext;
+        private readonly IAuthHelper _authHelper;
+        private readonly AccountContext _accountContext;
         private readonly InventoryContext _InventoryContext;
 
-        private readonly ShopContext _Shopcontext;
-
-        public InventoryRepository(InventoryContext inventorycontext, ShopContext shopcontext) : base(inventorycontext)
+        public InventoryRepository(InventoryContext inventorycontext, ShopContext shopcontext, IAuthHelper authHelper, AccountContext accountContext) : base(inventorycontext)
         {
             _InventoryContext = inventorycontext;
             _Shopcontext = shopcontext;
+            _authHelper = authHelper;
+            _accountContext = accountContext;
         }
 
         public EditInventory GetDetails(long id)
@@ -40,8 +45,11 @@ namespace InventoryManagement.Infrastructure.EfCore.Inventory
         public List<InventoryOperationViewModel> GetOperationLog(long InventoryId)
         {
             var Inventory = _InventoryContext.Inventories.FirstOrDefault(x => x.Id == InventoryId);
+            var OperatorName = _authHelper.CurrentAccountInfo().Fullname;
+            var Orders = _Shopcontext.orders.Select(x => new { x.CustomerName, x.Id });
+            var OperatorRole = _authHelper.GetCurrentAccountRole();
 
-            return Inventory.Operations.Select(x => new InventoryOperationViewModel
+            var Operations = Inventory.Operations.Select(x => new InventoryOperationViewModel
             {
                 Id = x.Id,
                 Count = x.Count,
@@ -51,11 +59,24 @@ namespace InventoryManagement.Infrastructure.EfCore.Inventory
                 OrderId = x.OrderId,
                 OperationDate = x.OperationDate.ToShamsi(),
                 OperationType = x.OperationType,
-                Operator = "مدیر سیسیتم",
                 OperatorId = x.OperatorId
-                    
+
             }).OrderBy(x => x.Id).ToList();
 
+            foreach (var item in Operations)
+            {
+                if (item.OrderId != 0)
+                {
+                    item.Operator = "مشتری";
+                }
+                else
+                {
+                    item.Operator = _accountContext.accounts.FirstOrDefault(x => x.Id == item.OperatorId).FullName;
+                }
+
+            }
+
+            return Operations;
         }
 
         public List<InventoryViewModel> Search(InventorySearchModel Search)

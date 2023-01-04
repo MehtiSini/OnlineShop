@@ -74,9 +74,10 @@ namespace InventoryManaement.Domain.InventoryAgg
     public class InventoryOperation
     {
         public long Id { get; private set; }
-        //External Or Internal Product >>
+        //External Or Internal Type >>
         public int OperationType { get; private set; }
         public long Count { get; private set; }
+        //The Person Who Operate
         public long OperatorId { get; private set; }
         public DateTime OperationDate { get; private set; }
         public long CurrentCount { get; private set; }

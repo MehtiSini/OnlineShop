@@ -13,6 +13,8 @@
             {
                 case 1:
                     return "مدیرسیستم";
+                case 2:
+                    return "کابر ساده";
                 case 3:
                     return "محتوا گذار";
                 case 4:

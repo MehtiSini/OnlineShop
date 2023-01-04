@@ -16,10 +16,11 @@ namespace ShopManagement.Domain.OrderAgg
         public long RefId { get; private set; }
         public List<OrderItem>? Items { get; private set; }
 
-        public OrderModel(long accountId,int paymentMethod, double discountAmount, 
+        public OrderModel(long accountId,string customerName, int paymentMethod, double discountAmount, 
             double totalAmount, double payAmount)
         {
             AccountId = accountId;
+            CustomerName = customerName;
             PaymentMethod = paymentMethod;
             DiscountAmount = discountAmount;
             PayAmount = payAmount;

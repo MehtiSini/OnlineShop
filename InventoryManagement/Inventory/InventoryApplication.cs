@@ -1,15 +1,19 @@
 ﻿using InventoryManaement.Domain.InventoryAgg;
 using InventoryManagement.Conracts.Inventory;
 using MyFramework.Tools;
+using MyFramework.Tools.Authentication;
+using ShopManagement.Domain.Services;
 
 namespace InventoryManagement.Application.Inventory
 {
     public class InventoryApplication : IInventoryApplication
     {
+        private readonly IAuthHelper _authHelper;
         private readonly IInventoryRepository _repository;
 
-        public InventoryApplication(IInventoryRepository repository)
+        public InventoryApplication(IAuthHelper authHelper, IInventoryRepository repository)
         {
+            _authHelper = authHelper;
             _repository = repository;
         }
 
@@ -68,7 +72,7 @@ namespace InventoryManagement.Application.Inventory
                 return operation.Failed(OperationMessage.NotFound);
             }
 
-            var OperatorId = 1;
+            var OperatorId = _authHelper.GetCurrentAccountId();
 
             Inventory.Increase(cmd.Count, OperatorId, cmd.Description);
 
@@ -89,7 +93,7 @@ namespace InventoryManagement.Application.Inventory
                 return operation.Failed(OperationMessage.NotFound);
             }
 
-            var OperatorId = 1;
+            var OperatorId = _authHelper.GetCurrentAccountId();
 
             Inventory.Reduce(cmd.Count, OperatorId, cmd.Description, 0);
 
@@ -102,13 +106,13 @@ namespace InventoryManagement.Application.Inventory
         {
             var operation = new OperationResult();
 
-            var OperatorId = 1;
+            var OperatorId = _authHelper.GetCurrentAccountId();
 
             foreach (var item in cmd)
             {
                 var Inventory = _repository.GetInventory(item.ProductId);
 
-                Inventory.Reduce(item.Count, OperatorId, item.Description, 0);
+                Inventory.Reduce(item.Count, OperatorId, item.Description, item.OrderId);
             }
 
             _repository.Save();

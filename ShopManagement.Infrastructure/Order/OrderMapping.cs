@@ -9,7 +9,7 @@ namespace ShopManagement.Infrastructure.EfCore.Order
         public void Configure(EntityTypeBuilder<OrderModel> builder)
         {
             builder.ToTable("Orders").HasKey(x => x.Id);
-            builder.Property(x => x.IssueTrackingNo).HasMaxLength(8).IsRequired();
+            builder.Property(x => x.IssueTrackingNo).HasMaxLength(8);
 
             builder.OwnsMany(x => x.Items, navigationBuilder =>
             {

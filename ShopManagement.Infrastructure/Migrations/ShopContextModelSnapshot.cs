@@ -44,7 +44,6 @@ namespace ShopManagement.Infrastructure.EfCore.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("IssueTrackingNo")
-                        .IsRequired()
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 

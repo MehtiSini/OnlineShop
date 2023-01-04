@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MyFramework.Tools.Authentication;
+using Shop.Infrastructure.InventoryAcl;
 using ShopManagement.Application.Cart;
 using ShopManagement.Application.Contracts.Orders;
 using ShopManagement.Application.Order;
@@ -16,6 +17,7 @@ using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
+using ShopManagement.Domain.Services;
 using ShopManagement.Domain.SlideAgg;
 using ShopManagement.Infrastructure.EfCore.Order;
 using ShopManagement.Infrastructure.EfCore.Product;
@@ -55,6 +57,7 @@ namespace ShopManagement.Configuration
 
             service.AddTransient<IPermissionExposer, ShopPermissionExposer>();
             service.AddTransient<ICartCalculator, CartCalculator>();
+            service.AddTransient<IShopInventoryAcl, ShopInventoryAcl>();
 
             service.AddTransient<IOrderApplication, OrderApplication>();
             service.AddTransient<IOrderRepository, OrderRepository>();

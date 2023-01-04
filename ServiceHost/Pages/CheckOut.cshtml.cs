@@ -46,7 +46,7 @@ namespace ServiceHost.Pages
             _cartService.Set(Cart);
         }
 
-        public IActionResult OnPostPay(int paymentMethod)
+        public IActionResult OnPostPayThePrice(int paymentMethod)
         {
             var cart = _cartService.Get();
 
@@ -61,15 +61,17 @@ namespace ServiceHost.Pages
                 return RedirectToPage("/Cart");
             }
 
+            var OrderId = _orderApplication.PlaceOrder(cart);
+
             if (paymentMethod == PaymentMethodOperation.Online)
             {
-                var OrderId = _orderApplication.PlaceOrder(cart);
-
-                var PaymentRequest = _zarinPalFactory.CreatePaymentRequest(cart.PayAmount.ToMoney(), "", "",
+                var PaymentRequest = _zarinPalFactory.CreatePaymentRequest(cart.PayAmount.ToString(), "", "",
                 "خرید از درگاه لوازم خانگی و دکوری", OrderId);
 
                 return RedirectToPage($"https://{_zarinPalFactory.Prefix}.zarinpal.com/pg/rest/WebGate/{PaymentRequest.Authority}");
             }
+
+            _orderApplication.PaymentSucceeded(OrderId,0);
 
             return RedirectToPage("/PaymentResult",PayResult.Succeeded("پرداخت شما به صورت نقدی میباشد " , null));
 
