@@ -3,6 +3,7 @@ using BlogManagement.Configuration;
 using CommentManagement.Configuration;
 using DiscountManagement.Configuration;
 using InventoryManagement.Configuration;
+using InventoryManagement.Presentation.Api.Controllers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using MyFramework.Tools;
 using MyFramework.Tools.Authentication;
@@ -75,7 +76,9 @@ builder.Services.AddRazorPages()
                    options.Conventions.AuthorizeAreaFolder("Administration", "/Shop", "Shop");
                    options.Conventions.AuthorizeAreaFolder("Administration", "/Discounts", "Discount");
                    options.Conventions.AuthorizeAreaFolder("Administration", "/Accounts", "Account");
-               });
+               }).AddApplicationPart(typeof(InventoryController).Assembly)
+               .AddApplicationPart(typeof(ProductController).Assembly)
+               .AddNewtonsoftJson();
 
 
 var app = builder.Build();
@@ -101,5 +104,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapControllers();
 
 app.Run();

@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\InventoryManaement.Domain\InventoryManaement.Domain.csproj" />
-    <ProjectReference Include="..\InventoryManagement.Conracts\InventoryManagement.Contracts.csproj" />
+    <ProjectReference Include="..\InventoryManagement.Infrastructure\InventoryManagement.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\ShopManagement.Infrastructure\ShopManagement.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

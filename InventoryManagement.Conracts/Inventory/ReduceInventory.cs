@@ -1,7 +1,7 @@
 ﻿using MyFramework.Tools;
 using System.ComponentModel.DataAnnotations;
 
-namespace InventoryManagement.Conracts.Inventory
+namespace InventoryManagement.Contracts.Inventory
 {
     public class ReduceInventory
     {

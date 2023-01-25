@@ -1,6 +1,6 @@
 ﻿using MyFramework.Tools;
 
-namespace InventoryManagement.Conracts.Inventory
+namespace InventoryManagement.Contracts.Inventory
 {
     public interface IInventoryApplication
     {

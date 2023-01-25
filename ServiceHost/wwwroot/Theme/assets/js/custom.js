@@ -122,9 +122,8 @@ function changeCartItemCount(id, totalId, count) {
     //    }
     //});
 
-
     const settings = {
-        "url": "https://localhost:5001/api/inventory",
+        "url": "https://localhost:7117/api/inventory",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -134,7 +133,7 @@ function changeCartItemCount(id, totalId, count) {
     };
 
     $.ajax(settings).done(function (data) {
-        if (data.isStock == false) {
+        if (data.InStock == false) {
             const warningsDiv = $('#productStockWarnings');
             if ($(`#${id}`).length == 0) {
                 warningsDiv.append(`

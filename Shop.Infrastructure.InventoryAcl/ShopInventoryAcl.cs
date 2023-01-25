@@ -1,4 +1,4 @@
-﻿using InventoryManagement.Conracts.Inventory;
+﻿using InventoryManagement.Contracts.Inventory;
 using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Domain.Services;
 

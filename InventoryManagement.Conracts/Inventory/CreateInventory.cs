@@ -2,7 +2,7 @@
 using ShopManagement.Contracts.Product;
 using System.ComponentModel.DataAnnotations;
 
-namespace InventoryManagement.Conracts.Inventory
+namespace InventoryManagement.Contracts.Inventory
 {
     public class CreateInventory
     {

@@ -1,5 +1,5 @@
 using DiscountManagement.Contracts.CollegueDiscount;
-using InventoryManagement.Conracts.Inventory;
+using InventoryManagement.Contracts.Inventory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;

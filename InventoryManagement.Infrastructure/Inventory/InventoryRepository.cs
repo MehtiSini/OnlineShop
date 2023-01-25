@@ -1,7 +1,7 @@
 ﻿using AccountManagement.Infrastrucure.EfCore.DbContextModel;
 using Blog.Domain.Tools;
 using InventoryManaement.Domain.InventoryAgg;
-using InventoryManagement.Conracts.Inventory;
+using InventoryManagement.Contracts.Inventory;
 using InventoryManagement.Infrastructure.EfCore.DbContextModel;
 using Microsoft.EntityFrameworkCore;
 using MyFramework.Infrastructure;

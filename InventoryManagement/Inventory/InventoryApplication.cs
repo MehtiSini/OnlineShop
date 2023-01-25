@@ -1,5 +1,5 @@
 ﻿using InventoryManaement.Domain.InventoryAgg;
-using InventoryManagement.Conracts.Inventory;
+using InventoryManagement.Contracts.Inventory;
 using MyFramework.Tools;
 using MyFramework.Tools.Authentication;
 using ShopManagement.Domain.Services;

@@ -1,4 +1,4 @@
-﻿namespace InventoryManagement.Conracts.Inventory
+﻿namespace InventoryManagement.Contracts.Inventory
 {
     public class InventoryViewModel
     {
